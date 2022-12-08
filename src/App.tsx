@@ -1,7 +1,8 @@
 import React from 'react';
+import Navbar from './component/Navbar';
 
 function App() {
-	return <h1 className='bg-red-500'>it is working</h1>;
+	return <Navbar />;
 }
 
 export default App;
