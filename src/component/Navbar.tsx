@@ -41,7 +41,7 @@ const Navbar = () => {
 			{/* overlay */}
 			{navState ? <div className='bg-black/70 fixed w-full h-screen left-0 top-0' onClick={handleNavState} onKeyUp={handleNavState} role='button' tabIndex={0} aria-label='hidden text' /> : ''}
 			{/* side drawer menu */}
-			<div className={`${navState ? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0' : 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}>
+			<div className={`${navState ? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0 z-10' : 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}>
 				<AiOutlineClose size={25} className="absolute right-4 top-4 cursor-pointer" onClick={handleNavState} />
 				<h2 className='text-2xl p-4'>Best <span className='font-bold'>Eat</span></h2>
 				<nav>
