@@ -181,3 +181,4 @@ export const categories = [
 ];
 
 export type DataType = typeof data[number];
+export type CategoriesType = typeof categories[number];
