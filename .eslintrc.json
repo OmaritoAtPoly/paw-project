@@ -22,7 +22,24 @@
             "files": [
                 "*.ts",
                 "*.tsx"
-            ]
+            ],
+            "rules": {
+                "@typescript-eslint/naming-convention": [
+                    "error",
+                    {
+                        "selector": "variable",
+                        "format": [
+                            "camelCase",
+                            "UPPER_CASE",
+                            "PascalCase",
+                            "snake_case"
+                        ],
+                        "leadingUnderscore": "allow",
+                        "trailingUnderscore": "allow"
+                    }
+                ],
+                "@typescript-eslint/consistent-type-definitions": "off"
+            }
         }
     ],
     "parserOptions": {

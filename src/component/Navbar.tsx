@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
-import {AiOutlineMenu, AiOutlineSearch, AiOutlineClose} from 'react-icons/ai';
-import {BsFillCartFill} from 'react-icons/bs';
+import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai';
 import {TbTruckDelivery} from 'react-icons/tb';
 import {MdFavorite} from 'react-icons/md';
+import {BiPhone} from 'react-icons/bi';
+import GooglePexel from './GooglePexel';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
 
 	const handleNavState = () => {
 		setNavState(prev => !prev);
+	};
+
+	const handleCallFunction = () => {
+		window.open('tel:111111');
 	};
 
 	return (
@@ -18,8 +23,8 @@ const Navbar = () => {
 				<div className='cursor-pointer'>
 					<AiOutlineMenu size={30} onClick={handleNavState} />
 				</div>
-				<h1 className='text-2xl sm:text-3xl lg:text-4xl px-2 select-none'>
-					Best <span className='font-bold'>Eat</span>
+				<h1 className='hidden sm:flex text-2xl sm:text-3xl lg:text-4xl px-2 select-none'>
+					Best <span className='font-bold'>Paw</span>
 				</h1>
 
 				<div className='hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px]'>
@@ -29,13 +34,11 @@ const Navbar = () => {
 			</div>
 
 			{/* search input */}
-			<div className='bg-gray-200 rounded-full flex  items-center p-2 w-[200px] sm:w-[400px] lg:w-[500px]'>
-				<AiOutlineSearch size={25} />
-				<input className=' bg-transparent p-2 w-full focus:outline-none' type='text' placeholder='find pets' />
-			</div>
-			{/* cart button */}
-			<button type='submit' className='bg-black text-white hidden md:flex items-center p-2 rounded-2xl'>
-				<BsFillCartFill size={20} className='mr-2' /> Cart
+			<GooglePexel />
+			
+			{/* call button */}
+			<button type='submit' onClick={handleCallFunction} className='bg-black flex flex-col items-center w-16 text-white py-2 rounded-2xl sm:w-[8vw] lg:flex-row lg:justify-around lg:max-w-[6vw]'>
+				<BiPhone size={20} /> call us
 			</button>
 			{/* mobile menu */}
 			{/* overlay */}
@@ -43,7 +46,7 @@ const Navbar = () => {
 			{/* side drawer menu */}
 			<div className={`${navState ? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0 z-10' : 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}>
 				<AiOutlineClose size={25} className="absolute right-4 top-4 cursor-pointer" onClick={handleNavState} />
-				<h2 className='text-2xl p-4'>Best <span className='font-bold'>Eat</span></h2>
+				<h2 className='text-2xl p-4'>Best <span className='font-bold'>Paw</span> Home</h2>
 				<nav>
 					<ul className='flex flex-col p-4'>
 						<li className='text-xl py-4 flex'><TbTruckDelivery size={25} className='mr-4' />Orders</li>

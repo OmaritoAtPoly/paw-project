@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {AiOutlineStar} from 'react-icons/ai';
+import StarRating from 'react-svg-star-rating';
 import {data, type DataType} from '../data/data';
 
 const Food = () => {
 	const [pics, setPics] = useState<DataType[]>();
+	const [starColor, setStarColor] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (data) setPics(data);
@@ -22,32 +25,37 @@ const Food = () => {
 		setPics(filteredCategory);
 	};
 
+	const handleStarColor = () => {
+		setStarColor(!starColor);
+	};
+
 	return (
-		<div className='max-w-[1880px] m-auto px-4 py-12'>
-			<h1 className='text-orange-600 text-4xl font-bold text-center'>Top ranked menu items</h1>
+		<div className='max-w-[1880px] m-auto px-4 py-12 select-none'>
+			<h1 className='text-orange-600 text-4xl font-bold text-center'>Top Ranked Pets</h1>
 
 			{/* filter row */}
 			<div className='flex flex-col max-w-[450px] sm:max-w-none md:flex-row justify-around'>
 				{/* filter type */}
 				<div className='w-full'>
-					<p className='font-bold text-gray-700 text-center'>filter type</p>
+					<p className='font-bold text-gray-700 text-center'>Filter type</p>
 					<div className='flex justify-around flex-wrap'>
 						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleAllCategories}>All</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('burger')}>Burgers</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('pizza')}>Pizza</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('salad')}>Salads</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('chicken')}>Chicken</button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('burger')}>Girls</button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('pizza')}>Boys</button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('salad')}>Younger</button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleCategories('chicken')}>Older</button>
 					</div>
 				</div>
 
 				{/* filter Price */}
 				<div className='w-full'>
-					<p className='font-bold text-gray-700 text-center'>filter price</p>
+					<p className='font-bold text-gray-700 text-center'>Filter starred</p>
 					<div className='flex justify-around  w-full flex-wrap'>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handlePrices('$')}>$</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handlePrices('$$')}>$$</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handlePrices('$$$')}>$$$</button>
-						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handlePrices('$$$$')}>$$$$</button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handleAllCategories}> All </button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white' type='button' onClick={handlePrices('$')}> <AiOutlineStar /></button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$')}> 2 <AiOutlineStar /></button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$$')}> 3 <AiOutlineStar /></button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$$$')}> 4 <AiOutlineStar /></button>
 					</div>
 				</div>
 			</div>
@@ -55,11 +63,11 @@ const Food = () => {
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
 				{pics?.map((element: DataType) => {
 					return (
-						<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg">
+						<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
 							<img src={element.image} alt={element.name} className="w-full h-[200px] object-cover" />
-							<div className='flex justify-between px-2 py-4'>
+							<div className='flex justify-between px-2 py-4 bg-blue-400'>
 								<p className='font-bold'>{element.name}</p>
-								<p><span className='bg-orange-500 rounded-lg px-2 py-1'>{element.price}</span></p>
+								<StarRating size={20} containerClassName='starWrapper' count={element.price.length} isReadOnly emptyColor='#ffd055' />
 							</div>
 						</div>
 					);
