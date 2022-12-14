@@ -1,98 +1,105 @@
 export const data = [
 	{
 		id: 1,
-		name: 'Double Cheeseburger',
+		name: 'Arinka',
 		category: 'burger',
 		image:
-      'https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60',
+			'https://images.pexels.com/photos/7726100/pexels-photo-7726100.jpeg?auto=compress&cs=tinysrgb&h=350',
 		price: '$$$$',
 	},
 	{
 		id: 2,
-		name: 'Bacon Cheeseburger',
+		name: 'Uri',
 		category: 'burger',
 		image:
-      'https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGJ1cmdlcnN8ZW58MHx8MHx8&auto=format&fit=crop&w=1400&q=60',
+			'https://images.pexels.com/photos/7725966/pexels-photo-7725966.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$',
 	},
 	{
 		id: 3,
-		name: 'Mushroom Burger',
+		name: 'Kyra',
 		category: 'burger',
 		image:
-      'https://images.unsplash.com/photo-1608767221051-2b9d18f35a2f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGJ1cmdlcnN8ZW58MHx8MHx8&auto=format&fit=crop&w=1400&q=60',
+			'https://images.pexels.com/photos/7210487/pexels-photo-7210487.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$',
 	},
 	{
 		id: 4,
-		name: 'Loaded Burger',
+		name: 'Ruja',
 		category: 'burger',
 		image:
-      'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1400&q=60',
+			'https://images.pexels.com/photos/8498519/pexels-photo-8498519.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$$',
 	},
 	{
 		id: 5,
-		name: 'Feta & Spinnach',
+		name: 'Stitch',
 		category: 'pizza',
 		image:
-      'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/7725618/pexels-photo-7725618.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$',
 	},
 	{
 		id: 6,
-		name: 'Supreme Pizza',
+		name: 'Yuna',
 		category: 'pizza',
 		image:
-      'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/933498/pexels-photo-933498.jpeg?auto=compress&cs=tinysrgb&h=650&w=350',
+
 		price: '$$$',
 	},
 	{
 		id: 7,
-		name: 'Meat Lovers',
+		name: 'Luke',
 		category: 'pizza',
-		image:
-      'https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHBpenphfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+		image: 'https://images.pexels.com/photos/10875180/pexels-photo-10875180.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$$$',
 	},
 	{
 		id: 8,
-		name: 'Cheese Pizza',
+		name: 'Drugi',
 		category: 'pizza',
-		image:
-      'https://images.unsplash.com/photo-1548369937-47519962c11a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Y2hlZXNlJTIwcGl6emF8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+		image: 'https://images.pexels.com/photos/11274114/pexels-photo-11274114.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$',
 	},
 	{
 		id: 9,
-		name: 'Kale Salad',
+		name: 'Kale',
 		category: 'salad',
-		image:
-      'https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2FsYWQlMjBjZWFzYXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+		image: 'https://images.pexels.com/photos/10429084/pexels-photo-10429084.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$',
 	},
 	{
 		id: 10,
-		name: 'Ceasar Salad',
+		name: 'Ceasar',
 		category: 'salad',
-		image:
-      'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c2FsYWQlMjBjZWFzYXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+		image: 'https://images.pexels.com/photos/7726294/pexels-photo-7726294.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$$',
 	},
 	{
 		id: 11,
-		name: 'Loaded Salad',
+		name: 'Emmy',
 		category: 'salad',
 		image:
-      'https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2FsYWR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/7726100/pexels-photo-7726100.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$$$',
 	},
 	{
 		id: 12,
-		name: 'Fruit Salad',
+		name: 'Odgar',
 		category: 'salad',
 		image:
-      'https://images.unsplash.com/photo-1564093497595-593b96d80180?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZnJ1aXQlMjBzYWxhZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/10632673/pexels-photo-10632673.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$',
 	},
 	{
@@ -100,31 +107,34 @@ export const data = [
 		name: 'Wings',
 		category: 'chicken',
 		image:
-      'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/7725966/pexels-photo-7725966.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$',
 	},
 	{
 		id: 14,
-		name: 'Baked Chicken',
+		name: 'Ivy',
 		category: 'chicken',
-		image:
-      'https://images.unsplash.com/photo-1594221708779-94832f4320d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hpY2tlbiUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+		image: 'https://images.pexels.com/photos/11274114/pexels-photo-11274114.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$$$$',
 	},
 	{
 		id: 15,
-		name: 'Chicken Tenders',
+		name: 'Bucky',
 		category: 'chicken',
 		image:
-      'https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGNoaWNrZW4lMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/7725618/pexels-photo-7725618.jpeg?auto=compress&cs=tinysrgb&h=350',
+
 		price: '$',
 	},
 	{
 		id: 16,
-		name: 'Chicken Kabob',
+		name: 'Kabob',
 		category: 'chicken',
 		image:
-      'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGNoaWNrZW4lMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+			'https://images.pexels.com/photos/38008/pexels-photo-38008.jpeg?auto=compress&cs=tinysrgb&h=650&w=350',
+
 		price: '$$$',
 	},
 ];
@@ -132,51 +142,51 @@ export const data = [
 export const categories = [
 	{
 		id: 1,
-		name: 'Fast Food',
+		name: 'Together',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/FastFood_BrowseHome@3x.png',
+			'https://images.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 2,
-		name: 'Pizza',
+		name: 'My Family',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Pizza_BrowseHome@3x.png',
+			'https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 3,
-		name: 'Wings',
+		name: 'Scope',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Wings_BrowseHome@3x.png',
+			'https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 4,
-		name: 'Indian',
+		name: 'Actions',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Indian_BrowseHome@3x.png',
+			'https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 5,
-		name: 'Latest Deals',
+		name: 'Uniques',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Deals_BrowseHome@3x.png',
+			'https://images.pexels.com/photos/34098/south-africa-hluhluwe-giraffes-pattern.jpg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 6,
-		name: 'Restaurant Rewards',
+		name: 'Passion',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/RestoRewards_BrowseHome@3x.png',
+			'https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 7,
-		name: 'Best Overall',
+		name: 'Colorful',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/TopEats_Browse%20Home@3x.png',
+			'https://images.pexels.com/photos/37833/rainbow-lorikeet-parrots-australia-rainbow-37833.jpeg?auto=compress&cs=tinysrgb&h=350',
 	},
 	{
 		id: 8,
-		name: 'Shipped Free',
+		name: 'Freedom',
 		image:
-      'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Placeholder_Plates@3x.png',
+			'https://images.pexels.com/photos/33152/european-rabbits-bunnies-grass-wildlife.jpg?auto=compress&cs=tinysrgb&h=350',
 	},
 ];
 
