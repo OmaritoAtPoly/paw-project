@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {AiOutlineStar} from 'react-icons/ai';
-import StarRating from 'react-svg-star-rating';
+import {Rating} from '@smastrom/react-rating';
 import {data, type DataType} from '../data/data';
+import '@smastrom/react-rating/style.css';
 
 const Food = () => {
 	const [pics, setPics] = useState<DataType[]>();
@@ -56,6 +57,7 @@ const Food = () => {
 						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$')}> 2 <AiOutlineStar /></button>
 						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$$')}> 3 <AiOutlineStar /></button>
 						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$$$')}> 4 <AiOutlineStar /></button>
+						<button className='mx-1 border-orange-200 border-2 text-orange-600 rounded-full px-2 py-1 hover:bg-orange-600 hover:text-white flex items-center' type='button' onClick={handlePrices('$$$$$')}> 5 <AiOutlineStar /></button>
 					</div>
 				</div>
 			</div>
@@ -64,10 +66,10 @@ const Food = () => {
 				{pics?.map((element: DataType) => {
 					return (
 						<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
-							<img src={element.image} alt={element.name} className="w-full h-[200px] object-cover" />
+							<img src={element.image} alt={element.name} className="w-full h-[300px] object-cover" />
 							<div className='flex justify-between px-2 py-4 bg-blue-400'>
 								<p className='font-bold'>{element.name}</p>
-								<StarRating size={20} containerClassName='starWrapper' count={element.price.length} isReadOnly emptyColor='#ffd055' />
+								<Rating value={element.price.length} style={{maxWidth: 100}} readOnly items={5}/>
 							</div>
 						</div>
 					);
