@@ -5,7 +5,7 @@ export const data = [
 		category: 'burger',
 		image:
 			'https://images.pexels.com/photos/7726100/pexels-photo-7726100.jpeg?auto=compress&cs=tinysrgb&h=350',
-		price: '$$$$',
+		price: '$$$$$',
 	},
 	{
 		id: 2,
@@ -58,7 +58,7 @@ export const data = [
 		category: 'pizza',
 		image: 'https://images.pexels.com/photos/10875180/pexels-photo-10875180.jpeg?auto=compress&cs=tinysrgb&h=350',
 
-		price: '$$$$',
+		price: '$$$$$',
 	},
 	{
 		id: 8,
@@ -91,7 +91,7 @@ export const data = [
 		image:
 			'https://images.pexels.com/photos/7726100/pexels-photo-7726100.jpeg?auto=compress&cs=tinysrgb&h=350',
 
-		price: '$$$$',
+		price: '$$$$$',
 	},
 	{
 		id: 12,
@@ -100,7 +100,7 @@ export const data = [
 		image:
 			'https://images.pexels.com/photos/10632673/pexels-photo-10632673.jpeg?auto=compress&cs=tinysrgb&h=350',
 
-		price: '$',
+		price: '$$$$',
 	},
 	{
 		id: 13,
@@ -117,7 +117,7 @@ export const data = [
 		category: 'chicken',
 		image: 'https://images.pexels.com/photos/11274114/pexels-photo-11274114.jpeg?auto=compress&cs=tinysrgb&h=350',
 
-		price: '$$$$',
+		price: '$$$$$',
 	},
 	{
 		id: 15,
