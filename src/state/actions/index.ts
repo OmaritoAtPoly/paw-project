@@ -46,4 +46,9 @@ interface SearchPicturesAction {
 	type: ActionType.SEARCH_PICTURES;
 }
 
-export type PhotosAction = SetErrorAction | GetPhotosAction | SearchPicturesAction;
+interface EmptyResponseAction {
+	type: ActionType.EMPTY_RESPONSE;
+	payload: string;
+}
+
+export type PhotosAction = SetErrorAction | GetPhotosAction | SearchPicturesAction | EmptyResponseAction;

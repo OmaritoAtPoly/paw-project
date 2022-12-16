@@ -72,17 +72,6 @@ const Food = () => {
 			{/* display pics */}
 			{loading && <Spinner />}
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-				{/* {pics?.map((element: DataType) => {
-					return (
-						<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
-							<img src={element.image} alt={element.name} className="w-full h-[300px] object-cover" />
-							<div className='flex justify-between px-2 py-4 bg-blue-400'>
-								<p className='font-bold'>{element.name}</p>
-								<Rating value={element.price.length} style={{maxWidth: 100}} readOnly items={5} />
-							</div>
-						</div>
-					);
-				})} */}
 				{photos.length > 0
 					? photos.map((element: Photo) => {
 						return (

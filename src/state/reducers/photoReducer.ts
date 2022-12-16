@@ -40,6 +40,8 @@ const photoReducer = (state = initialState, action: PhotosAction): PhotosState =
 				...state,
 				loading: true,
 			};
+		case ActionType.EMPTY_RESPONSE:
+			return {...state, error: action.payload, loading: false};
 		default:
 			return state;
 	}
