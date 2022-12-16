@@ -1,3 +1,4 @@
+import {type Photo} from 'pexels';
 import {type ActionType} from '../action-types';
 
 interface SearchRepositoriesAction {
@@ -18,3 +19,31 @@ export type Action =
 	| SearchRepositoriesAction
 	| SearchRepositoriesSuccessAction
 	| SearchRepositoriesError;
+
+export interface PhotosState {
+	photos: Photo[];
+	total_results: number;
+	error: string;
+	loading: boolean;
+}
+
+interface GetPhotosAction {
+	type: ActionType.GET_PHOTOS;
+	payload: {
+		photos: Photo[];
+		page: number;
+		total_results: number;
+		loading: boolean;
+	};
+}
+
+interface SetErrorAction {
+	type: ActionType.SET_ERROR;
+	payload: string;
+}
+
+interface SearchPicturesAction {
+	type: ActionType.SEARCH_PICTURES;
+}
+
+export type PhotosAction = SetErrorAction | GetPhotosAction | SearchPicturesAction;

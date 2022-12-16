@@ -17,7 +17,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<div className='border-red-200 border-8 mx-auto flex justify-between items-center p-4'>
+		<div className='border-red-200 border-8 mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white'>
 			{/* left side */}
 			<div className='flex items-center'>
 				<div className='cursor-pointer'>

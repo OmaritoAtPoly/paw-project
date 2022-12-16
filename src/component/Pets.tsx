@@ -1,12 +1,20 @@
+import {Rating} from '@smastrom/react-rating';
+import '@smastrom/react-rating/style.css';
+import {type Photo} from 'pexels';
 import React, {useEffect, useState} from 'react';
 import {AiOutlineStar} from 'react-icons/ai';
-import {Rating} from '@smastrom/react-rating';
+import {useSelector} from 'react-redux';
 import {data, type DataType} from '../data/data';
-import '@smastrom/react-rating/style.css';
+import {type RootState} from '../state';
+import {Spinner} from './Spinner';
 
 const Food = () => {
 	const [pics, setPics] = useState<DataType[]>();
 	const [starColor, setStarColor] = useState<boolean>(false);
+
+	const {photos, loading} = useSelector(
+		(state: RootState) => state.photos,
+	);
 
 	useEffect(() => {
 		if (data) setPics(data);
@@ -62,18 +70,43 @@ const Food = () => {
 				</div>
 			</div>
 			{/* display pics */}
+			{loading && <Spinner />}
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-				{pics?.map((element: DataType) => {
+				{/* {pics?.map((element: DataType) => {
 					return (
 						<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
 							<img src={element.image} alt={element.name} className="w-full h-[300px] object-cover" />
 							<div className='flex justify-between px-2 py-4 bg-blue-400'>
 								<p className='font-bold'>{element.name}</p>
-								<Rating value={element.price.length} style={{maxWidth: 100}} readOnly items={5}/>
+								<Rating value={element.price.length} style={{maxWidth: 100}} readOnly items={5} />
 							</div>
 						</div>
 					);
-				})}
+				})} */}
+				{photos.length > 0
+					? photos.map((element: Photo) => {
+						return (
+							<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
+								<img src={element.src.large} alt={element.alt ?? '/'} className="w-full h-[300px] object-cover" />
+								<div className='flex justify-between px-2 py-4 bg-blue-400'>
+									<p className='font-bold'>{element.alt}</p>
+									<Rating value={3} style={{maxWidth: 100}} readOnly items={5} />
+								</div>
+							</div>
+						);
+					})
+					: pics?.map((element: DataType) => {
+						return (
+							<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
+								<img src={element.image} alt={element.name} className="w-full h-[300px] object-cover" />
+								<div className='flex justify-between px-2 py-4 bg-blue-400'>
+									<p className='font-bold'>{element.name}</p>
+									<Rating value={element.price.length} style={{maxWidth: 100}} readOnly items={5} />
+								</div>
+							</div>
+						);
+					})
+				}
 			</div>
 		</div>
 	);
