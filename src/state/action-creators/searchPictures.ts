@@ -19,7 +19,15 @@ export const searchPictures = (search: string, perPage: number) => {
 				},
 			}));
 
-			if (value.status === 200 && value.data !== undefined) {
+			if (value.status === 200 && value.data.photos.length === 0) {
+				dispatch({
+					type: ActionType.EMPTY_RESPONSE,
+					payload: 'No values fit with your search',
+				});
+				return;
+			}
+
+			if (value.status === 200 && value.data.photos.length > 0) {
 				dispatch({
 					type: ActionType.GET_PHOTOS,
 					payload: {
