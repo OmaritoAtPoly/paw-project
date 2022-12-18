@@ -39,7 +39,7 @@ const Food = () => {
 	};
 
 	return (
-		<div className='max-w-[1880px] m-auto px-4 py-12 select-none'>
+		<div className='max-w-[1880px] m-auto px-2 py-12 select-none'>
 			<h1 className='text-orange-600 text-4xl font-bold text-center'>Top Ranked Pets</h1>
 
 			{/* filter row */}
