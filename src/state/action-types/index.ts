@@ -7,4 +7,6 @@ export enum ActionType {
 	SET_ERROR = 'set_error',
 	SEARCH_PICTURES = 'search_pictures',
 	EMPTY_RESPONSE = 'empty_response',
+
+	HANDLE_RIGHT_DRAWER = 'handle_drawer',
 }

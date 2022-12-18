@@ -20,11 +20,12 @@ const GooglePexel = () => {
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			if (!!error && showAlert)
+			if (error)
 				dispatch({
 					type: ActionType.SET_ERROR,
 					payload: '',
 				});
+			setShowAlert(true);
 		}, 2000);
 		return () => {
 			clearTimeout(timer);
@@ -44,16 +45,15 @@ const GooglePexel = () => {
 		if (search) {
 			setSearch('');
 			searchPictures(search, perPage);
-			setShowAlert(true);
 		}
 	};
 
 	const handleOnClose = () => {
-		setShowAlert(!showAlert);
+		setShowAlert(false);
 	};
 
 	return (
-		<div className='flex flex-col h-[200px] justify-around items-center'>
+		<div className='flex flex-col h-[150px] justify-around items-center'>
 			<Search
 				handleValue={handleChange}
 				value={search}

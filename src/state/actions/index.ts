@@ -52,3 +52,13 @@ interface EmptyResponseAction {
 }
 
 export type PhotosAction = SetErrorAction | GetPhotosAction | SearchPicturesAction | EmptyResponseAction;
+
+interface HandleRightDrawerAction {
+	type: ActionType.HANDLE_RIGHT_DRAWER;
+}
+
+export interface RightDrawerState {
+	drawerStatus: boolean;
+}
+
+export type RightDrawerActions = HandleRightDrawerAction;

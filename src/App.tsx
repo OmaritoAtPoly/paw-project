@@ -4,6 +4,7 @@ import Pets from './component/Pets';
 import HeadLinesCards from './component/HeadLinesCards';
 import Hero from './component/Hero';
 import Navbar from './component/Navbar';
+import {RightDrawer} from './component/RightDrawer';
 
 function App() {
 	return <>
@@ -12,6 +13,7 @@ function App() {
 		<HeadLinesCards />
 		<Pets />
 		<Category />
+		<RightDrawer />
 	</>;
 }
 

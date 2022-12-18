@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
-import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai';
-import {TbTruckDelivery} from 'react-icons/tb';
+import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
-import {BiPhone} from 'react-icons/bi';
+import {TbTruckDelivery} from 'react-icons/tb';
+import {useActions} from '../state/hooks/useActions';
 import GooglePexel from './GooglePexel';
+import {RightComponentActionButtons} from './RightComponentActionButtons';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
+
+	const {handleRightDrawer} = useActions();
 
 	const handleNavState = () => {
 		setNavState(prev => !prev);
@@ -17,7 +20,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<div className='border-red-200 border-8 mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white'>
+		<div className='mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white'>
 			{/* left side */}
 			<div className='flex items-center'>
 				<div className='cursor-pointer'>
@@ -35,12 +38,7 @@ const Navbar = () => {
 
 			{/* search input */}
 			<GooglePexel />
-			
-			{/* call button */}
-			<button type='submit' onClick={handleCallFunction} className='bg-black flex flex-col items-center w-16 text-white py-2 rounded-2xl sm:w-[8vw] lg:flex-row lg:justify-around lg:max-w-[6vw]'>
-				<BiPhone size={20} /> call us
-			</button>
-			{/* mobile menu */}
+			<RightComponentActionButtons handleCallFunction={handleCallFunction} handleRightDrawer={handleRightDrawer} />
 			{/* overlay */}
 			{navState ? <div className='bg-black/70 fixed w-full h-screen left-0 top-0' onClick={handleNavState} onKeyUp={handleNavState} role='button' tabIndex={0} aria-label='hidden text' /> : ''}
 			{/* side drawer menu */}
