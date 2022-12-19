@@ -14,7 +14,7 @@ export const RightComponentActionButtons = ({handleCallFunction, handleRightDraw
 			<BiPhone size={20} /> {CALL_US}
 		</button>
 		{/* login button */}
-		<button type='submit' onClick={handleRightDrawer} className='bg-primary/80 flex flex-col items-center w-16 text-white py-2 rounded-2xl sm:w-[8vw] lg:flex-row lg:justify-around lg:max-w-[8vw]'>
+		<button type='submit' onClick={handleRightDrawer} className='bg-primary/60 flex flex-col items-center w-16 text-white py-2 rounded-2xl sm:w-[8vw] lg:flex-row lg:justify-around lg:max-w-[8vw]'>
 			<SlLogin size={20} /> {LOGIN}
 		</button>
 	</div>

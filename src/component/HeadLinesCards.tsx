@@ -1,9 +1,11 @@
 import React from 'react';
 import {AVAILABLE_PETS} from '../utils/constants';
+import {AvailablePetsPanel} from './AvailablePetsPanel';
 import Card from './Card';
 
 const HeadLinesCards = () => (
 	<>
+		<AvailablePetsPanel />
 		<p className='text-4xl sm:text-5xl md:text-6xl text-center w-full pt-5 text-primary'>{AVAILABLE_PETS}</p>
 		<div className='max-w-[1880px] min-w-[100px] mx-auto p2 p-4 py-8 grid justify-center sm:grid-cols-3 gap-6 select-none'>
 			{/* Cards */}
