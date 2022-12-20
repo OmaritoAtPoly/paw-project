@@ -1,5 +1,5 @@
 import {type Photo} from 'pexels';
-import {type ActionType} from '../action-types';
+import {type AvailablePetsActionType, type ActionType} from '../action-types';
 
 interface SearchRepositoriesAction {
 	type: ActionType.SEARCH_REPOSITORIES;
@@ -62,3 +62,36 @@ export interface RightDrawerState {
 }
 
 export type RightDrawerActions = HandleRightDrawerAction;
+
+interface SearchAvailablePetsAction {
+	type: AvailablePetsActionType.SEARCH_AVAILABLE_PETS_PHOTOS;
+}
+interface GetAvailablePetsAction {
+	type: AvailablePetsActionType.SEARCH_AVAILABLE_PETS_PHOTOS_SUCCESS;
+	payload: {
+		photos: Photo[];
+		page: number;
+		total_results: number;
+		loading: boolean;
+	};
+}
+
+interface SetAvailablePetsErrorAction {
+	type: AvailablePetsActionType.SEARCH_AVAILABLE_PETS_PHOTOS_ERROR;
+	payload: string;
+}
+interface EmptyAvailablePetsResponseAction {
+	type: ActionType.EMPTY_RESPONSE;
+	payload: string;
+}
+
+interface SetAvailablePetsNameAction {
+	type: AvailablePetsActionType.SET_AVAILABLE_PETS_NAME;
+	payload: string;
+}
+
+export interface AvailablePetsName {
+	availablePetsName: string;
+}
+
+export type AvailablePetsPhotosAction = GetAvailablePetsAction | SetAvailablePetsErrorAction | SearchAvailablePetsAction | SetAvailablePetsNameAction | SetAvailablePetsNameAction | EmptyAvailablePetsResponseAction;

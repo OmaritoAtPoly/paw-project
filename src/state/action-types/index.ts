@@ -10,3 +10,10 @@ export enum ActionType {
 
 	HANDLE_RIGHT_DRAWER = 'handle_drawer',
 }
+
+export enum AvailablePetsActionType {
+	SEARCH_AVAILABLE_PETS_PHOTOS = 'search_available_pets_photos',
+	SEARCH_AVAILABLE_PETS_PHOTOS_SUCCESS = 'search_available_pets_photos_success',
+	SEARCH_AVAILABLE_PETS_PHOTOS_ERROR = 'search_available_pets_photos_error',
+	SET_AVAILABLE_PETS_NAME = 'set_available_pets_pets_name',
+}
