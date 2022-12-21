@@ -4,11 +4,18 @@ import {XMarkIcon} from '@heroicons/react/24/outline';
 import {useSelector} from 'react-redux';
 import {type RootState} from '../state';
 import {useActions} from '../state/hooks/useActions';
+import {SignUpForm} from './loginComponent';
 
 export const RightDrawer = () => {
 	const {drawerStatus} = useSelector((state: RootState) => state.drawer);
 
 	const {handleRightDrawer} = useActions();
+
+	/// ///////////////////////////////////////////////////////// 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const onSubmit = (values: {email: string; password: string; rememberMe: boolean}) => {
+		handleRightDrawer();
+	};
 
 	return (
 		<Transition.Root show={drawerStatus} as={Fragment}>
@@ -58,16 +65,18 @@ export const RightDrawer = () => {
 											</button>
 										</div>
 									</Transition.Child>
-									<div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-										<div className="px-4 sm:px-6">
-											<Dialog.Title className="text-lg font-medium text-gray-900">Panel title</Dialog.Title>
+									<div className="flex flex-col overflow-y-scroll shadow-xl">
+										<div className="px-4 sm:px-6 h-fit bg-rose-50 pt-3">
+											<Dialog.Title className="text-lg font-medium text-gray-900 flex flex-col items-center">
+												<p className='text-2xl text-primary'>Join us for free & for ever</p>
+
+											</Dialog.Title>
 										</div>
-										<div className="relative mt-6 flex-1 px-4 sm:px-6">
-											{/* Replace with your content */}
-											<div className="absolute inset-0 px-4 sm:px-6">
-												<div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true" />
+										{/* <!-- Global Container --> */}
+										<div className='flex justify-center bg-rose-50'>
+											<div className='h-fit shadow-2xl rounded-2xl'>
+												<SignUpForm onSubmit={onSubmit} />
 											</div>
-											{/* /End replace */}
 										</div>
 									</div>
 								</Dialog.Panel>
