@@ -32,3 +32,7 @@ yarn-error.log*
 #public
 /public/env.js
 /public/index.html
+
+
+#google configuration file
+client_secret_296748080674-e2ban20nukrii4pu18rhv1nabtjgvcr3.apps.googleusercontent.com.json

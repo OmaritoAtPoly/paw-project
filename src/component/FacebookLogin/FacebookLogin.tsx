@@ -32,7 +32,7 @@ export const Facebook = () => {
 	};
 
 	return (
-		< div className="bg-blue-200 flex items-center rounded-xl w-fit select-none">
+		<div className="bg-white flex items-center rounded-md w-fit select-none border-2">
 			<FacebookLogin
 				appId={process.env.REACT_APP_FACEBOOK_LOGIN_API_KEY!}
 				onSuccess={(response) => {

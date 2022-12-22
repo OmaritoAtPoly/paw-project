@@ -1,9 +1,9 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import * as yup from 'yup';
 import {RxThickArrowRight} from 'react-icons/rx';
-import {Facebook} from '../FacebookLogin';
-import {Google} from '../GoogleLogin';
+import * as yup from 'yup';
+import {Facebook} from '../FacebookLogin/FacebookLogin';
+import {Google} from '../GoogleLogin/GoogleLogin';
 
 interface Props {
 	onSubmit: ((value: {email: string; password: string; rememberMe: boolean}) => void);
