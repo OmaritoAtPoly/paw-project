@@ -15,12 +15,14 @@ declare global {
 export const Google = () => {
 	const [, setData] = useState<SuccessResponse>();
 
+	// erase this code when the logout feature is done
 	const getStatus = () => {
 		window.FB.getLoginStatus((response) => {
 			console.log(response);
 		});
 	};
 
+	// erase this code when the logout feature is done
 	const handleCloseFaceBookSession = () => {
 		window.FB.logout((res: unknown) => {
 			console.log(res);
