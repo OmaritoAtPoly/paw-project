@@ -22,17 +22,17 @@ const Navbar = () => {
 	return (
 		<div className='mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white'>
 			{/* left side */}
-			<div className='flex items-center'>
-				<div className='cursor-pointer'>
-					<AiOutlineMenu size={30} onClick={handleNavState} />
-				</div>
-				<h1 className='hidden sm:flex text-2xl sm:text-3xl lg:text-4xl px-2 select-none'>
-					Best <span className='font-bold'>Paw</span>
-				</h1>
+			<div className='flex items-center w-[80px] md:w-[25vw]'>
+				<AiOutlineMenu size={30} onClick={handleNavState} className='cursor-pointer mx-auto md:m-0'/>
+				<div className='hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around'>
+					<h1 className='hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl '>
+						Best <span className='font-bold'>Paw</span>
+					</h1>
 
-				<div className='hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px]'>
-					<p className='bg-black rounded-full text-white p-2'>Delivery</p>
-					<p className='p-2'>Pick up</p>
+					<div className='hidden lg:flex items-center rounded-full p-1 text-[14px]'>
+						<p className='bg-black rounded-full text-white p-2'>Delivery</p>
+						<p className='p-2'>Pick up</p>
+					</div>
 				</div>
 			</div>
 
