@@ -115,9 +115,3 @@ export const SignUpForm = ({onSubmit}: Props) => {
 		</form>
 	);
 };
-
-// <input
-// 	className="p-2 w-full focus:outline-none"
-// 	type="password"
-// 	placeholder="write your name"
-// />;
