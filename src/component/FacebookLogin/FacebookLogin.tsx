@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import FacebookLogin, {
-	type SuccessResponse,
-	type FB,
+	type ProfileSuccessResponse, type FB,
 } from '@greatsumini/react-facebook-login';
 import React, {useState} from 'react';
 import {CiFacebook} from 'react-icons/ci';
+import {type UserDataType} from '../../data/data';
+import {UserSingUpAndLogin} from '../../state/action-types';
 import {useActions} from '../../state/hooks/useActions';
 
 declare global {
@@ -14,9 +16,9 @@ declare global {
 }
 
 export const Facebook = () => {
-	const [, setData] = useState<SuccessResponse>();
+	const [, setData] = useState<string | undefined>();
 
-	const {handleRightDrawer} = useActions();
+	const {handleRightDrawer, handleUser} = useActions();
 
 	const getStatus = () => { // ERASE THIS CODE WHEN THE LOGOUT BUTTON IS READY 
 		window.FB.getLoginStatus((response) => {
@@ -27,24 +29,37 @@ export const Facebook = () => {
 	const handleCloseFaceBookSession = () => {
 		window.FB.logout((res: unknown) => {
 			console.log(res);
-			setData(undefined);
 		});
 	};
+
+	const prepareUserRawUserInfo = (response: ProfileSuccessResponse): UserDataType => ({
+		email: response.email!,
+		name: response.name!,
+		picture: `https://graph.facebook.com/${response.id!}/picture`,
+		userId: response.id!,
+		given_name: response.name?.split(' ')[0] || 'Anonymous',
+		family_name: response.name?.split(' ')[1] || '',
+		userLogged: true,
+	});
 
 	return (
 		<div className="bg-white flex items-center rounded-md w-fit select-none border-2">
 			<FacebookLogin
 				appId={process.env.REACT_APP_FACEBOOK_LOGIN_API_KEY!}
 				onSuccess={(response) => {
-					if (response) setData(response);
+					// console.log(response);
 				}}
+
 				onFail={(error) => {
 					console.log('Login Failed!', error);
 				}}
+
 				onProfileSuccess={(response) => {
 					// console.log('Get Profile Success!', response);
 					handleRightDrawer();
+					handleUser(prepareUserRawUserInfo(response), UserSingUpAndLogin.USER_LOGIN_IN);
 				}}
+
 				className="flex items-center"
 			>
 				<CiFacebook size={40} color="blue" />
