@@ -2,7 +2,8 @@ import React, {useState, useMemo} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
-import {type ItemElementType} from '../data/data';
+import {defaultUser, type ItemElementType} from '../data/data';
+import {UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
 import GooglePexel from './GooglePexel';
@@ -10,13 +11,19 @@ import {RightComponentActionButtons} from './RightComponentActionButtons';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
+
 	const {name, picture, userId} = useTypedSelector(
 		(state) => state.currentUser,
 	);
+	const {handleRightDrawer, handleUser} = useActions();
 
 	const dropDownMenuValues: ItemElementType[] = useMemo(() => {
 		const onClickExample = () => {
 			console.log(`User Name ${name}`);
+		};
+
+		const Logout = () => {
+			handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
 		};
 
 		return [{
@@ -25,10 +32,15 @@ const Navbar = () => {
 			userId,
 			onClick: onClickExample,
 		},
+		{
+			imgUrl: 'power.png',
+			itemName: 'Logout',
+			userId,
+			onClick: Logout,
+		},
 		];
-	}, [name, picture, userId]);
 
-	const {handleRightDrawer} = useActions();
+	}, [handleUser, name, picture, userId]);
 
 	const handleNavState = () => {
 		setNavState((prev) => !prev);
@@ -83,9 +95,7 @@ const Navbar = () => {
 			<div
 				className={`${navState
 					? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0 z-10'
-					: 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'
-				} `}
-			>
+					: 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}>
 				<AiOutlineClose
 					size={25}
 					className="absolute right-4 top-4 cursor-pointer"
