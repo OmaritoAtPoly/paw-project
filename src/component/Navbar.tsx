@@ -1,8 +1,8 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useCallback, useEffect} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
-import {defaultUser, type ItemElementType} from '../data/data';
+import {defaultUser, type UserDataType, type ItemElementType} from '../data/data';
 import {UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
@@ -11,36 +11,62 @@ import {RightComponentActionButtons} from './RightComponentActionButtons';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
-
-	const {name, picture, userId} = useTypedSelector(
+	const [currentUser, setCurrentUser] = useState<UserDataType>(defaultUser);
+	const {name, picture, userId, email, userLogged, given_name, family_name} = useTypedSelector(
 		(state) => state.currentUser,
 	);
+
 	const {handleRightDrawer, handleUser} = useActions();
+
+	const Logout = useCallback(() => {
+		handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
+		sessionStorage.removeItem('currentUser');
+		sessionStorage.removeItem('usedLogged');
+		setCurrentUser(defaultUser);
+	}, [handleUser]);
+
+	const currentUserValues = useCallback(() => {
+		const value = sessionStorage.getItem('currentUser');
+		let transformedValue;
+		if (value) {
+			transformedValue = JSON.parse(value) as UserDataType;
+			setCurrentUser({
+				name: name || transformedValue.name,
+				picture: picture || transformedValue.picture,
+				userId: userId || transformedValue.userId,
+				email: email || transformedValue.email,
+				userLogged: userLogged || transformedValue.userLogged,
+				given_name: given_name || transformedValue.given_name,
+				family_name: family_name || transformedValue.family_name,
+			});
+		}
+
+	}, [email, family_name, given_name, name, picture, userId, userLogged]);
+
+	useEffect(() => {
+		currentUserValues();
+	}, [currentUserValues]);
 
 	const dropDownMenuValues: ItemElementType[] = useMemo(() => {
 		const onClickExample = () => {
-			console.log(`User Name ${name}`);
-		};
-
-		const Logout = () => {
-			handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
+			console.log(`User Name ${currentUser.name}`);
 		};
 
 		return [{
-			itemName: name,
-			imgUrl: picture,
-			userId,
+			itemName: currentUser.name,
+			imgUrl: currentUser.picture,
+			userId: currentUser.userId,
 			onClick: onClickExample,
 		},
 		{
 			imgUrl: 'power.png',
 			itemName: 'Logout',
-			userId,
+			userId: currentUser.userId,
 			onClick: Logout,
 		},
 		];
 
-	}, [handleUser, name, picture, userId]);
+	}, [currentUser, Logout]);
 
 	const handleNavState = () => {
 		setNavState((prev) => !prev);

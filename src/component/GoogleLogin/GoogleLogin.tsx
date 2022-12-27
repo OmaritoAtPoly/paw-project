@@ -22,7 +22,8 @@ export const Google = () => {
 		if (response.credential) {
 			const decodedResponse: UserDataType = jwt_decode(response.credential);
 			const preparedInfo = prepareUserRawUserInfo(decodedResponse);
-			
+			sessionStorage.setItem('usedLogged', 'true');
+			sessionStorage.setItem('currentUser', JSON.stringify(preparedInfo));
 			handleUser(preparedInfo, UserSingUpAndLogin.USER_LOGIN_IN);
 		}
 	};
