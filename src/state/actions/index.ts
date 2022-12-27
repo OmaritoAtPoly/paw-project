@@ -1,5 +1,6 @@
 import {type Photo} from 'pexels';
-import {type AvailablePetsActionType, type ActionType} from '../action-types';
+import {type UserDataType} from '../../data/data';
+import {type AvailablePetsActionType, type ActionType, type UserSingUpAndLogin} from '../action-types';
 
 interface SearchRepositoriesAction {
 	type: ActionType.SEARCH_REPOSITORIES;
@@ -95,3 +96,15 @@ export interface AvailablePetsName {
 }
 
 export type AvailablePetsPhotosAction = GetAvailablePetsAction | SetAvailablePetsErrorAction | SearchAvailablePetsAction | SetAvailablePetsNameAction | SetAvailablePetsNameAction | EmptyAvailablePetsResponseAction;
+
+interface UserLogInAction {
+	type: UserSingUpAndLogin.USER_LOGIN_IN;
+	payload: UserDataType;
+}
+
+interface UserLogOutAction {
+	type: UserSingUpAndLogin.USER_LOGOUT;
+	payload: UserDataType;
+}
+
+export type UserLogAction = UserLogInAction | UserLogOutAction;
