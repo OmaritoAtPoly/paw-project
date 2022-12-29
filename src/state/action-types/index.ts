@@ -22,3 +22,9 @@ export enum UserSingUpAndLogin {
 	USER_LOGIN_IN = 'user_login_in',
 	USER_LOGOUT = 'user_log_out',
 }
+
+export enum LoggedFromPlatform {
+	FACEBOOK = 'facebook',
+	GOOGLE = 'google',
+	WEB = 'web',
+}

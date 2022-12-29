@@ -1,18 +1,20 @@
-import React, {useState, useMemo, useCallback, useEffect} from 'react';
+import {googleLogout} from '@react-oauth/google';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
-import {defaultUser, type UserDataType, type ItemElementType} from '../data/data';
-import {UserSingUpAndLogin} from '../state/action-types';
+import {defaultUser, type ItemElementType, type UserDataType} from '../data/data';
+import {LoggedFromPlatform, UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
+import {LogoutUserFromSessionStorage} from '../utils/functions';
 import GooglePexel from './GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
 	const [currentUser, setCurrentUser] = useState<UserDataType>(defaultUser);
-	const {name, picture, userId, email, userLogged, given_name, family_name} = useTypedSelector(
+	const {name, picture, userId, email, userLogged, given_name, family_name, loggedFrom} = useTypedSelector(
 		(state) => state.currentUser,
 	);
 
@@ -20,10 +22,13 @@ const Navbar = () => {
 
 	const Logout = useCallback(() => {
 		handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
-		sessionStorage.removeItem('currentUser');
-		sessionStorage.removeItem('usedLogged');
 		setCurrentUser(defaultUser);
-	}, [handleUser]);
+		LogoutUserFromSessionStorage();
+
+		if (loggedFrom === LoggedFromPlatform.FACEBOOK) window.FB.logout(() => { });
+		if (loggedFrom === LoggedFromPlatform.GOOGLE)  googleLogout();
+
+	}, [handleUser, loggedFrom]);
 
 	const currentUserValues = useCallback(() => {
 		const value = sessionStorage.getItem('currentUser');
@@ -38,10 +43,11 @@ const Navbar = () => {
 				userLogged: userLogged || transformedValue.userLogged,
 				given_name: given_name || transformedValue.given_name,
 				family_name: family_name || transformedValue.family_name,
+				loggedFrom: loggedFrom || transformedValue.loggedFrom,
 			});
 		}
 
-	}, [email, family_name, given_name, name, picture, userId, userLogged]);
+	}, [email, family_name, given_name, loggedFrom, name, picture, userId, userLogged]);
 
 	useEffect(() => {
 		currentUserValues();

@@ -1,4 +1,5 @@
 import {type Photo} from 'pexels';
+import {LoggedFromPlatform} from '../state/action-types';
 
 export const data = [
 	{
@@ -272,6 +273,7 @@ export const defaultUser = {
 	given_name: '',
 	family_name: '',
 	userLogged: false,
+	loggedFrom: LoggedFromPlatform.FACEBOOK || LoggedFromPlatform.GOOGLE || LoggedFromPlatform.WEB,
 };
 
 export type UserDataType = typeof defaultUser;
@@ -288,25 +290,9 @@ export type ItemElementType = typeof itemElements;
 export const itemMenu: ItemElementType[] = [
 	{
 		userId: '',
-		itemName: 'Alejandro Alejandro Alejandro',
-		onClick: () => {
-			console.log('Account settings settings');
-		},
-		imgUrl: 'https://lh3.googleusercontent.com/a/AEdFTp7pp2ICU4tcCCeCnWNq_vNmGIQAQeZNlt91ySCwlg=s96-c',
+		itemName: '',
+		onClick: () => { },
+		imgUrl: '',
 
 	},
-	{
-		userId: '',
-		itemName: 'Support',
-		onClick: () => {
-			console.log('Support');
-		},
-		imgUrl: '',
-	}, {
-		userId: '',
-		itemName: 'License',
-		onClick: () => {
-			console.log('License');
-		},
-		imgUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-	}];
+];
