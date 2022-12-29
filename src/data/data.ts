@@ -1,4 +1,5 @@
 import {type Photo} from 'pexels';
+import {generate} from 'shortid';
 import {LoggedFromPlatform} from '../state/action-types';
 
 export const data = [
@@ -266,7 +267,7 @@ export const defaultAvailablePets: Photo[] = [
 ];
 
 export const defaultUser = {
-	userId: '',
+	userId: generate(),
 	email: '',
 	name: '',
 	picture: '',

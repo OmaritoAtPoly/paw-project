@@ -17,7 +17,7 @@ export const RightComponentActionButtons = ({handleCallFunction, handleRightDraw
 	}, []);
 
 	return (
-		<div className='flex flex-col h-[150px] items-center justify-between sm:flex-row sm:mx-0 sm:h-fit sm:w-[20vw] lg:w-[15vw] bg-green-500'>
+		<div className='flex flex-col h-[150px] items-center justify-between sm:flex-row sm:mx-0 sm:h-fit sm:w-[20vw] lg:w-[15vw]'>
 			{/* call button */}
 			<button type='submit' onClick={handleCallFunction} className='bg-blue-400 flex flex-col items-center w-16 text-white py-2 rounded-2xl sm:w-[8vw] lg:flex-row lg:justify-around lg:max-w-[6vw]'>
 				<BiPhone size={20} /> <span className={`${handleLoggedUser() ? 'sm:hidden md:inline-block' : ''} `} >{CALL_US}</span>

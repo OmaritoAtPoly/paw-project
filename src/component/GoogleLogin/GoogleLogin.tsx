@@ -1,9 +1,10 @@
 import React from 'react';
-import {type CredentialResponse, GoogleLogin} from '@react-oauth/google';
+import {GoogleLogin, type CredentialResponse} from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
-import {useActions} from '../../state/hooks/useActions';
+import {generate} from 'shortid';
 import {type UserDataType} from '../../data/data';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
+import {useActions} from '../../state/hooks/useActions';
 import {handleUserLogin} from '../../utils/functions';
 
 export const Google = () => {
@@ -13,7 +14,7 @@ export const Google = () => {
 		email: response.email,
 		name: response.name,
 		picture: response.picture || 'defaultUserPic.png',
-		userId: response.userId,
+		userId: generate(),
 		given_name: response.given_name,
 		family_name: response.family_name,
 		userLogged: true,
@@ -31,7 +32,7 @@ export const Google = () => {
 
 	const handleLoginUser = (credentialResponse: CredentialResponse) => {
 		userLogin(credentialResponse);
-		handleRightDrawer();		
+		handleRightDrawer();
 	};
 
 	return (
