@@ -1,20 +1,38 @@
-import React, {Fragment} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
+import React, {Fragment} from 'react';
 import {useSelector} from 'react-redux';
+import {defaultUser, type UserDataType} from '../data/data';
 import {type RootState} from '../state';
+import {LoggedFromPlatform, UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
+import {handleUserLogin} from '../utils/functions';
 import {SignUpForm} from './loginComponent';
 
 export const RightDrawer = () => {
 	const {drawerStatus} = useSelector((state: RootState) => state.drawer);
 
-	const {handleRightDrawer} = useActions();
+	const {handleRightDrawer, handleUser} = useActions();
 
-	/// ///////////////////////////////////////////////////////// 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const onSubmit = (values: {email: string; password: string; rememberMe: boolean}) => {
+	const onSubmit = (values: {
+		email: string;
+		password: string;
+		rememberMe: boolean;
+	}) => {
+		const {email} = values;
+		const webUser: UserDataType = {
+			...defaultUser,
+			email,
+			picture: 'defaultUserPic.png',
+			name: email.split('@')[0],
+			family_name: email.split('@')[1],
+			loggedFrom: LoggedFromPlatform.WEB,
+			userLogged: true,
+		};
+
 		handleRightDrawer();
+		handleUser(webUser, UserSingUpAndLogin.USER_LOGIN_IN);
+		handleUserLogin(webUser);
 	};
 
 	return (
@@ -68,13 +86,14 @@ export const RightDrawer = () => {
 									<div className="flex flex-col overflow-y-scroll shadow-xl">
 										<div className="px-4 sm:px-6 h-fit bg-rose-50 pt-3">
 											<Dialog.Title className="text-lg font-medium text-gray-900 flex flex-col items-center">
-												<p className='text-2xl text-primary'>Join us for free & for ever</p>
-
+												<p className="text-2xl text-primary">
+													Join us for free & for ever
+												</p>
 											</Dialog.Title>
 										</div>
 										{/* <!-- Global Container --> */}
-										<div className='flex justify-center bg-rose-50'>
-											<div className='h-fit shadow-2xl rounded-2xl'>
+										<div className="flex justify-center bg-rose-50">
+											<div className="h-fit shadow-2xl rounded-2xl">
 												<SignUpForm onSubmit={onSubmit} />
 											</div>
 										</div>

@@ -56,6 +56,7 @@ const Navbar = () => {
 	const dropDownMenuValues: ItemElementType[] = useMemo(() => {
 		const onClickExample = () => {
 			console.log(`User Name ${currentUser.name}`);
+			console.log(`User id ${currentUser.userId}`);
 		};
 
 		return [{
