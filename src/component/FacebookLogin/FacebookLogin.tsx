@@ -2,6 +2,7 @@
 import FacebookLogin, {type ProfileSuccessResponse} from '@greatsumini/react-facebook-login';
 import React, {useCallback} from 'react';
 import {CiFacebook} from 'react-icons/ci';
+import {generate} from 'shortid';
 import {type UserDataType} from '../../data/data';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
 import {useActions} from '../../state/hooks/useActions';
@@ -13,6 +14,7 @@ export const Facebook = () => {
 	const prepareUserRawUserInfo = (response: ProfileSuccessResponse): UserDataType => ({
 		email: response.email!,
 		name: response.name!,
+		password: generate(),
 		picture: response.picture?.data.url || 'defaultUserPic.png',
 		userId: response.id!,
 		given_name: response.name?.split(' ')[0] || 'Anonymous',

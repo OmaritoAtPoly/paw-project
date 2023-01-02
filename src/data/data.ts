@@ -268,6 +268,7 @@ export const defaultAvailablePets: Photo[] = [
 
 export const defaultUser = {
 	userId: generate(),
+	password: '',
 	email: '',
 	name: '',
 	picture: '',

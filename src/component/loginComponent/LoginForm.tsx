@@ -1,6 +1,7 @@
 import {type FormikErrors, type FormikTouched} from 'formik';
 import React from 'react';
 import {RxThickArrowRight} from 'react-icons/rx';
+import {NavLink} from 'react-router-dom';
 
 interface Props {
 	handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
@@ -80,5 +81,6 @@ export const LoginForm = ({handleSubmit, handleChange, values, errors, touched, 
 			<span>Next</span>
 			<RxThickArrowRight />
 		</button>
+		<NavLink to='register' className='hover:text-purple-900 hover:underline hover:underline-offset-1 text-center w-fit mx-auto mb-[-20px]'>Not register yet_?</NavLink>
 	</form >
 );

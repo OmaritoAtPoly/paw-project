@@ -13,6 +13,7 @@ export const Google = () => {
 	const prepareUserRawUserInfo = (response: UserDataType): UserDataType => ({
 		email: response.email,
 		name: response.name,
+		password: generate(),
 		picture: response.picture || 'defaultUserPic.png',
 		userId: generate(),
 		given_name: response.given_name,

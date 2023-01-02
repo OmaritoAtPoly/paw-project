@@ -4,8 +4,8 @@ import {type UserLogAction} from '../actions';
 
 export const UserLoginReducer = (state = defaultUser, action: UserLogAction): UserDataType => {
 	if (action.type === UserSingUpAndLogin.USER_LOGIN_IN) {
-		const {email, family_name, given_name, name, picture, userId, userLogged, loggedFrom} = action.payload;
-		return {email, family_name, given_name, name, picture, userId, userLogged, loggedFrom};
+		const {email, family_name, given_name, name, picture, userId, userLogged, loggedFrom, password} = action.payload;
+		return {email, family_name, given_name, name, picture, userId, userLogged, loggedFrom, password};
 	}
 
 	if (action.type === UserSingUpAndLogin.USER_LOGOUT) return action.payload;

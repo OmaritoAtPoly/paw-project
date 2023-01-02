@@ -1,20 +1,11 @@
 import React from 'react';
-import Category from './component/Category';
-import Pets from './component/Pets';
-import HeadLinesCards from './component/HeadLinesCards';
-import Hero from './component/Hero';
-import Navbar from './component/Navbar';
-import {RightDrawer} from './component/RightDrawer';
+import {RouterProvider} from 'react-router-dom';
+import {routerElements} from './pages/routes';
 
 function App() {
-	return <>
-		<Navbar />
-		<Hero />
-		<HeadLinesCards />
-		<Pets />
-		<Category />
-		<RightDrawer />
-	</>;
+	return (
+		<RouterProvider router={routerElements} />
+	);
 }
 
 export default App;

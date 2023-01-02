@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {Facebook} from '../FacebookLogin/FacebookLogin';
@@ -28,9 +28,9 @@ export const SignUpForm = ({onSubmit}: Props) => {
 		validationSchema: SignInSchema,
 	});
 
-	const handleCheckBox = async () => {
+	const handleCheckBox = useCallback(async () => {
 		await setFieldValue('rememberMe', !values.rememberMe);
-	};
+	}, [setFieldValue, values.rememberMe]);
 
 	return (
 		<div
