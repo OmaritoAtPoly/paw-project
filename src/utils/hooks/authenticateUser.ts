@@ -9,7 +9,7 @@ export const authenticateUser = async (email?: string, password?: string, userId
 
 		if (value.status === 200) {
 			if (userId) return value.data.filter((val) => val.userId === userId);
-			if (email && password) return value.data.filter((val) => (val.email === email && val.password === password) || (val.userId === userId));
+			if (email && password) return value.data.filter((val) => (val.email === email && val.password === password));
 		}
 	} catch (error) {
 		if (error instanceof Error) {

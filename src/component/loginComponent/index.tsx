@@ -57,7 +57,7 @@ export const SignUpForm = ({onSubmit, showErrorAlert, handleErrorAlert}: Props) 
 				or log in with
 			</p>
 			<div className="mb-16 mx-auto h-[110px] flex justify-between flex-col">
-				<Facebook />
+				<Facebook handleErrorAlert={handleErrorAlert} />
 				<Google />
 			</div>
 		</div>

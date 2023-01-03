@@ -31,64 +31,83 @@ interface Props {
 	handleErrorAlert: () => void;
 }
 
-export const LoginForm = ({handleSubmit, handleChange, values, errors, touched, handleCheckBox, showErrorAlert, handleErrorAlert}: Props) => (
-	<form onSubmit={handleSubmit} className='h-[200px] flex flex-col justify-between mt-[-10px]'>
-		<label htmlFor="mail">
-			<input
-				id="email"
-				name="email"
-				type="text"
-				onChange={handleChange}
-				value={values.email}
-				placeholder="write your mail"
-				className="w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
-			/>
+export const LoginForm = ({
+	handleSubmit,
+	handleChange,
+	values,
+	errors,
+	touched,
+	handleCheckBox,
+	showErrorAlert,
+	handleErrorAlert,
+}: Props) => (
+	<form
+		onSubmit={handleSubmit}
+		className="h-[200px] flex flex-col justify-between mt-[-10px]"
+	>
+		{showErrorAlert
+			? (
+				<div className="w-full flex justify-center">
+					<CardAlert
+						cardInfo={WRONG_CREDENTIALS}
+						handleOnClose={handleErrorAlert}
+					/>
+				</div>
+			) : (
+				<>
+					<label htmlFor="mail">
+						<input
+							id="email"
+							name="email"
+							type="text"
+							onChange={handleChange}
+							value={values.email}
+							placeholder="write your mail"
+							className="w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
+						/>
 
-			{errors.email && touched.email ? (
-				<div className="text-red-500">{errors.email}</div>
-			) : null}
-		</label>
-		<label htmlFor="password">
-			<input
-				id="password"
-				name="password"
-				type="password"
-				onChange={handleChange}
-				value={values.password}
-				placeholder="write your password"
-				className="w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
-			/>
-			{errors.password && touched.password ? (
-				<div className="text-red-500">{errors.password}</div>
-			) : null}
-		</label>
+						{errors.email && touched.email ? (
+							<div className="text-red-500">{errors.email}</div>
+						) : null}
+					</label>
+					<label htmlFor="password">
+						<input
+							id="password"
+							name="password"
+							type="password"
+							onChange={handleChange}
+							value={values.password}
+							placeholder="write your password"
+							className="w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
+						/>
+						{errors.password && touched.password ? (
+							<div className="text-red-500">{errors.password}</div>
+						) : null}
+					</label>
+				</>
+			)}
 		<div
 			className={` flex justify-between ${errors.password ? 'mt-3 mb-3' : ''} `}
 		>
-			{showErrorAlert
-				? <div className='w-full flex justify-center'><CardAlert cardInfo={WRONG_CREDENTIALS} handleOnClose={handleErrorAlert} /></div>
-				: <>
-					<div role="group" aria-labelledby="checkbox-group" className="flex">
-						<input
-							name="rememberMe"
-							type="checkbox"
-							onChange={handleChange}
-							checked={values.rememberMe}
-						/>
-						<span
-							className="text-blue-900 text-center ml-3"
-							onClick={handleCheckBox}
-							onKeyUp={() => { }}
-							role="button"
-							tabIndex={0}
-							aria-label="hidden alert"
-						>
-							Remember me
-						</span>
-					</div>
-					<p className="text-blue-900 text-center">Forgot password</p>
-				</>
-			}
+			<div role="group" aria-labelledby="checkbox-group" className="flex">
+				<input
+					name="rememberMe"
+					type="checkbox"
+					onChange={handleChange}
+					checked={values.rememberMe}
+				/>
+				<span
+					className="text-blue-900 text-center ml-3"
+					onClick={handleCheckBox}
+					onKeyUp={() => { }}
+					role="button"
+					tabIndex={0}
+					aria-label="hidden alert"
+				>
+					Remember me
+				</span>
+			</div>
+			<p className="text-blue-900 text-center">Forgot password</p>
 		</div>
 		<button
 			type="submit"

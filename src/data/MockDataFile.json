@@ -31,6 +31,16 @@
       "userLogged": false,
       "loggedFrom": "facebook",
       "password": "444"
+    },
+    {
+      "email": "omarito4857@gmail.com",
+      "family_name": "Estrada",
+      "given_name": "Omar",
+      "loggedFrom": "facebook",
+      "name": "Omar Estrada Diaz",
+      "password": "vuVhFMUHN",
+      "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?as…5&height=50&width=50&ext=1675352030&hash=AeTu_rQK2bJrGX0iAbg",
+      "userId": "2964698747009605"
     }
   ]
 }
