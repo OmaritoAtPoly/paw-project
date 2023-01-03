@@ -2,6 +2,8 @@ import {type FormikErrors, type FormikTouched} from 'formik';
 import React from 'react';
 import {RxThickArrowRight} from 'react-icons/rx';
 import {NavLink} from 'react-router-dom';
+import {WRONG_CREDENTIALS} from '../../utils/constants';
+import CardAlert from '../CardAlert';
 
 interface Props {
 	handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
@@ -25,9 +27,11 @@ interface Props {
 		rememberMe: boolean;
 	}>;
 	handleCheckBox: () => Promise<void>;
+	showErrorAlert: boolean;
+	handleErrorAlert: () => void;
 }
 
-export const LoginForm = ({handleSubmit, handleChange, values, errors, touched, handleCheckBox}: Props) => (
+export const LoginForm = ({handleSubmit, handleChange, values, errors, touched, handleCheckBox, showErrorAlert, handleErrorAlert}: Props) => (
 	<form onSubmit={handleSubmit} className='h-[200px] flex flex-col justify-between mt-[-10px]'>
 		<label htmlFor="mail">
 			<input
@@ -58,21 +62,33 @@ export const LoginForm = ({handleSubmit, handleChange, values, errors, touched, 
 				<div className="text-red-500">{errors.password}</div>
 			) : null}
 		</label>
-		<div className={` flex justify-between ${errors.password ? 'mt-3 mb-3' : ''} `} >
-			<div role="group" aria-labelledby="checkbox-group" className="flex">
-				<input name="rememberMe" type="checkbox" onChange={handleChange} checked={values.rememberMe} />
-				<span
-					className="text-blue-900 text-center ml-3"
-					onClick={handleCheckBox}
-					onKeyUp={() => { }}
-					role="button"
-					tabIndex={0}
-					aria-label="hidden alert"
-				>
-					Remember me
-				</span>
-			</div>
-			<p className="text-blue-900 text-center">Forgot password</p>
+		<div
+			className={` flex justify-between ${errors.password ? 'mt-3 mb-3' : ''} `}
+		>
+			{showErrorAlert
+				? <div className='w-full flex justify-center'><CardAlert cardInfo={WRONG_CREDENTIALS} handleOnClose={handleErrorAlert} /></div>
+				: <>
+					<div role="group" aria-labelledby="checkbox-group" className="flex">
+						<input
+							name="rememberMe"
+							type="checkbox"
+							onChange={handleChange}
+							checked={values.rememberMe}
+						/>
+						<span
+							className="text-blue-900 text-center ml-3"
+							onClick={handleCheckBox}
+							onKeyUp={() => { }}
+							role="button"
+							tabIndex={0}
+							aria-label="hidden alert"
+						>
+							Remember me
+						</span>
+					</div>
+					<p className="text-blue-900 text-center">Forgot password</p>
+				</>
+			}
 		</div>
 		<button
 			type="submit"
