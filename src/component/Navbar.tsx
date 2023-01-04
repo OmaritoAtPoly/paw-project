@@ -86,9 +86,9 @@ const Navbar = () => {
 		];
 	}, [currentUser, Logout]);
 
-	const handleNavState = () => {
+	const handleNavState = useCallback(() => {
 		setNavState((prev) => !prev);
-	};
+	}, []);
 
 	const handleCallFunction = useCallback(() => {
 		window.open('tel:111111');

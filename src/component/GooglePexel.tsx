@@ -3,11 +3,13 @@ import React, {
 	type ChangeEvent,
 	type FormEvent,
 	useEffect,
+	useCallback,
 } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {type RootState} from '../state';
 import {ActionType} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
+import {useGetCurrentUrl} from '../utils/hooks/getCurrentUrlPath';
 import CardAlert from './CardAlert';
 import Search from './Search';
 
@@ -17,6 +19,8 @@ const GooglePexel = () => {
 	const [showAlert, setShowAlert] = useState(true);
 	const dispatch = useDispatch();
 	const {error, loading} = useSelector((state: RootState) => state.photos);
+
+	const currentUrl = useGetCurrentUrl();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -33,33 +37,35 @@ const GooglePexel = () => {
 
 	}, [dispatch, error, showAlert]);
 
-	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		const searchValue = event.target.value;
 		setSearch(searchValue);
-	};
+	}, []);
 
 	const {searchPictures} = useActions();
 
-	const handleSubmit = async (e: FormEvent) => {
+	const handleSubmit = useCallback(async (e: FormEvent) => {
 		e.preventDefault();
 		if (search) {
 			setSearch('');
 			searchPictures(search, perPage);
 		}
-	};
+	}, [perPage, search, searchPictures]);
 
-	const handleOnClose = () => {
+	const handleOnClose = useCallback(() => {
 		setShowAlert(false);
-	};
+	}, []);
 
 	return (
 		<div className='flex flex-col h-[150px] justify-around items-center'>
-			<Search
-				handleValue={handleChange}
-				value={search}
-				handleSubmit={handleSubmit}
-				loading={loading}
-			/>
+			{currentUrl === '/'
+				? <Search
+					handleValue={handleChange}
+					value={search}
+					handleSubmit={handleSubmit}
+					loading={loading}
+				/>
+				: null}
 			{(!!error && showAlert) && <CardAlert
 				cardInfo={error}
 				cardTitle='Alert.!'
