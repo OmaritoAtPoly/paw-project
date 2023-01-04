@@ -3,3 +3,4 @@ export const CALL_US = 'call us';
 export const LOGIN = 'Login';
 export const TAKE_HOME = 'Take me home';
 export const READ_MY_HISTORY = 'Do you want to read my history?';
+export const WRONG_CREDENTIALS = 'Your credential are not correct';

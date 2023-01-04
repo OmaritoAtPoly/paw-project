@@ -3,20 +3,33 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
-import {defaultUser, type ItemElementType, type UserDataType} from '../data/data';
+import {
+	defaultUser,
+	type ItemElementType,
+	type UserDataType,
+} from '../data/data';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
 import {LogoutUserFromSessionStorage} from '../utils/functions';
+import {useGetCurrentUser} from '../utils/hooks/getCurrentUser';
 import GooglePexel from './GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
 	const [currentUser, setCurrentUser] = useState<UserDataType>(defaultUser);
-	const {name, picture, userId, email, userLogged, given_name, family_name, loggedFrom} = useTypedSelector(
-		(state) => state.currentUser,
-	);
+	const {
+		name,
+		picture,
+		userId,
+		email,
+		userLogged,
+		given_name,
+		family_name,
+		loggedFrom,
+		password,
+	} = useTypedSelector((state) => state.currentUser);
 
 	const {handleRightDrawer, handleUser} = useActions();
 
@@ -25,33 +38,31 @@ const Navbar = () => {
 		setCurrentUser(defaultUser);
 		LogoutUserFromSessionStorage();
 
-		if (loggedFrom === LoggedFromPlatform.FACEBOOK) window.FB.logout(() => { });
-		if (loggedFrom === LoggedFromPlatform.GOOGLE)  googleLogout();
-
+		if (window.FB && loggedFrom === LoggedFromPlatform.FACEBOOK)
+			window.FB.logout(() => { });
+		if (loggedFrom === LoggedFromPlatform.GOOGLE) googleLogout();
 	}, [handleUser, loggedFrom]);
+	const transformedValue = useGetCurrentUser();
 
 	const currentUserValues = useCallback(() => {
-		const value = sessionStorage.getItem('currentUser');
-		let transformedValue;
-		if (value) {
-			transformedValue = JSON.parse(value) as UserDataType;
-			setCurrentUser({
-				name: name || transformedValue.name,
-				picture: picture || transformedValue.picture,
-				userId: userId || transformedValue.userId,
-				email: email || transformedValue.email,
-				userLogged: userLogged || transformedValue.userLogged,
-				given_name: given_name || transformedValue.given_name,
-				family_name: family_name || transformedValue.family_name,
-				loggedFrom: loggedFrom || transformedValue.loggedFrom,
-			});
-		}
+		setCurrentUser({
+			name: name || transformedValue.name,
+			picture: picture || transformedValue.picture,
+			userId: userId || transformedValue.userId,
+			email: email || transformedValue.email,
+			userLogged: userLogged || transformedValue.userLogged,
+			given_name: given_name || transformedValue.given_name,
+			family_name: family_name || transformedValue.family_name,
+			loggedFrom: loggedFrom || transformedValue.loggedFrom,
+			password: password || transformedValue.password,
+		});
 
-	}, [email, family_name, given_name, loggedFrom, name, picture, userId, userLogged]);
+	}, [name, transformedValue.name, transformedValue.picture, transformedValue.userId, transformedValue.email, transformedValue.userLogged, transformedValue.given_name, transformedValue.family_name, transformedValue.loggedFrom, transformedValue.password, picture, userId, email, userLogged, given_name, family_name, loggedFrom, password]);
 
 	useEffect(() => {
+		if (!transformedValue.email) return;
 		currentUserValues();
-	}, [currentUserValues]);
+	}, [currentUserValues, transformedValue.email]);
 
 	const dropDownMenuValues: ItemElementType[] = useMemo(() => {
 		const onClickExample = () => {
@@ -59,20 +70,20 @@ const Navbar = () => {
 			console.log(`User id ${currentUser.userId}`);
 		};
 
-		return [{
-			itemName: currentUser.name,
-			imgUrl: currentUser.picture,
-			userId: currentUser.userId,
-			onClick: onClickExample,
-		},
-		{
-			imgUrl: 'power.png',
-			itemName: 'Logout',
-			userId: currentUser.userId,
-			onClick: Logout,
-		},
+		return [
+			{
+				itemName: currentUser.name,
+				imgUrl: currentUser.picture,
+				userId: currentUser.userId,
+				onClick: onClickExample,
+			},
+			{
+				imgUrl: 'power.png',
+				itemName: 'Logout',
+				userId: currentUser.userId,
+				onClick: Logout,
+			},
 		];
-
 	}, [currentUser, Logout]);
 
 	const handleNavState = () => {
@@ -128,7 +139,8 @@ const Navbar = () => {
 			<div
 				className={`${navState
 					? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0 z-10'
-					: 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}>
+					: 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}
+			>
 				<AiOutlineClose
 					size={25}
 					className="absolute right-4 top-4 cursor-pointer"

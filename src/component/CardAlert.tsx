@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface CardAlertProps {
-	cardTitle: string;
+	cardTitle?: string;
 	cardInfo: string;
 	handleOnClose: () => void;
 }

@@ -2,17 +2,23 @@
 import FacebookLogin, {type ProfileSuccessResponse} from '@greatsumini/react-facebook-login';
 import React, {useCallback} from 'react';
 import {CiFacebook} from 'react-icons/ci';
+import {generate} from 'shortid';
 import {type UserDataType} from '../../data/data';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
 import {useActions} from '../../state/hooks/useActions';
 import {handleUserLogin} from '../../utils/functions';
+import {authenticateUser} from '../../utils/hooks/authenticateUser';
 
-export const Facebook = () => {
+interface Props {
+	handleErrorAlert: () => void;
+}
+export const Facebook = ({handleErrorAlert}: Props) => {
 	const {handleRightDrawer, handleUser} = useActions();
 
 	const prepareUserRawUserInfo = (response: ProfileSuccessResponse): UserDataType => ({
 		email: response.email!,
 		name: response.name!,
+		password: generate(),
 		picture: response.picture?.data.url || 'defaultUserPic.png',
 		userId: response.id!,
 		given_name: response.name?.split(' ')[0] || 'Anonymous',
@@ -21,14 +27,20 @@ export const Facebook = () => {
 		loggedFrom: LoggedFromPlatform.FACEBOOK,
 	});
 
-	const handleFaceBookLogin = useCallback((response: ProfileSuccessResponse) => {
+	const handleFaceBookLogin = useCallback(async (response: ProfileSuccessResponse) => {
 		const preparedUser = prepareUserRawUserInfo(response);
+		const existingUser = await authenticateUser(undefined, undefined, preparedUser.userId);
 
-		handleRightDrawer();
-		handleUser(preparedUser, UserSingUpAndLogin.USER_LOGIN_IN);
-		handleUserLogin(preparedUser);
+		if (existingUser && existingUser.length > 0) {
+			handleRightDrawer();
+			handleUser(preparedUser, UserSingUpAndLogin.USER_LOGIN_IN);
+			handleUserLogin(preparedUser);
+		} else {
+			handleErrorAlert();
+			window.FB.logout(() => { });
+		}
 
-	}, [handleRightDrawer, handleUser]);
+	}, [handleErrorAlert, handleRightDrawer, handleUser]);
 
 	return (
 		<div className="bg-white flex items-center rounded-md w-fit select-none border-2">
@@ -41,9 +53,8 @@ export const Facebook = () => {
 				onFail={(error) => {
 					console.log('Login Failed!', error);
 				}}
-
 				onProfileSuccess={(response) => {
-					handleFaceBookLogin(response);
+					void handleFaceBookLogin(response);
 				}}
 
 				className="flex items-center"

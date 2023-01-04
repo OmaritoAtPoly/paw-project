@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {Facebook} from '../FacebookLogin/FacebookLogin';
@@ -7,13 +7,15 @@ import {LoginForm} from './LoginForm';
 
 interface Props {
 	onSubmit: ((value: {email: string; password: string; rememberMe: boolean}) => void);
+	showErrorAlert: boolean;
+	handleErrorAlert: () => void;
 }
 const SignInSchema = yup.object().shape({
 	email: yup.string().email('Invalid email').required('Required'),
 	password: yup.string().required('Required'),
 });
 
-export const SignUpForm = ({onSubmit}: Props) => {
+export const SignUpForm = ({onSubmit, showErrorAlert, handleErrorAlert}: Props) => {
 	const {handleSubmit, values, handleChange, errors, touched, setFieldValue} = useFormik({
 		initialValues: {
 			email: '',
@@ -28,9 +30,9 @@ export const SignUpForm = ({onSubmit}: Props) => {
 		validationSchema: SignInSchema,
 	});
 
-	const handleCheckBox = async () => {
+	const handleCheckBox = useCallback(async () => {
 		await setFieldValue('rememberMe', !values.rememberMe);
-	};
+	}, [setFieldValue, values.rememberMe]);
 
 	return (
 		<div
@@ -49,14 +51,14 @@ export const SignUpForm = ({onSubmit}: Props) => {
 				<img src="animal-shelter.png" alt="logo" width={50} height={50} />
 			</div>
 			<h2 className="font-mono text-3xl font-bold mt-[-30px]">Log In</h2>
-			<LoginForm errors={errors} handleChange={handleChange} handleSubmit={handleSubmit} touched={touched} values={values} handleCheckBox={handleCheckBox} />
+			<LoginForm errors={errors} handleChange={handleChange} handleSubmit={handleSubmit} touched={touched} values={values} handleCheckBox={handleCheckBox} showErrorAlert={showErrorAlert} handleErrorAlert={handleErrorAlert} />
 
 			<p className="text-sm font-bold text-center text-black select-none">
 				or log in with
 			</p>
 			<div className="mb-16 mx-auto h-[110px] flex justify-between flex-col">
-				<Facebook />
-				<Google />
+				<Facebook handleErrorAlert={handleErrorAlert} />
+				<Google handleErrorAlert={handleErrorAlert} />
 			</div>
 		</div>
 	);

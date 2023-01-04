@@ -1,25 +1,31 @@
 import {Dialog, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
-import React, {Fragment} from 'react';
+import React, {Fragment, useCallback, useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {defaultUser, type UserDataType} from '../data/data';
 import {type RootState} from '../state';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
 import {handleUserLogin} from '../utils/functions';
+import {authenticateUser} from '../utils/hooks/authenticateUser';
 import {SignUpForm} from './loginComponent';
 
 export const RightDrawer = () => {
 	const {drawerStatus} = useSelector((state: RootState) => state.drawer);
-
 	const {handleRightDrawer, handleUser} = useActions();
 
-	const onSubmit = (values: {
+	const [showErrorAlert, setShowErrorAlert] = useState<boolean>(false);
+
+	const handleErrorAlert = useCallback(() => {
+		setShowErrorAlert(!showErrorAlert);
+	}, [showErrorAlert]);
+
+	const onSubmit = async (values: {
 		email: string;
 		password: string;
 		rememberMe: boolean;
 	}) => {
-		const {email} = values;
+		const {email, password} = values;
 		const webUser: UserDataType = {
 			...defaultUser,
 			email,
@@ -30,10 +36,24 @@ export const RightDrawer = () => {
 			userLogged: true,
 		};
 
-		handleRightDrawer();
-		handleUser(webUser, UserSingUpAndLogin.USER_LOGIN_IN);
-		handleUserLogin(webUser);
+		const existingUser = await authenticateUser(email, password);
+		if (existingUser && existingUser.length > 0) {
+			handleRightDrawer();
+			handleUser(webUser, UserSingUpAndLogin.USER_LOGIN_IN);
+			handleUserLogin(webUser);
+		} else handleErrorAlert();
 	};
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (showErrorAlert)
+				handleErrorAlert();
+		}, 2000);
+		return () => {
+			clearTimeout(timer);
+		};
+
+	}, [handleErrorAlert, showErrorAlert]);
 
 	return (
 		<Transition.Root show={drawerStatus} as={Fragment}>
@@ -94,7 +114,7 @@ export const RightDrawer = () => {
 										{/* <!-- Global Container --> */}
 										<div className="flex justify-center bg-rose-50">
 											<div className="h-fit shadow-2xl rounded-2xl">
-												<SignUpForm onSubmit={onSubmit} />
+												<SignUpForm onSubmit={onSubmit} showErrorAlert={showErrorAlert} handleErrorAlert={handleErrorAlert} />
 											</div>
 										</div>
 									</div>

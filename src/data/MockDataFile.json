@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "userId": "1",
+      "email": "omare@mail.com",
+      "name": "",
+      "picture": "",
+      "given_name": "",
+      "family_name": "",
+      "loggedFrom": "facebook",
+      "password": "111"
+    },
+    {
+      "userId": "2",
+      "email": "juan@mail.com",
+      "name": "",
+      "picture": "",
+      "given_name": "",
+      "family_name": "",
+      "userLogged": false,
+      "loggedFrom": "facebook",
+      "password": "123"
+    },
+    {
+      "userId": "3",
+      "email": "pedro@mail.com",
+      "name": "",
+      "picture": "",
+      "given_name": "",
+      "family_name": "",
+      "userLogged": false,
+      "loggedFrom": "facebook",
+      "password": "444"
+    },
+    {
+      "email": "omarito4857@gmail.com",
+      "family_name": "Estrada",
+      "given_name": "Omar",
+      "loggedFrom": "facebook",
+      "name": "Omar Estrada Diaz",
+      "password": "vuVhFMUHN",
+      "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?as…5&height=50&width=50&ext=1675352030&hash=AeTu_rQK2bJrGX0iAbg",
+      "userId": "2964698747009605"
+    },
+    {
+      "email": "otro@gmail.com",
+      "family_name": "Lopez",
+      "given_name": "Glez",
+      "loggedFrom": "google",
+      "name": "Omar Estrada Diaz",
+      "password": "vuVhFMUHN",
+      "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?as…5&height=50&width=50&ext=1675352030&hash=AeTu_rQK2bJrGX0iAbg",
+      "userId": "296748080674-e2ban20nukrii4pu18rhv1nabtjgvcr3.apps.googleusercontent.com"
+    }
+  ]
+}
