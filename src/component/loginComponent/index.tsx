@@ -58,7 +58,7 @@ export const SignUpForm = ({onSubmit, showErrorAlert, handleErrorAlert}: Props) 
 			</p>
 			<div className="mb-16 mx-auto h-[110px] flex justify-between flex-col">
 				<Facebook handleErrorAlert={handleErrorAlert} />
-				<Google />
+				<Google handleErrorAlert={handleErrorAlert} />
 			</div>
 		</div>
 	);

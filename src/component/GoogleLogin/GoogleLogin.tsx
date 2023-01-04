@@ -1,13 +1,18 @@
 import React from 'react';
-import {GoogleLogin, type CredentialResponse} from '@react-oauth/google';
+import {GoogleLogin, type CredentialResponse, googleLogout} from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
 import {generate} from 'shortid';
 import {type UserDataType} from '../../data/data';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
 import {useActions} from '../../state/hooks/useActions';
 import {handleUserLogin} from '../../utils/functions';
+import {authenticateUser} from '../../utils/hooks/authenticateUser';
 
-export const Google = () => {
+interface Props {
+	handleErrorAlert: () => void;
+}
+
+export const Google = ({handleErrorAlert}: Props) => {
 	const {handleRightDrawer, handleUser} = useActions();
 
 	const prepareUserRawUserInfo = (response: UserDataType): UserDataType => ({
@@ -22,17 +27,25 @@ export const Google = () => {
 		loggedFrom: LoggedFromPlatform.GOOGLE,
 	});
 
-	const userLogin = (response: CredentialResponse) => {
+	const userLogin = async (response: CredentialResponse) => {
 		if (response.credential) {
+
 			const decodedResponse: UserDataType = jwt_decode(response.credential);
-			const preparedInfo = prepareUserRawUserInfo(decodedResponse);
-			handleUserLogin(preparedInfo);
-			handleUser(preparedInfo, UserSingUpAndLogin.USER_LOGIN_IN);
+			const existingUser = await authenticateUser(undefined, undefined, response.clientId);
+
+			if (existingUser && existingUser.length > 0) {
+				const preparedInfo = prepareUserRawUserInfo(decodedResponse);
+				handleUserLogin(preparedInfo);
+				handleUser(preparedInfo, UserSingUpAndLogin.USER_LOGIN_IN);
+			} else {
+				handleErrorAlert();
+				googleLogout();
+			}
 		}
 	};
 
 	const handleLoginUser = (credentialResponse: CredentialResponse) => {
-		userLogin(credentialResponse);
+		void userLogin(credentialResponse);
 		handleRightDrawer();
 	};
 
