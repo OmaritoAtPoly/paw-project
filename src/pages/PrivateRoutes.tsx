@@ -1,11 +1,7 @@
 import React from 'react';
 import {Outlet, Navigate} from 'react-router-dom';
 
-const isAuthenticated = () => {
-	// const value = sessionStorage.getItem('currentUser');
-	// return value;
-	return true;
-};
+const isAuthenticated = () => sessionStorage.getItem('currentUser');
 
 export const PrivateRoutes = () => {
 	return isAuthenticated() ? <Outlet /> : <Navigate to="/" />;

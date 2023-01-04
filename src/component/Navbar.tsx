@@ -86,13 +86,13 @@ const Navbar = () => {
 		];
 	}, [currentUser, Logout]);
 
-	const handleNavState = () => {
+	const handleNavState = useCallback(() => {
 		setNavState((prev) => !prev);
-	};
+	}, []);
 
-	const handleCallFunction = () => {
+	const handleCallFunction = useCallback(() => {
 		window.open('tel:111111');
-	};
+	}, []);
 
 	return (
 		<div className="mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white">
@@ -108,7 +108,7 @@ const Navbar = () => {
 						Best <span className="font-bold">Paw</span>
 					</h1>
 
-					<div className="hidden lg:flex items-center rounded-full p-1 text-[14px]">
+					<div className="hidden bg-gray-200 lg:flex items-center rounded-full p-1 text-[14px]">
 						<p className="bg-black rounded-full text-white p-2">Delivery</p>
 						<p className="p-2">Pick up</p>
 					</div>

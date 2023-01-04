@@ -37,6 +37,7 @@ export const Google = ({handleErrorAlert}: Props) => {
 				const preparedInfo = prepareUserRawUserInfo(decodedResponse);
 				handleUserLogin(preparedInfo);
 				handleUser(preparedInfo, UserSingUpAndLogin.USER_LOGIN_IN);
+				handleRightDrawer();
 			} else {
 				handleErrorAlert();
 				googleLogout();
@@ -46,7 +47,6 @@ export const Google = ({handleErrorAlert}: Props) => {
 
 	const handleLoginUser = (credentialResponse: CredentialResponse) => {
 		void userLogin(credentialResponse);
-		handleRightDrawer();
 	};
 
 	return (
