@@ -4,7 +4,7 @@ import {LoggedFromPlatform} from '../state/action-types';
 
 export const data = [
 	{
-		id: 1,
+		id: 7726100,
 		name: 'Arinka',
 		category: 'burger',
 		image:
@@ -12,16 +12,16 @@ export const data = [
 		price: '$$$$$',
 	},
 	{
-		id: 2,
+		id: 7210616,
 		name: 'Uri',
 		category: 'burger',
 		image:
-			'https://images.pexels.com/photos/7725966/pexels-photo-7725966.jpeg?auto=compress&cs=tinysrgb&h=350',
+			'https://images.pexels.com/photos/7210616/pexels-photo-7210616.jpeg?auto=compress&cs=tinysrgb&h=350',
 
 		price: '$',
 	},
 	{
-		id: 3,
+		id: 7210487,
 		name: 'Kyra',
 		category: 'burger',
 		image:
@@ -30,7 +30,7 @@ export const data = [
 		price: '$$',
 	},
 	{
-		id: 4,
+		id: 8498519,
 		name: 'Ruja',
 		category: 'burger',
 		image:
@@ -39,7 +39,7 @@ export const data = [
 		price: '$$$',
 	},
 	{
-		id: 5,
+		id: 7725618,
 		name: 'Stitch',
 		category: 'pizza',
 		image:
@@ -48,7 +48,7 @@ export const data = [
 		price: '$$',
 	},
 	{
-		id: 6,
+		id: 933498,
 		name: 'Yuna',
 		category: 'pizza',
 		image:
@@ -57,7 +57,7 @@ export const data = [
 		price: '$$$',
 	},
 	{
-		id: 7,
+		id: 10875180,
 		name: 'Luke',
 		category: 'pizza',
 		image: 'https://images.pexels.com/photos/10875180/pexels-photo-10875180.jpeg?auto=compress&cs=tinysrgb&h=350',
@@ -65,7 +65,7 @@ export const data = [
 		price: '$$$$$',
 	},
 	{
-		id: 8,
+		id: 11274114,
 		name: 'Drugi',
 		category: 'pizza',
 		image: 'https://images.pexels.com/photos/11274114/pexels-photo-11274114.jpeg?auto=compress&cs=tinysrgb&h=350',
@@ -73,7 +73,7 @@ export const data = [
 		price: '$',
 	},
 	{
-		id: 9,
+		id: 10429084,
 		name: 'Kale',
 		category: 'salad',
 		image: 'https://images.pexels.com/photos/10429084/pexels-photo-10429084.jpeg?auto=compress&cs=tinysrgb&h=350',
@@ -81,7 +81,7 @@ export const data = [
 		price: '$$',
 	},
 	{
-		id: 10,
+		id: 7726294,
 		name: 'Ceasar',
 		category: 'salad',
 		image: 'https://images.pexels.com/photos/7726294/pexels-photo-7726294.jpeg?auto=compress&cs=tinysrgb&h=350',
@@ -89,16 +89,16 @@ export const data = [
 		price: '$$$',
 	},
 	{
-		id: 11,
+		id: 8499451,
 		name: 'Emmy',
 		category: 'salad',
 		image:
-			'https://images.pexels.com/photos/7726100/pexels-photo-7726100.jpeg?auto=compress&cs=tinysrgb&h=350',
+			'https://images.pexels.com/photos/8499451/pexels-photo-8499451.jpeg?auto=compress&cs=tinysrgb&h=350',
 
 		price: '$$$$$',
 	},
 	{
-		id: 12,
+		id: 10632673,
 		name: 'Odgar',
 		category: 'salad',
 		image:
@@ -107,7 +107,7 @@ export const data = [
 		price: '$$$$',
 	},
 	{
-		id: 13,
+		id: 7725966,
 		name: 'Wings',
 		category: 'chicken',
 		image:
@@ -116,24 +116,24 @@ export const data = [
 		price: '$$',
 	},
 	{
-		id: 14,
+		id: 6490022,
 		name: 'Ivy',
 		category: 'chicken',
-		image: 'https://images.pexels.com/photos/11274114/pexels-photo-11274114.jpeg?auto=compress&cs=tinysrgb&h=350',
+		image: 'https://images.pexels.com/photos/6490022/pexels-photo-6490022.jpeg?auto=compress&cs=tinysrgb&h=350',
 
 		price: '$$$$$',
 	},
 	{
-		id: 15,
+		id: 6547837,
 		name: 'Bucky',
 		category: 'chicken',
 		image:
-			'https://images.pexels.com/photos/7725618/pexels-photo-7725618.jpeg?auto=compress&cs=tinysrgb&h=350',
+			'https://images.pexels.com/photos/6547837/pexels-photo-6547837.jpeg?auto=compress&cs=tinysrgb&h=350',
 
 		price: '$',
 	},
 	{
-		id: 16,
+		id: 38008,
 		name: 'Kabob',
 		category: 'chicken',
 		image:
@@ -202,7 +202,7 @@ export const defaultAvailablePets: Photo[] = [
 		alt: '',
 		avg_color: '',
 		height: 2020,
-		id: 121,
+		id: 5256708,
 		liked: false,
 		photographer: 'Enrique',
 		width: 2020,
@@ -224,7 +224,7 @@ export const defaultAvailablePets: Photo[] = [
 		alt: '',
 		avg_color: '',
 		height: 2020,
-		id: 122,
+		id: 45201,
 		liked: false,
 		photographer: 'Lucia',
 		width: 2020,
@@ -246,7 +246,7 @@ export const defaultAvailablePets: Photo[] = [
 		alt: '',
 		avg_color: '',
 		height: 2020,
-		id: 123,
+		id: 3828097,
 		liked: false,
 		photographer: 'Juan',
 		width: 2020,

@@ -7,14 +7,14 @@ import {NotFoundPage} from '../NotFoundPage';
 import {PetPageLayout} from '../layoutPages/PetPageLayout';
 import {PrivateRoutes} from '../PrivateRoutes';
 import {Register, userLoader} from '../Register';
-import {PetDetails, petDetailsLoader} from '../layoutPages/PetDetails';
+import {PetDetails} from '../layoutPages/PetDetails';
 
 export const routerElements = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<MainPageLayout />} errorElement={<ErrorPage />}>
 			<Route index element={<HomePage />} />
 			<Route path='pet' element={<PetPageLayout />}>
-				<Route path=':id' element={<PetDetails />} loader={petDetailsLoader} />
+				<Route path=':id' element={<PetDetails />} />
 			</Route>
 			<Route path='register' element={<PrivateRoutes />} >
 				<Route index element={<Register />} loader={userLoader} />

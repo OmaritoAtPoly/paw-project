@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@greatsumini/react-facebook-login": "^3.3.0",
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
@@ -47,7 +48,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start-json": "json-server -p 4000 -w src/data/MockDataFile.json"
   },
   "eslintConfig": {
     "extends": [
