@@ -96,7 +96,7 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<div className="mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white">
+		<div className="mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white border border-red-500">
 			{/* left side */}
 			<div className="flex items-center w-[80px] md:w-[25vw]">
 				<AiOutlineMenu

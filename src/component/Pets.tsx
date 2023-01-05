@@ -4,17 +4,14 @@ import {type Photo} from 'pexels';
 import React, {useEffect, useState} from 'react';
 import {AiOutlineStar} from 'react-icons/ai';
 import {useSelector} from 'react-redux';
+import {NavLink} from 'react-router-dom';
 import {data, type DataType} from '../data/data';
 import {type RootState} from '../state';
 import {Spinner} from './Spinner';
 
 const Food = () => {
 	const [pics, setPics] = useState<DataType[]>();
-	const [starColor, setStarColor] = useState<boolean>(false);
-
-	const {photos, loading} = useSelector(
-		(state: RootState) => state.photos,
-	);
+	const {photos, loading} = useSelector((state: RootState) => state.photos);
 
 	useEffect(() => {
 		if (data) setPics(data);
@@ -32,10 +29,6 @@ const Food = () => {
 	const handlePrices = (price: string) => () => {
 		const filteredCategory = data.filter((ele: DataType) => ele.price === price);
 		setPics(filteredCategory);
-	};
-
-	const handleStarColor = () => {
-		setStarColor(!starColor);
 	};
 
 	return (
@@ -75,27 +68,36 @@ const Food = () => {
 				{photos.length > 0
 					? photos.map((element: Photo) => {
 						return (
-							<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
+							<NavLink
+								to={`pet/${element.id}`}
+								state={{petPicUrl: `${element.src.original}`}}
+								key={element.id}
+								className="border shadow-lg hover:scale-105 duration-200 rounded-lg"
+							>
 								<img src={element.src.large} alt={element.alt ?? '/'} className="w-full h-[300px] object-cover" />
 								<div className='flex justify-between px-2 py-4 bg-blue-400'>
 									<p className='font-bold'>{element.alt}</p>
 									<Rating value={3} style={{maxWidth: 100}} readOnly items={5} />
 								</div>
-							</div>
+							</NavLink>
 						);
 					})
 					: pics?.map((element: DataType) => {
 						return (
-							<div key={element.id} className="border shadow-lg hover:scale-105 duration-200 rounded-lg" onClick={handleStarColor} onKeyUp={() => { }} role='button' tabIndex={0} aria-label='hidden text'>
+							<NavLink
+								to={`pet/${element.id}`}
+								state={{petPicUrl: `${element.image}`}}
+								key={element.id}
+								className="border shadow-lg hover:scale-105 duration-200 rounded-lg"
+							>
 								<img src={element.image} alt={element.name} className="w-full h-[300px] object-cover" />
 								<div className='flex justify-between px-2 py-4 bg-blue-400'>
 									<p className='font-bold'>{element.name}</p>
 									<Rating value={element.price.length} style={{maxWidth: 100}} readOnly items={5} />
 								</div>
-							</div>
+							</NavLink>
 						);
-					})
-				}
+					})}
 			</div>
 		</div>
 	);
