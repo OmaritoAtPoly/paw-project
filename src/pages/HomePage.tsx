@@ -4,7 +4,7 @@ import HeadLinesCards from '../component/HeadLinesCards';
 import Hero from '../component/Hero';
 import Pets from '../component/Pets';
 
-export const MainPage = () => (
+export const HomePage = () => (
 	<>
 		<Hero />
 		<HeadLinesCards />
