@@ -3,6 +3,7 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
+import {NavLink} from 'react-router-dom';
 import {
 	defaultUser,
 	type ItemElementType,
@@ -104,9 +105,9 @@ const Navbar = () => {
 					className="cursor-pointer mx-auto md:m-0"
 				/>
 				<div className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
-					<h1 className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl ">
+					<NavLink to='/' className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl ">
 						Best <span className="font-bold">Paw</span>
-					</h1>
+					</NavLink>
 
 					<div className="hidden bg-gray-200 lg:flex items-center rounded-full p-1 text-[14px]">
 						<p className="bg-black rounded-full text-white p-2">Delivery</p>

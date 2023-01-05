@@ -41,6 +41,7 @@ const HeadLinesCards = () => {
 								cardLabel={element.photographer.split(' ')[0]}
 								imgUrl={element.src.original}
 								info={READ_MY_HISTORY}
+								elementId={element.id.toString()}
 							/>
 						))}
 					</div>
