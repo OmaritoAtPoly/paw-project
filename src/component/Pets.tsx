@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Rating} from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 import {type Photo} from 'pexels';
@@ -12,8 +11,6 @@ import {Spinner} from './Spinner';
 
 const Food = () => {
 	const [pics, setPics] = useState<DataType[]>();
-	const [starColor, setStarColor] = useState<boolean>(false);
-
 	const {photos, loading} = useSelector((state: RootState) => state.photos);
 
 	useEffect(() => {
@@ -32,10 +29,6 @@ const Food = () => {
 	const handlePrices = (price: string) => () => {
 		const filteredCategory = data.filter((ele: DataType) => ele.price === price);
 		setPics(filteredCategory);
-	};
-
-	const handleStarColor = () => {
-		setStarColor(!starColor);
 	};
 
 	return (
