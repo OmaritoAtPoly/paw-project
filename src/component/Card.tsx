@@ -7,9 +7,10 @@ type CardProps = {
 	buttonLabel: string;
 	imgUrl: string;
 	elementId: string;
+	petName: string;
 };
 
-const Card = ({cardLabel, info, buttonLabel, imgUrl, elementId}: CardProps) => (
+const Card = ({cardLabel, info, buttonLabel, imgUrl, elementId, petName}: CardProps) => (
 	<div className='rounded-xl relative w-full'>
 		{/* overlay */}
 		<div className='absolute w-full h-full bg-black/30 rounded-xl text-white'>
@@ -18,7 +19,7 @@ const Card = ({cardLabel, info, buttonLabel, imgUrl, elementId}: CardProps) => (
 				<p className='text-center pt-1 text-[4vw] sm:text-[2.5vw] md:text-[1.8vw]'>{info}</p>
 				<NavLink
 					to={`pet/${elementId}`}
-					state={{petPicUrl: `${imgUrl}`}}
+					state={{petPicUrl: `${imgUrl}`, petName}}
 					className='border-white bg-white text-center text-black bottom-4 rounded-xl font-bold h-[35px] w-32 text-[15px] sm:w-40 sm:text-[2.8vw] md:text-[2.2vw] md:w-44 lg:text-[20px] lg:w-156px'>{buttonLabel}</NavLink>
 			</div>
 		</div>
