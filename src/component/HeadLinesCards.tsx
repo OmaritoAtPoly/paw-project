@@ -42,6 +42,7 @@ const HeadLinesCards = () => {
 								imgUrl={element.src.original}
 								info={READ_MY_HISTORY}
 								elementId={element.id.toString()}
+								petName={element.photographer}
 							/>
 						))}
 					</div>

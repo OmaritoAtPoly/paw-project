@@ -148,7 +148,9 @@ const Navbar = () => {
 					onClick={handleNavState}
 				/>
 				<h2 className="text-2xl p-4">
-					Best <span className="font-bold">Paw</span> Home
+					<NavLink to='/' onClick={handleNavState}>
+						Best <span className="font-bold">Paw</span> Home
+					</NavLink>
 				</h2>
 				<nav>
 					<ul className="flex flex-col p-4">

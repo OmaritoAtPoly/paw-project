@@ -70,7 +70,7 @@ const Food = () => {
 						return (
 							<NavLink
 								to={`pet/${element.id}`}
-								state={{petPicUrl: `${element.src.original}`}}
+								state={{petPicUrl: `${element.src.original}`, petName: `${element.photographer}`}}
 								key={element.id}
 								className="border shadow-lg hover:scale-105 duration-200 rounded-lg"
 							>
@@ -86,7 +86,7 @@ const Food = () => {
 						return (
 							<NavLink
 								to={`pet/${element.id}`}
-								state={{petPicUrl: `${element.image}`}}
+								state={{petPicUrl: `${element.image}`, petName: `${element.name}`}}
 								key={element.id}
 								className="border shadow-lg hover:scale-105 duration-200 rounded-lg"
 							>
