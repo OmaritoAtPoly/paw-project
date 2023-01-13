@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ContactSection = ({handleCallFunction, sendEmail}: Props) => (
-	<div className="bg-white w-[70vw] mt-20 drop-shadow-2xl rounded-xl flex flex-col items-center md:w-[50vw] xl:w-[22vw]">
+	<div className="bg-white mx-auto w-[70vw] mt-20 drop-shadow-xl rounded-xl flex flex-col items-center md:w-[50vw] xl:w-[22vw]">
 		<div className="mx-auto bg-primary/40 rounded-full w-20 h-20 flex items-center justify-center ring-offset-2 ring-2 -translate-y-[50%] z-10">
 			<img src="animal-shelter.png" alt="logo" width={50} height={50} />
 		</div>
@@ -28,7 +28,7 @@ export const ContactSection = ({handleCallFunction, sendEmail}: Props) => (
 				</div>
 			</PetWrapper>
 			<PetWrapper
-				className="border-y-[1px] border-slate-500 flex items-center py-3 my-2 hover:cursor-pointer  justify-between w-[140px] sm:w-full md:w-[130px]"
+				className="border-y-[1px] border-slate-500 flex items-center py-3 my-2 hover:cursor-pointer justify-between w-[140px] sm:w-full md:w-[130px] lg:border-white xl:border-slate-500"
 				onClick={sendEmail}
 			>
 				<SiThunderbird />
