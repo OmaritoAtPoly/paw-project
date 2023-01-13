@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const AboutPet = ({id = 'imageAlt', imgUrl}: Props) =>
-	<div className="w-[70vw] flex flex-col justify-start drop-shadow-2xl mb-3 md:ml-[5vw] md:w-[60vw] lg:w-[400px]">
+	<div className="w-[70vw] flex flex-col justify-start drop-shadow-xl mb-3 md:ml-[5vw] md:w-[60vw] lg:w-[400px]">
 		<Rating
 			className="mx-auto translate-y-[200%] z-10"
 			value={3}

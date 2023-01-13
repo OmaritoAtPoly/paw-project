@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const ConsideringToAdopt = ({petName}: Props) => (
-	<div className="border border-red-700 mt-7 bg-purple-500 text-white text-xl flex flex-col items-center justify-around h-[250px] rounded-xl  mx-auto">
+	<div className="border border-red-700 mt-7 bg-purple-500 text-white text-xl flex flex-col items-center justify-around h-[250px] rounded-xl mx-auto xl:w-[22vw]">
 		<p className="text-center font-semibold">
 			Considering {petName} for adoption_?
 		</p>

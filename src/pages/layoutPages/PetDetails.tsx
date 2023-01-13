@@ -39,7 +39,7 @@ export const PetDetails = () => {
 			<AboutPet id={id} imgUrl={imgUrl} />
 			{/* pet info section */}
 			<div className="w-[350px] h-fit flex flex-col justify-between md:w-[50vw] md:ml-10 xl:w-[42vw] xl:ml-3 items-center">
-				<div className="w-[350px] h-fit rounded-lg drop-shadow-xl mx-auto md:mx-0 md:w-[90%]">
+				<div className="w-[350px] h-fit rounded-lg drop-shadow-lg mx-auto md:mx-0 md:w-[90%]">
 					<p className="text-center text-4xl pb-4 md:text-left">{petName}</p>
 					<BreadCrumbs elements={['Young', 'Male', 'Medium', 'Black & White']} />
 				</div>
@@ -81,8 +81,8 @@ export const PetDetails = () => {
 					/>
 				</div>
 			</div>
-			<div className="hidden xl:flex xl:flex-col mx-auto">
-				<div className="hidden w-[22vw] mx-auto xl:inline-block  2xl:w-[26vw]">
+			<div className="hidden xl:flex xl:flex-col">
+				<div className="hidden drop-shadow-xl w-[22vw] xl:inline-block  2xl:w-[26vw]">
 					<ConsideringToAdopt petName={petName} />
 				</div>
 
