@@ -25,6 +25,7 @@ export const Google = ({handleErrorAlert}: Props) => {
 		family_name: response.family_name,
 		userLogged: true,
 		loggedFrom: LoggedFromPlatform.GOOGLE,
+		rol: 'guest',
 	});
 
 	const userLogin = async (response: CredentialResponse) => {

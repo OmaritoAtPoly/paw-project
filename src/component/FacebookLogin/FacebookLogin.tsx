@@ -25,6 +25,7 @@ export const Facebook = ({handleErrorAlert}: Props) => {
 		family_name: response.name?.split(' ')[1] || '',
 		userLogged: true,
 		loggedFrom: LoggedFromPlatform.FACEBOOK,
+		rol: 'guest',
 	});
 
 	const handleFaceBookLogin = useCallback(async (response: ProfileSuccessResponse) => {

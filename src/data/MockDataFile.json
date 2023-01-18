@@ -8,7 +8,8 @@
       "given_name": "",
       "family_name": "",
       "loggedFrom": "facebook",
-      "password": "111"
+      "password": "111",
+      "rol": "admin"
     },
     {
       "userId": "2",
@@ -51,6 +52,14 @@
       "password": "vuVhFMUHN",
       "picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?as…5&height=50&width=50&ext=1675352030&hash=AeTu_rQK2bJrGX0iAbg",
       "userId": "296748080674-e2ban20nukrii4pu18rhv1nabtjgvcr3.apps.googleusercontent.com"
+    }
+  ],
+  "physicAspects": [
+    {
+      "tailSize": ["Short tail", "Medium tail", "Large tail"],
+      "training": ["not trained", "almost trained", "full trained diploma"],
+      "medicalRecord": ["Rage", "Tick", "fleas"],
+      "socialSkill": ["friendly", "Lonely", "Scary"]
     }
   ]
 }

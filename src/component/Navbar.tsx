@@ -3,7 +3,8 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
-import {NavLink} from 'react-router-dom';
+import {GrUserAdmin} from 'react-icons/gr';
+import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {
 	defaultUser,
 	type ItemElementType,
@@ -30,9 +31,12 @@ const Navbar = () => {
 		family_name,
 		loggedFrom,
 		password,
+		rol,
 	} = useTypedSelector((state) => state.currentUser);
 
 	const {handleRightDrawer, handleUser} = useActions();
+	const {pathname} = useLocation();
+	const navigate = useNavigate();
 
 	const Logout = useCallback(() => {
 		handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
@@ -42,7 +46,8 @@ const Navbar = () => {
 		if (window.FB && loggedFrom === LoggedFromPlatform.FACEBOOK)
 			window.FB.logout(() => { });
 		if (loggedFrom === LoggedFromPlatform.GOOGLE) googleLogout();
-	}, [handleUser, loggedFrom]);
+		navigate('/');
+	}, [handleUser, loggedFrom, navigate]);
 	const transformedValue = useGetCurrentUser();
 
 	const currentUserValues = useCallback(() => {
@@ -56,9 +61,10 @@ const Navbar = () => {
 			family_name: family_name || transformedValue.family_name,
 			loggedFrom: loggedFrom || transformedValue.loggedFrom,
 			password: password || transformedValue.password,
+			rol: rol || transformedValue.rol,
 		});
 
-	}, [name, transformedValue.name, transformedValue.picture, transformedValue.userId, transformedValue.email, transformedValue.userLogged, transformedValue.given_name, transformedValue.family_name, transformedValue.loggedFrom, transformedValue.password, picture, userId, email, userLogged, given_name, family_name, loggedFrom, password]);
+	}, [name, transformedValue.name, transformedValue.picture, transformedValue.userId, transformedValue.email, transformedValue.userLogged, transformedValue.given_name, transformedValue.family_name, transformedValue.loggedFrom, transformedValue.password, transformedValue.rol, picture, userId, email, userLogged, given_name, family_name, loggedFrom, password, rol]);
 
 	useEffect(() => {
 		if (!transformedValue.email) return;
@@ -105,7 +111,10 @@ const Navbar = () => {
 					className="cursor-pointer mx-auto md:m-0"
 				/>
 				<div className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
-					<NavLink to='/' className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl ">
+					<NavLink
+						to="/"
+						className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl "
+					>
 						Best <span className="font-bold">Paw</span>
 					</NavLink>
 
@@ -148,12 +157,16 @@ const Navbar = () => {
 					onClick={handleNavState}
 				/>
 				<h2 className="text-2xl p-4">
-					<NavLink to='/' onClick={handleNavState}>
+					<NavLink to="/" onClick={handleNavState}>
 						Best <span className="font-bold">Paw</span> Home
 					</NavLink>
 				</h2>
 				<nav>
 					<ul className="flex flex-col p-4">
+						{(currentUser.rol === 'admin' && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
+							<GrUserAdmin size={25} className="mr-4" />
+							<NavLink to='dashBoard' onClick={handleNavState}>DashBoard</NavLink>
+						</li>}
 						<li className="text-xl py-4 flex">
 							<TbTruckDelivery size={25} className="mr-4" />
 							Orders

@@ -5,9 +5,9 @@ import {HomePage} from '../HomePage';
 import {MainPageLayout} from '../layoutPages/MainPageLayout';
 import {NotFoundPage} from '../NotFoundPage';
 import {PetPageLayout} from '../layoutPages/PetPageLayout';
-import {PrivateRoutes} from '../PrivateRoutes';
-import {Register, userLoader} from '../Register';
 import {PetDetails} from '../layoutPages/PetDetails';
+import {DashboardPage, petDetailsLoader} from '../DashboardPage';
+import {PrivateRoutes} from '../PrivateRoutes';
 
 export const routerElements = createBrowserRouter(
 	createRoutesFromElements(
@@ -16,8 +16,8 @@ export const routerElements = createBrowserRouter(
 			<Route path='pet' element={<PetPageLayout />}>
 				<Route path=':id' element={<PetDetails />} />
 			</Route>
-			<Route path='register' element={<PrivateRoutes />} >
-				<Route index element={<Register />} loader={userLoader} />
+			<Route element={<PrivateRoutes />} >
+				<Route path='dashboard' element={<DashboardPage />} loader={petDetailsLoader} />
 			</Route>
 			<Route path='*' element={<NotFoundPage />} />
 		</Route>,

@@ -276,6 +276,7 @@ export const defaultUser = {
 	family_name: '',
 	userLogged: false,
 	loggedFrom: LoggedFromPlatform.FACEBOOK || LoggedFromPlatform.GOOGLE || LoggedFromPlatform.WEB,
+	rol: '',
 };
 
 export type UserDataType = typeof defaultUser;
@@ -298,3 +299,17 @@ export const itemMenu: ItemElementType[] = [
 
 	},
 ];
+
+export const petData = {
+	name: '',
+	about: '',
+	rescuePlace: '',
+	details: [''],
+	rescueDate: new Date(),
+	tailDetails: '',
+	socialSkills: '',
+	training: '',
+	medicalRecord: [''],
+};
+
+export type PetDataType = typeof petData;
