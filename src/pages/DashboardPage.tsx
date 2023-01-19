@@ -8,15 +8,8 @@ import {RxThickArrowRight} from 'react-icons/rx';
 import Select, {type SingleValue, type MultiValue} from 'react-select';
 import axios, {type AxiosResponse} from 'axios';
 import {useLoaderData} from 'react-router-dom';
-import {type PetDataType} from '../data/data';
-
-const options = [
-	{value: 'xshort', label: 'xShort'},
-	{value: 'xmiddle', label: 'xMiddle'},
-	{value: 'xlong', label: 'xLong'},
-];
-
-type SelectOptionType = typeof options;
+import shortid from 'shortid';
+import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
 
 const SignInSchema = yup.object().shape({
 	name: yup.string().required('Required'),
@@ -24,25 +17,30 @@ const SignInSchema = yup.object().shape({
 	rescuePlace: yup.string().required('Required'),
 	tailDetails: yup.string().required('Required'),
 });
+
 //TODO FALTA VALIDAR LOS CAMPOS
 export const DashboardPage = () => {
+
+	const handleSubmitValue = async (value: PetDataType) => {
+		try {
+			// const respose: AxiosResponse<PetDataType> = await axios.post( //TODO USE THIS RESPONSE FOR ANY WAY TO SHOW THE INSERTED DATA
+			await axios.post(
+				'http://localhost:4000/petDetails',
+				{id: shortid, ...value},
+			);
+
+		} catch (error) {
+			if (error instanceof Error) {
+				console.log('there is an error here: => ', error);
+			}
+		}
+	};
+
 	const {handleSubmit, values, handleChange, errors, touched, setFieldValue} =
 		useFormik({
-			initialValues: {
-				name: '',
-				about: '',
-				rescuePlace: '',
-				details: [''],
-				rescueDate: new Date(),
-				tailDetails: '',
-				socialSkills: '',
-				training: '',
-				medicalRecord: [''],
-			},
-
-			onSubmit: (formValues: PetDataType, actions) => {
-				// onSubmit(formValues);
-				console.log(formValues);
+			initialValues: petDefaultData,
+			onSubmit: async (formValues: PetDataType, actions) => {
+				await handleSubmitValue(formValues);
 				actions.resetForm();
 			},
 			validationSchema: SignInSchema,
@@ -60,7 +58,6 @@ export const DashboardPage = () => {
 
 	const handlePetDetails = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const result = event.target.value.split(',');
-
 		await setFieldValue('details', result);
 	};
 
@@ -113,14 +110,14 @@ export const DashboardPage = () => {
 				className=" mt-5 w-full flex flex-col items-center justify-between h-full"
 			>
 				{/* {showErrorAlert
-					? (
-						<div className="w-full flex justify-center">
-							<CardAlert
-								cardInfo="errors.name"
-								handleOnClose={handleErrorAlert}
-							/>
-						</div>
-					) : ( */}
+          ? (
+            <div className="w-full flex justify-center">
+              <CardAlert
+                cardInfo="errors.name"
+                handleOnClose={handleErrorAlert}
+              />
+            </div>
+          ) : ( */}
 				<div className='lg:flex flex-row  lg:w-full lg:items-center lg:justify-evenly'>
 					<label htmlFor="name" className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Pet&lsquo;s name</p>

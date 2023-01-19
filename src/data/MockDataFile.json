@@ -61,5 +61,6 @@
       "medicalRecord": ["Rage", "Tick", "fleas"],
       "socialSkill": ["friendly", "Lonely", "Scary"]
     }
-  ]
+  ],
+  "petDetails": []
 }

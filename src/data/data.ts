@@ -300,7 +300,7 @@ export const itemMenu: ItemElementType[] = [
 	},
 ];
 
-export const petData = {
+export const petDefaultData = {
 	name: '',
 	about: '',
 	rescuePlace: '',
@@ -312,4 +312,10 @@ export const petData = {
 	medicalRecord: [''],
 };
 
-export type PetDataType = typeof petData;
+export type PetDataType = typeof petDefaultData;
+
+const options = [
+	{value: '', label: ''},
+];
+
+export type SelectOptionType = typeof options;
