@@ -23,7 +23,6 @@ const SignInSchema = yup.object().shape({
 
 });
 
-//TODO FALTA VALIDAR LOS CAMPOS
 export const DashboardPage = () => {
 	const navigate = useNavigate();
 	const handleSubmitValue = async (value: PetDataType) => {
@@ -141,7 +140,6 @@ export const DashboardPage = () => {
 					</div>
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">About my Pet</p>
-
 						<textarea
 							id="about"
 							name="about"
@@ -154,7 +152,6 @@ export const DashboardPage = () => {
 							<div className="text-red-500">{errors.about}</div>
 						) : null}
 					</div>
-
 				</div>
 				<div className={`${commonItemStyles} md:flex md:flex-row md:w-[80vw] md:items-center md:justify-evenly drop-shadow-xl rounded-xl`}>
 					<div>
