@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {useFormik} from 'formik';
 import {format} from 'date-fns';
 import {DayPicker} from 'react-day-picker';
@@ -10,6 +10,7 @@ import axios, {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate} from 'react-router-dom';
 import {generate} from 'shortid';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
+import {useGetCurrentUser} from '../utils/hooks/getCurrentUser';
 
 const SignInSchema = yup.object().shape({
 	name: yup.string().required('Required'),
@@ -20,11 +21,12 @@ const SignInSchema = yup.object().shape({
 	training: yup.string().required('Required'),
 	medicalRecord: yup.array().min(1).required('qqqq'),
 	socialSkills: yup.string().required('Required'),
-
 });
 
 export const DashboardPage = () => {
 	const navigate = useNavigate();
+	const {rol} = useGetCurrentUser();
+
 	const handleSubmitValue = async (value: PetDataType) => {
 		try {
 			const response: AxiosResponse<PetDataType> = await axios.post(
@@ -103,6 +105,10 @@ export const DashboardPage = () => {
 		const value = newValue.map(a => a.label);
 		await setFieldValue(target, value);
 	}, [setFieldValue]);
+
+	useEffect(() => {
+		if (rol !== 'admin') navigate('/');
+	}, [navigate, rol]);
 
 	return (
 		<>

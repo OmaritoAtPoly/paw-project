@@ -25,7 +25,7 @@ export const Facebook = ({handleErrorAlert}: Props) => {
 		family_name: response.name?.split(' ')[1] || '',
 		userLogged: true,
 		loggedFrom: LoggedFromPlatform.FACEBOOK,
-		rol: 'guest',
+		rol: '',
 	});
 
 	const handleFaceBookLogin = useCallback(async (response: ProfileSuccessResponse) => {
@@ -34,8 +34,8 @@ export const Facebook = ({handleErrorAlert}: Props) => {
 
 		if (existingUser && existingUser.length > 0) {
 			handleRightDrawer();
-			handleUser(preparedUser, UserSingUpAndLogin.USER_LOGIN_IN);
-			handleUserLogin(preparedUser);
+			handleUser({...preparedUser, rol: existingUser[0].rol}, UserSingUpAndLogin.USER_LOGIN_IN);
+			handleUserLogin({...preparedUser, rol: existingUser[0].rol});
 		} else {
 			handleErrorAlert();
 			window.FB.logout(() => { });

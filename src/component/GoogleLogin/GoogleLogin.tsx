@@ -25,7 +25,7 @@ export const Google = ({handleErrorAlert}: Props) => {
 		family_name: response.family_name,
 		userLogged: true,
 		loggedFrom: LoggedFromPlatform.GOOGLE,
-		rol: 'guest',
+		rol: '',
 	});
 
 	const userLogin = async (response: CredentialResponse) => {
@@ -36,8 +36,8 @@ export const Google = ({handleErrorAlert}: Props) => {
 
 			if (existingUser && existingUser.length > 0) {
 				const preparedInfo = prepareUserRawUserInfo(decodedResponse);
-				handleUserLogin(preparedInfo);
-				handleUser(preparedInfo, UserSingUpAndLogin.USER_LOGIN_IN);
+				handleUserLogin({...preparedInfo, rol: existingUser[0].rol});
+				handleUser({...preparedInfo, rol: existingUser[0].rol}, UserSingUpAndLogin.USER_LOGIN_IN);
 				handleRightDrawer();
 			} else {
 				handleErrorAlert();
