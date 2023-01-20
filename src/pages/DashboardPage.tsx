@@ -7,8 +7,8 @@ import * as yup from 'yup';
 import {RxThickArrowRight} from 'react-icons/rx';
 import Select, {type SingleValue, type MultiValue} from 'react-select';
 import axios, {type AxiosResponse} from 'axios';
-import {useLoaderData} from 'react-router-dom';
-import shortid from 'shortid';
+import {useLoaderData, useNavigate} from 'react-router-dom';
+import {generate} from 'shortid';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
 
 const SignInSchema = yup.object().shape({
@@ -16,18 +16,24 @@ const SignInSchema = yup.object().shape({
 	about: yup.string().required('Required'),
 	rescuePlace: yup.string().required('Required'),
 	tailDetails: yup.string().required('Required'),
+	details: yup.array().min(1).required('Required'),
+	training: yup.string().required('Required'),
+	medicalRecord: yup.array().min(1).required('qqqq'),
+	socialSkills: yup.string().required('Required'),
+
 });
 
 //TODO FALTA VALIDAR LOS CAMPOS
 export const DashboardPage = () => {
-
+	const navigate = useNavigate();
 	const handleSubmitValue = async (value: PetDataType) => {
 		try {
-			// const respose: AxiosResponse<PetDataType> = await axios.post( //TODO USE THIS RESPONSE FOR ANY WAY TO SHOW THE INSERTED DATA
-			await axios.post(
+			const response: AxiosResponse<PetDataType> = await axios.post(
 				'http://localhost:4000/petDetails',
-				{id: shortid, ...value},
+				{id: generate(), ...value},
 			);
+
+			if (response.status >= 200 && response.status < 300) navigate('/');
 
 		} catch (error) {
 			if (error instanceof Error) {
@@ -53,7 +59,7 @@ export const DashboardPage = () => {
 	let footer = <p>Please pick a day.</p>;
 
 	if (values.rescueDate) {
-		footer = <p>You picked {format(values.rescueDate, 'PP')}.</p>;
+		footer = <p className='text-center'>You picked {format(values.rescueDate, 'PP')}.</p>;
 	}
 
 	const handlePetDetails = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,8 +67,7 @@ export const DashboardPage = () => {
 		await setFieldValue('details', result);
 	};
 
-
-	const commonItemStyles = 'my-4';
+	const commonItemStyles = 'my-9';
 
 	const petPhysicDetails = useLoaderData() as Array<{
 		tailSize: string[];
@@ -118,8 +123,8 @@ export const DashboardPage = () => {
               />
             </div>
           ) : ( */}
-				<div className='lg:flex flex-row  lg:w-full lg:items-center lg:justify-evenly'>
-					<label htmlFor="name" className={`${commonItemStyles}`}>
+				<div className='lg:flex flex-row lg:w-full lg:items-center lg:justify-evenly drop-shadow-xl rounded-xl'>
+					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Pet&lsquo;s name</p>
 						<input
 							id="name"
@@ -133,9 +138,9 @@ export const DashboardPage = () => {
 						{errors.name && touched.name ? (
 							<div className="text-red-500">{errors.name}</div>
 						) : null}
-					</label>
-					<label htmlFor="about" className={`${commonItemStyles}`}>
-						<p className="text-2xl sm:text-[27px]">Pet&lsquo;s Details</p>
+					</div>
+					<div className={`${commonItemStyles}`}>
+						<p className="text-2xl sm:text-[27px]">About my Pet</p>
 
 						<textarea
 							id="about"
@@ -145,13 +150,13 @@ export const DashboardPage = () => {
 							placeholder="Describe the pet's resume"
 							className="w-[50vw] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none sm:w-[300px]"
 						/>
-						{errors.name && touched.name ? (
-							<div className="text-red-500">{errors.name}</div>
+						{errors.about && touched.about ? (
+							<div className="text-red-500">{errors.about}</div>
 						) : null}
-					</label>
+					</div>
 
 				</div>
-				<div className={`${commonItemStyles} md:flex md:flex-row md:w-[80vw] md:items-center md:justify-evenly`}>
+				<div className={`${commonItemStyles} md:flex md:flex-row md:w-[80vw] md:items-center md:justify-evenly drop-shadow-xl rounded-xl`}>
 					<div>
 						<p className="text-2xl sm:text-[27px] text-center">When was found</p>
 						<DayPicker
@@ -172,13 +177,13 @@ export const DashboardPage = () => {
 							placeholder="where the pet was found"
 							className="w-[200px] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none md:w-[300px]"
 						/>
-						{errors.name && touched.name ? (
-							<div className="text-red-500">{errors.name}</div>
+						{errors.rescuePlace && touched.rescuePlace ? (
+							<div className="text-red-500">{errors.rescuePlace}</div>
 						) : null}
 					</div>
 				</div>
-				<label htmlFor="details" className={`${commonItemStyles}`}>
-					<p className="text-2xl sm:text-[27px] text-center">Write down Pet&lsquo;s features</p>
+				<div className={`${commonItemStyles} drop-shadow-xl rounded-xl`}>
+					<p className="text-2xl sm:text-[27px] text-center">Write down Pet&lsquo;s details</p>
 					<textarea
 						id="details"
 						name="details"
@@ -187,8 +192,11 @@ export const DashboardPage = () => {
 						placeholder="Describe the pet characteristics, comma separated"
 						className="w-[50vw] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none"
 					/>
-				</label>
-				<div className='md:flex md:w-full md:justify-around md:flex-wrap'>
+					{errors.details && touched.details ? (
+						<div className="text-red-500">{errors.details}</div>
+					) : null}
+				</div>
+				<div className='md:flex md:w-full md:justify-around md:flex-wrap drop-shadow-xl rounded-xl'>
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Choose large of Pet&lsquo;s tail</p>
 						<Select
@@ -197,6 +205,9 @@ export const DashboardPage = () => {
 								await handleSingleSelector(value, 'tailDetails');
 							}} className="sm:w-[300px]"
 						/>
+						{errors.tailDetails && touched.tailDetails ? (
+							<div className="text-red-500">{errors.tailDetails}</div>
+						) : null}
 					</div>
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Does have any training?</p>
@@ -207,6 +218,9 @@ export const DashboardPage = () => {
 							}}
 							className="sm:w-[300px]"
 						/>
+						{errors.training && touched.training ? (
+							<div className="text-red-500">{errors.training}</div>
+						) : null}
 					</div>
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Medical records</p>
@@ -218,6 +232,9 @@ export const DashboardPage = () => {
 							isMulti
 							className="sm:w-[300px]"
 						/>
+						{errors.medicalRecord && touched.medicalRecord ? (
+							<div className="text-red-500">{errors.medicalRecord}</div>
+						) : null}
 					</div>
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Social Skills</p>
@@ -228,6 +245,9 @@ export const DashboardPage = () => {
 							}}
 							className="sm:w-[300px]"
 						/>
+						{errors.socialSkills && touched.socialSkills ? (
+							<div className="text-red-500">{errors.socialSkills}</div>
+						) : null}
 					</div>
 				</div>
 				<button
@@ -243,7 +263,6 @@ export const DashboardPage = () => {
 };
 
 export const petDetailsLoader = async (): Promise<string> => {
-
 	let result = '';
 
 	try {

@@ -304,12 +304,12 @@ export const petDefaultData = {
 	name: '',
 	about: '',
 	rescuePlace: '',
-	details: [''],
+	details: [],
 	rescueDate: new Date(),
 	tailDetails: '',
 	socialSkills: '',
 	training: '',
-	medicalRecord: [''],
+	medicalRecord: [],
 };
 
 export type PetDataType = typeof petDefaultData;
