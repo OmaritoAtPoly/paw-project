@@ -40,7 +40,7 @@ export const RightDrawer = () => {
 		if (existingUser && existingUser.length > 0) {
 			handleRightDrawer();
 			handleUser(webUser, UserSingUpAndLogin.USER_LOGIN_IN);
-			handleUserLogin(webUser);
+			handleUserLogin({...webUser, rol: existingUser[0].rol});
 		} else handleErrorAlert();
 	};
 

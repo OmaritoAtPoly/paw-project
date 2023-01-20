@@ -14,5 +14,6 @@ export const useGetCurrentUser = (): UserDataType => {
 		picture: currentLoggedUser.picture,
 		userId: currentLoggedUser.userId,
 		userLogged: currentLoggedUser.userLogged,
+		rol: currentLoggedUser.rol,
 	};
 };
