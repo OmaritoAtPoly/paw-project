@@ -1,3 +1,4 @@
+import {type LatLngExpression} from 'leaflet';
 import {type Photo} from 'pexels';
 import {generate} from 'shortid';
 import {LoggedFromPlatform} from '../state/action-types';
@@ -300,10 +301,12 @@ export const itemMenu: ItemElementType[] = [
 	},
 ];
 
+export const defaultSofiaCoordinate: LatLngExpression = [42.698334, 23.319941];
+
 export const petDefaultData = {
 	name: '',
 	about: '',
-	rescuePlace: '',
+	rescuePlace: defaultSofiaCoordinate,
 	details: [],
 	rescueDate: new Date(),
 	tailDetails: '',
