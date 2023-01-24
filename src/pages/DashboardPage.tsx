@@ -9,13 +9,14 @@ import Select, {type SingleValue, type MultiValue} from 'react-select';
 import axios, {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate} from 'react-router-dom';
 import {generate} from 'shortid';
+import {type LatLngExpression} from 'leaflet';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
 import {useGetCurrentUser} from '../utils/hooks/getCurrentUser';
+import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 
 const SignInSchema = yup.object().shape({
 	name: yup.string().required('Required'),
 	about: yup.string().required('Required'),
-	rescuePlace: yup.string().required('Required'),
 	tailDetails: yup.string().required('Required'),
 	details: yup.array().min(1).required('Required'),
 	training: yup.string().required('Required'),
@@ -110,6 +111,10 @@ export const DashboardPage = () => {
 		if (rol !== 'admin') navigate('/');
 	}, [navigate, rol]);
 
+	const handlerMarkerPosition = useCallback(async (value: LatLngExpression) => {
+		await setFieldValue('rescuePlace', value);
+	}, [setFieldValue]);
+
 	return (
 		<>
 			<h1 className="mx-auto text-center text-[30px] md:text-[4vw] lg:text-[3vw]">
@@ -170,20 +175,7 @@ export const DashboardPage = () => {
 							className='border border-gray-300'
 						/>
 					</div>
-					<div className='flex flex-col items-center'>
-						<p className="text-2xl sm:text-[27px]">Place where the Pet was found</p>
-						<input
-							id="rescuePlace"
-							name="rescuePlace"
-							onChange={handleChange}
-							value={values.rescuePlace}
-							placeholder="where the pet was found"
-							className="w-[200px] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none md:w-[300px]"
-						/>
-						{errors.rescuePlace && touched.rescuePlace ? (
-							<div className="text-red-500">{errors.rescuePlace}</div>
-						) : null}
-					</div>
+					<MapContainerWrapper markerPosition={values.rescuePlace} handlerMarkerPosition={handlerMarkerPosition} />
 				</div>
 				<div className={`${commonItemStyles} drop-shadow-xl rounded-xl`}>
 					<p className="text-2xl sm:text-[27px] text-center">Write down Pet&lsquo;s details</p>
