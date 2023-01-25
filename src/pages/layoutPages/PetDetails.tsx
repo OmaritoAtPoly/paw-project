@@ -5,10 +5,12 @@ import {TbHeartbeat} from 'react-icons/tb';
 import {useLocation, useParams} from 'react-router-dom';
 import {AboutPetItem} from '../../component/aboutPetItem';
 import {BreadCrumbs} from '../../component/BreadCrumbs';
+import {MapContainerWrapper} from '../../component/mapComponent/MapContainerWrapper';
 import {AboutPet} from '../../component/PetDetails/AboutPet';
 import {ConsideringToAdopt} from '../../component/PetDetails/ConsideringToAdopt';
 import {ContactSection} from '../../component/PetDetails/ContactSection';
 import {MeetOurPets} from '../../component/PetDetails/MeetOurPets';
+import {defaultSofiaCoordinate} from '../../data/data';
 import {ABOUT} from '../../utils/constants';
 
 export const PetDetails = () => {
@@ -34,64 +36,70 @@ export const PetDetails = () => {
 	}, []);
 
 	return (
-		<div className=" h-fit flex flex-col items-center md:flex-row md:items-stretch">
-			{/* about section */}
-			<AboutPet id={id} imgUrl={imgUrl} />
-			{/* pet info section */}
-			<div className="w-[350px] h-fit flex flex-col justify-between md:w-[50vw] md:ml-10 xl:w-[42vw] xl:ml-3 items-center">
-				<div className="w-[350px] h-fit rounded-lg drop-shadow-lg mx-auto md:mx-0 md:w-[90%]">
-					<p className="text-center text-4xl pb-4 md:text-left">{petName}</p>
-					<BreadCrumbs elements={['Young', 'Male', 'Medium', 'Black & White']} />
-				</div>
-
+		<>
+			<div className=" h-fit flex flex-col items-center md:flex-row md:items-stretch">
 				{/* about section */}
-				<div>
-					<p className="text-4xl py-5">{ABOUT}</p>
-					<AboutPetItem className={itemWrapperStyle}>
-						<GiFoxTail className={petSkillIconStyle} color="#d5825e" />
-						<p className={petSkillTextStyle}>Short</p>
-					</AboutPetItem>
-					<AboutPetItem className={itemWrapperStyle}>
-						<GiWeightLiftingUp className={petSkillIconStyle} color="#34a9f0" />
-						<p className={petSkillTextStyle}>House-trained</p>
-					</AboutPetItem>
-					<AboutPetItem className={itemWrapperStyle}>
-						<TbHeartbeat className={petSkillIconStyle} color="#f05534" />
-						<p className={`${petSkillTextStyle} text-justify w-fit md:text-left`} >
-							Vaccinations up to date, spayed / neutered.
-						</p>
-					</AboutPetItem>
-					<AboutPetItem className={itemWrapperStyle}>
-						<HiUserGroup className={petSkillIconStyle} color="#719fe8" />
-						<p className={petSkillTextStyle}>Good with other pets</p>
-					</AboutPetItem>
-				</div>
-				{/* cuando el tamanno sea menos de xl poner una seccion aki, y esta se ocultara cuando sea mayor que xl para entonces mostrar la columna derecha */}
-				<div className="w-[70%] mx-auto xl:hidden">
-					<ConsideringToAdopt petName={petName} />
+				<AboutPet id={id} imgUrl={imgUrl} />
+				{/* pet info section */}
+				<div className="w-[350px] h-fit flex flex-col justify-between md:w-[50vw] md:ml-10 xl:w-[42vw] xl:ml-3 items-center">
+					<div className="w-[350px] h-fit rounded-lg drop-shadow-lg mx-auto md:mx-0 md:w-[90%]">
+						<p className="text-center text-4xl pb-4 md:text-left">{petName}</p>
+						<BreadCrumbs elements={['Young', 'Male', 'Medium', 'Black & White']} />
+					</div>
+
+					{/* about section */}
+					<div>
+						<p className="text-4xl py-5">{ABOUT}</p>
+						<AboutPetItem className={itemWrapperStyle}>
+							<GiFoxTail className={petSkillIconStyle} color="#d5825e" />
+							<p className={petSkillTextStyle}>Short</p>
+						</AboutPetItem>
+						<AboutPetItem className={itemWrapperStyle}>
+							<GiWeightLiftingUp className={petSkillIconStyle} color="#34a9f0" />
+							<p className={petSkillTextStyle}>House-trained</p>
+						</AboutPetItem>
+						<AboutPetItem className={itemWrapperStyle}>
+							<TbHeartbeat className={petSkillIconStyle} color="#f05534" />
+							<p className={`${petSkillTextStyle} text-justify w-fit md:text-left`} >
+								Vaccinations up to date, spayed / neutered.
+							</p>
+						</AboutPetItem>
+						<AboutPetItem className={itemWrapperStyle}>
+							<HiUserGroup className={petSkillIconStyle} color="#719fe8" />
+							<p className={petSkillTextStyle}>Good with other pets</p>
+						</AboutPetItem>
+					</div>
+					{/* cuando el tamanno sea menos de xl poner una seccion aki, y esta se ocultara cuando sea mayor que xl para entonces mostrar la columna derecha */}
+					<div className="w-[70%] mx-auto xl:hidden">
+						<ConsideringToAdopt petName={petName} />
+					</div>
+
+					{/* Meet our pet */}
+					<MeetOurPets petName={petName} />
+					{/* contact section for tiny screens */}
+					<div className="xl:hidden">
+						<ContactSection
+							sendEmail={sendEmail}
+							handleCallFunction={handleCallFunction}
+						/>
+					</div>
 				</div>
 
-				{/* Meet our pet */}
-				<MeetOurPets petName={petName} />
-				{/* contact section for tiny screens */}
-				<div className="xl:hidden">
+				<div className="hidden xl:flex xl:flex-col">
+					<div className="hidden drop-shadow-xl w-[22vw] xl:inline-block  2xl:w-[26vw]">
+						<ConsideringToAdopt petName={petName} />
+					</div>
 					<ContactSection
 						sendEmail={sendEmail}
 						handleCallFunction={handleCallFunction}
 					/>
 				</div>
 			</div>
-			<div className="hidden xl:flex xl:flex-col">
-				<div className="hidden drop-shadow-xl w-[22vw] xl:inline-block  2xl:w-[26vw]">
-					<ConsideringToAdopt petName={petName} />
-				</div>
-
-				<ContactSection
-					sendEmail={sendEmail}
-					handleCallFunction={handleCallFunction}
-				/>
+			<div className='w-[300px] mx-auto my-10 sm:w-[80vw] drop-shadow-xl'>
+				<p className="text-2xl sm:text-[27px] text-center">Place where the Pet was found</p>
+				<MapContainerWrapper markerPosition={defaultSofiaCoordinate} handlerMarkerPosition={() => { }} scrollWheelZoom={false} />
 			</div>
-		</div>
+		</>
 	);
 };
 

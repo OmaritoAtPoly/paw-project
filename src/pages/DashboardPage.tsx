@@ -13,6 +13,7 @@ import {type LatLngExpression} from 'leaflet';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
 import {useGetCurrentUser} from '../utils/hooks/getCurrentUser';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
+import {WHERE_WAS_FOUND} from '../utils/constants';
 
 const SignInSchema = yup.object().shape({
 	name: yup.string().required('Required'),
@@ -164,7 +165,7 @@ export const DashboardPage = () => {
 						) : null}
 					</div>
 				</div>
-				<div className={`${commonItemStyles} md:flex md:flex-row md:w-[80vw] md:items-center md:justify-evenly drop-shadow-xl rounded-xl`}>
+				<div className={`${commonItemStyles} md:flex md:flex-row md:w-[90vw] md:items-start md:justify-between drop-shadow-xl rounded-xl`}>
 					<div>
 						<p className="text-2xl sm:text-[27px] text-center">When was found</p>
 						<DayPicker
@@ -175,7 +176,10 @@ export const DashboardPage = () => {
 							className='border border-gray-300'
 						/>
 					</div>
-					<MapContainerWrapper markerPosition={values.rescuePlace} handlerMarkerPosition={handlerMarkerPosition} />
+					<div className='md:w-full'>
+						<p className="text-2xl sm:text-[27px] text-center">Place where the Pet was found</p>
+						<MapContainerWrapper markerPosition={values.rescuePlace} handlerMarkerPosition={handlerMarkerPosition} popUpMessage={WHERE_WAS_FOUND} />
+					</div>
 				</div>
 				<div className={`${commonItemStyles} drop-shadow-xl rounded-xl`}>
 					<p className="text-2xl sm:text-[27px] text-center">Write down Pet&lsquo;s details</p>
