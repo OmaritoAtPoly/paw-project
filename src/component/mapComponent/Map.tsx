@@ -5,9 +5,10 @@ import {Marker, Popup, useMapEvents} from 'react-leaflet';
 interface Props {
 	markerPosition: LatLngExpression;
 	handlerMarkerPosition: (value: LatLngExpression) => void;
+	popUpMessage: string;
 }
 
-export const MapComponent = ({markerPosition, handlerMarkerPosition}: Props) => {
+export const MapComponent = ({markerPosition, handlerMarkerPosition, popUpMessage}: Props) => {
 	const map = useMapEvents({
 		click: () => {
 			map.on('click', function (e) {
@@ -17,7 +18,7 @@ export const MapComponent = ({markerPosition, handlerMarkerPosition}: Props) => 
 	});
 	return markerPosition === null ? null : (
 		<Marker position={markerPosition}>
-			<Popup>is this the place where was found_?</Popup>
+			{popUpMessage && <Popup>{popUpMessage}</Popup>}
 		</Marker>
 	);
 };
