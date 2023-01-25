@@ -69,7 +69,6 @@ export const PetDetails = () => {
 							<p className={petSkillTextStyle}>Good with other pets</p>
 						</AboutPetItem>
 					</div>
-					{/* cuando el tamanno sea menos de xl poner una seccion aki, y esta se ocultara cuando sea mayor que xl para entonces mostrar la columna derecha */}
 					<div className="w-[70%] mx-auto xl:hidden">
 						<ConsideringToAdopt petName={petName} />
 					</div>
