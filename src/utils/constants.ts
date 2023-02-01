@@ -7,3 +7,4 @@ export const READ_MY_HISTORY = 'Do you want to read my history?';
 export const WRONG_CREDENTIALS = 'Your credential are not correct';
 export const ABOUT = 'About';
 export const WHERE_WAS_FOUND = 'is this the place where was found_?';
+export const SIGN_UP = 'New';
