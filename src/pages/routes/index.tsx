@@ -8,11 +8,13 @@ import {PetPageLayout} from '../layoutPages/PetPageLayout';
 import {PetDetails} from '../layoutPages/PetDetails';
 import {DashboardPage, petDetailsLoader} from '../DashboardPage';
 import {PrivateRoutes} from '../PrivateRoutes';
+import {Register} from '../Register';
 
 export const routerElements = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<MainPageLayout />} errorElement={<ErrorPage />}>
 			<Route index element={<HomePage />} />
+			<Route path='register' element={<Register />} />
 			<Route path='pet' element={<PetPageLayout />}>
 				<Route path=':id' element={<PetDetails />} />
 			</Route>

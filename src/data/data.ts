@@ -322,3 +322,12 @@ const options = [
 ];
 
 export type SelectOptionType = typeof options;
+
+const defaultUserData = {
+	name: '',
+	lastName: '',
+	email: '',
+	password: '',
+};
+
+export type DefaultUserDataType = typeof defaultUserData;
