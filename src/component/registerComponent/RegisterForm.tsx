@@ -50,8 +50,9 @@ export const RegisterForm = () => {
 		<div className='h-full flex justify-between items-center flex-col'>
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-wrap justify-center sm:justify-around sm:w-[70vw] h-full"
+				className="flex flex-wrap justify-center sm:w-[70vw] h-full"
 			>
+				{/* TODO este componente logico se cambiara cuando  el server este implementado*/}
 				{varr
 					? (
 						<div className="w-full flex justify-center">
@@ -62,7 +63,7 @@ export const RegisterForm = () => {
 						</div>
 					) : (
 						<>
-							<div className='w-fit  flex flex-col justify-center lg:w-full lg:flex-row lg:justify-between drop-shadow-xl'>
+							<div className='w-fit flex flex-col justify-center lg:w-full lg:flex-row lg:justify-between drop-shadow-xl h-fit'>
 								<label htmlFor="name">
 									<p className='my-2'>
 										Name
@@ -118,9 +119,9 @@ export const RegisterForm = () => {
 									) : null}
 								</label>
 							</div>
-							<div className=' w-full flex flex-col items-center lg:w-full lg:flex-row lg:justify-evenly drop-shadow-xl'>
+							<div className=' w-full flex flex-col items-center lg:w-full lg:flex-row lg:justify-evenly drop-shadow-xl h-fit'>
 								<label htmlFor="password">
-									<p className='my-2'>
+									<p className='my-2 lg:mt:0'>
 										Credentials
 									</p>
 									<input
@@ -137,7 +138,7 @@ export const RegisterForm = () => {
 									) : null}
 								</label>
 								<label htmlFor="confirmationPassword">
-									<p className='my-2'>
+									<p className='my-2 lg:mt:0'>
 										Repeat Again
 									</p>
 									<input

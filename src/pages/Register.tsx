@@ -2,7 +2,7 @@ import React from 'react';
 import {RegisterForm} from '../component/registerComponent/RegisterForm';
 
 export const Register = () => (
-	<div className="flex justify-around align-middle items-center lg:h-[17vw]">
+	<div className="flex justify-around align-middle items-center lg:h-[250px]">
 		<RegisterForm />
 	</div>
 );
