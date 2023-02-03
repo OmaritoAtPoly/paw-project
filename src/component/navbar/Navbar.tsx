@@ -9,13 +9,13 @@ import {
 	defaultUser,
 	type ItemElementType,
 	type UserDataType,
-} from '../data/data';
-import {LoggedFromPlatform, UserSingUpAndLogin} from '../state/action-types';
-import {useActions} from '../state/hooks/useActions';
-import {useTypedSelector} from '../state/hooks/useTypedSelector';
-import {LogoutUserFromSessionStorage} from '../utils/functions';
-import {useGetCurrentUser} from '../utils/hooks/getCurrentUser';
-import GooglePexel from './GooglePexel';
+} from '../../data/data';
+import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
+import {useActions} from '../../state/hooks/useActions';
+import {useTypedSelector} from '../../state/hooks/useTypedSelector';
+import {LogoutUserFromSessionStorage} from '../../utils/functions';
+import {useGetCurrentUser} from '../../utils/hooks/getCurrentUser';
+import GooglePexel from '../GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
 
 const Navbar = () => {
@@ -102,13 +102,14 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<div className="mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white">
+		<div className="mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white" aria-label='app-navbar'>
 			{/* left side */}
 			<div className="flex items-center w-[80px] md:w-[25vw]">
 				<AiOutlineMenu
 					size={30}
 					onClick={handleNavState}
 					className="cursor-pointer mx-auto md:m-0"
+					aria-label='hamburger-button'
 				/>
 				<div className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
 					<NavLink
@@ -158,7 +159,7 @@ const Navbar = () => {
 				/>
 				<h2 className="text-2xl p-4">
 					<NavLink to="/" onClick={handleNavState}>
-						Best <span className="font-bold">Paw</span> Home
+						Best <span className="font-bold">Paw</span> Homexx
 					</NavLink>
 				</h2>
 				<nav>
