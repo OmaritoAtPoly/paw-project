@@ -1,6 +1,6 @@
 import React, {type ChangeEvent, type FormEvent} from 'react';
 import {AiOutlineSearch} from 'react-icons/ai';
-import {Spinner} from './Spinner';
+import {Spinner} from '../Spinner';
 
 interface InputProps {
 	value: string;

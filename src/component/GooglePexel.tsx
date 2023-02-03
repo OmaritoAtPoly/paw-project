@@ -11,7 +11,7 @@ import {ActionType} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
 import {useGetCurrentUrl} from '../utils/hooks/getCurrentUrlPath';
 import CardAlert from './CardAlert';
-import Search from './Search';
+import Search from './navbar/Search';
 
 const GooglePexel = () => {
 	const [search, setSearch] = useState<string>('');
