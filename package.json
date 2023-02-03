@@ -55,7 +55,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepare": "husky install",
-    "start-json": "json-server -p 4000 -w src/data/MockDataFile.json"
+    "start-json": "json-server -p 4000 -w src/data/MockDataFile.json",
+    "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage"
   },
   "eslintConfig": {
     "extends": [
