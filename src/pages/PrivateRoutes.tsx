@@ -1,8 +1,11 @@
 import React from 'react';
-import {Outlet, Navigate} from 'react-router-dom';
-
-const isAuthenticated = () => sessionStorage.getItem('currentUser');
+import {useKeycloak} from '@react-keycloak/web';
+import {Outlet} from 'react-router-dom';
+import Modal from '../component/Modal';
 
 export const PrivateRoutes = () => {
-	return isAuthenticated() ? <Outlet /> : <Navigate to="/" />;
+	const {keycloak} = useKeycloak();
+	const isLoggedIn = keycloak.authenticated;
+
+	return isLoggedIn ? <Outlet /> : <Modal isOpen onAcceptButton={keycloak.login} />;
 };

@@ -1,3 +1,4 @@
+
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {useFormik} from 'formik';
 import {format} from 'date-fns';
@@ -10,8 +11,8 @@ import axios, {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate} from 'react-router-dom';
 import {generate} from 'shortid';
 import {type LatLngExpression} from 'leaflet';
+import {useKeycloak} from '@react-keycloak/web';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
-import {useGetCurrentUser} from '../utils/hooks/getCurrentUser';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 
@@ -27,7 +28,7 @@ const SignInSchema = yup.object().shape({
 
 export const DashboardPage = () => {
 	const navigate = useNavigate();
-	const {rol} = useGetCurrentUser();
+	const {keycloak} = useKeycloak();
 
 	const handleSubmitValue = async (value: PetDataType) => {
 		try {
@@ -109,8 +110,10 @@ export const DashboardPage = () => {
 	}, [setFieldValue]);
 
 	useEffect(() => {
-		if (rol !== 'admin') navigate('/');
-	}, [navigate, rol]);
+		const adminRol = keycloak.tokenParsed?.realm_access?.roles.includes('paw-admin-role');
+
+		if (!adminRol) navigate('/');
+	}, [keycloak.tokenParsed?.realm_access, navigate]);
 
 	const handlerMarkerPosition = useCallback(async (value: LatLngExpression) => {
 		await setFieldValue('rescuePlace', value);
