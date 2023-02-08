@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {googleLogout} from '@react-oauth/google';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
@@ -5,6 +6,7 @@ import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
 import {GrUserAdmin} from 'react-icons/gr';
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
+import {useKeycloak} from '@react-keycloak/web';
 import {
 	defaultUser,
 	type ItemElementType,
@@ -34,11 +36,13 @@ const Navbar = () => {
 		rol,
 	} = useTypedSelector((state) => state.currentUser);
 
+	const {keycloak} = useKeycloak();
+
 	const {handleRightDrawer, handleUser} = useActions();
 	const {pathname} = useLocation();
 	const navigate = useNavigate();
 
-	const Logout = useCallback(() => {
+	const Logout = useCallback(async () => {
 		handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
 		setCurrentUser(defaultUser);
 		LogoutUserFromSessionStorage();
@@ -47,7 +51,8 @@ const Navbar = () => {
 			window.FB.logout(() => { });
 		if (loggedFrom === LoggedFromPlatform.GOOGLE) googleLogout();
 		navigate('/');
-	}, [handleUser, loggedFrom, navigate]);
+		await keycloak.logout();
+	}, [handleUser, keycloak, loggedFrom, navigate]);
 	const transformedValue = useGetCurrentUser();
 
 	const currentUserValues = useCallback(() => {
@@ -120,8 +125,8 @@ const Navbar = () => {
 					</NavLink>
 
 					<div className="hidden bg-gray-200 lg:flex items-center rounded-full p-1 text-[14px]">
-						<p className="bg-black rounded-full text-white p-2">Delivery</p>
-						<p className="p-2">Pick up</p>
+						<NavLink to='/secured' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
+						<NavLink to='/dashboard' className="p-2">Pick up</NavLink>
 					</div>
 				</div>
 			</div>
