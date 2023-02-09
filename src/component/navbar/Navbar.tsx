@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {googleLogout} from '@react-oauth/google';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
