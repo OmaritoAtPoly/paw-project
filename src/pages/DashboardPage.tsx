@@ -15,6 +15,7 @@ import {useKeycloak} from '@react-keycloak/web';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
+import {useTypedSelector} from '../state/hooks/useTypedSelector';
 
 const SignInSchema = yup.object().shape({
 	name: yup.string().required('Required'),
@@ -30,11 +31,22 @@ export const DashboardPage = () => {
 	const navigate = useNavigate();
 	const {keycloak} = useKeycloak();
 
+	const info = useTypedSelector(
+		(state) => state.currentPet,
+	);
+
+	console.log('aboutaboutaboutabout', info);
+
+
+	const handleCleanDetails = (value: string[]): string[] =>
+		(value.map((a) => a.trim()).filter((b) => b !== ''));
+
 	const handleSubmitValue = async (value: PetDataType) => {
+		const cleaned = {...value, details: handleCleanDetails(value.details)};
 		try {
 			const response: AxiosResponse<PetDataType> = await axios.post(
 				'http://localhost:4000/petDetails',
-				{id: generate(), ...value},
+				{id: generate(), ...cleaned},
 			);
 
 			if (response.status >= 200 && response.status < 300) navigate('/');
@@ -264,7 +276,7 @@ export const DashboardPage = () => {
 	);
 };
 
-export const petDetailsLoader = async (): Promise<string> => {
+export const petDashboardLoader = async (): Promise<string> => {
 	let result = '';
 
 	try {

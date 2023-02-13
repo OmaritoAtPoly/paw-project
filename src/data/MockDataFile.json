@@ -58,27 +58,50 @@
   ],
   "physicAspects": [
     {
-      "tailSize": [
-        "Short tail",
-        "Medium tail",
-        "Large tail"
-      ],
-      "training": [
-        "not trained",
-        "almost trained",
-        "full trained diploma"
-      ],
-      "medicalRecord": [
-        "Rage",
-        "Tick",
-        "fleas"
-      ],
-      "socialSkill": [
-        "friendly",
-        "Lonely",
-        "Scary"
-      ]
+      "tailSize": ["Short tail", "Medium tail", "Large tail"],
+      "training": ["not trained", "almost trained", "full trained diploma"],
+      "medicalRecord": ["Rage", "Tick", "fleas"],
+      "socialSkill": ["friendly", "Lonely", "Scary"]
     }
   ],
-  "petDetails": []
+  "petDetails": [
+    {
+      "id": "5256708",
+      "name": "Enrique",
+      "about": "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas Letraset, las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",
+      "rescuePlace": {
+        "lat": 42.69684329157737,
+        "lng": 23.31935080599035
+      },
+      "details": [
+        "345435",
+        "52345435435",
+        "4354543",
+        "dsgffdg",
+        "gfd    sdfgfdgfd"
+      ],
+      "rescueDate": "2023-02-16T22:00:00.000Z",
+      "tailDetails": "Short",
+      "socialSkills": "friendly with all",
+      "training": "not trained",
+      "medicalRecord": ["Rage", "fleas", "garrapatas"],
+      "petImage": "https://images.pexels.com/photos/5256708/pexels-photo-5256708.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    },
+    {
+      "id": "45201",
+      "name": "qqqqqqq",
+      "about": "wwwwwwww",
+      "rescuePlace": {
+        "lat": 42.690780340180545,
+        "lng": 23.306118882076348
+      },
+      "details": ["fsadfdsffs", "sfdsf", "sfdsfsad", "sfs", "asdfds", "sdfdsa"],
+      "rescueDate": "2023-02-23T22:00:00.000Z",
+      "tailDetails": "Medium",
+      "socialSkills": "friendly",
+      "training": "almost trained",
+      "medicalRecord": ["Tick", "Rage"],
+      "petImage": ""
+    }
+  ]
 }

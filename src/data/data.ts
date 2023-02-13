@@ -313,6 +313,7 @@ export const petDefaultData = {
 	socialSkills: '',
 	training: '',
 	medicalRecord: [],
+	petImage: '',
 };
 
 export type PetDataType = typeof petDefaultData;

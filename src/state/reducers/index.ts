@@ -4,6 +4,7 @@ import repositoriesReducer from './repositoriesReducer';
 import handleRightDrawer from './openRightDrawerReducer';
 import availablePetsPhotosReducer from './availablePetsPhotosReducer';
 import {UserLoginReducer} from './UserLoginReducer';
+import {currentEditablePet} from './currentEditablePet';
 
 const reducers = combineReducers({
 	repositories: repositoriesReducer,
@@ -11,6 +12,7 @@ const reducers = combineReducers({
 	drawer: handleRightDrawer,
 	availablePetsPhotos: availablePetsPhotosReducer,
 	currentUser: UserLoginReducer,
+	currentPet: currentEditablePet,
 });
 
 export default reducers;
