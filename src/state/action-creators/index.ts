@@ -3,3 +3,4 @@ export * from './searchPictures';
 export * from './handleRightDrawer';
 export * from './searchAvailablePetsPictures';
 export * from './handleUser';
+export * from './handleEditablePet';

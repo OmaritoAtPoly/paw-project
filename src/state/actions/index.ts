@@ -1,6 +1,6 @@
 import {type Photo} from 'pexels';
-import {type UserDataType} from '../../data/data';
-import {type AvailablePetsActionType, type ActionType, type UserSingUpAndLogin} from '../action-types';
+import {type PetDataType, type UserDataType} from '../../data/data';
+import {type AvailablePetsActionType, type ActionType, type UserSingUpAndLogin, type EditablePet} from '../action-types';
 
 interface SearchRepositoriesAction {
 	type: ActionType.SEARCH_REPOSITORIES;
@@ -108,3 +108,10 @@ interface UserLogOutAction {
 }
 
 export type UserLogAction = UserLogInAction | UserLogOutAction;
+
+interface EditableCurrentPet {
+	type: EditablePet.EDITABLE_PET;
+	payload: PetDataType;
+}
+
+export type EditablePetAction = EditableCurrentPet;

@@ -1,4 +1,3 @@
-
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {useFormik} from 'formik';
 import {format} from 'date-fns';
@@ -8,13 +7,14 @@ import * as yup from 'yup';
 import {RxThickArrowRight} from 'react-icons/rx';
 import Select, {type SingleValue, type MultiValue} from 'react-select';
 import axios, {type AxiosResponse} from 'axios';
-import {useLoaderData, useNavigate} from 'react-router-dom';
+import {useLoaderData, useNavigate, useParams} from 'react-router-dom';
 import {generate} from 'shortid';
 import {type LatLngExpression} from 'leaflet';
 import {useKeycloak} from '@react-keycloak/web';
 import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
+import {useTypedSelector} from '../state/hooks/useTypedSelector';
 
 const SignInSchema = yup.object().shape({
 	name: yup.string().required('Required'),
@@ -29,16 +29,35 @@ const SignInSchema = yup.object().shape({
 export const DashboardPage = () => {
 	const navigate = useNavigate();
 	const {keycloak} = useKeycloak();
+	const {id} = useParams();
+
+	const petInfo = useTypedSelector(
+		(state) => state.currentPet,
+	);
+
+	const handleCleanDetails = (value: string[]): string[] =>
+		(value.map((a) => a.trim()).filter((b) => b !== ''));
 
 	const handleSubmitValue = async (value: PetDataType) => {
+		const cleaned = {...value, details: handleCleanDetails(value.details)};
+		const baseUrl = 'http://localhost:4000/petDetails';
+
 		try {
-			const response: AxiosResponse<PetDataType> = await axios.post(
-				'http://localhost:4000/petDetails',
-				{id: generate(), ...value},
-			);
+			if (id) {
+				const response: AxiosResponse<PetDataType> = await axios.put(
+					`${baseUrl}/${id}`,
+					{id, ...cleaned},
+				);
 
-			if (response.status >= 200 && response.status < 300) navigate('/');
+				if (response.status >= 200 && response.status < 300) navigate('/');
+			} else {
+				const response: AxiosResponse<PetDataType> = await axios.post(
+					`${baseUrl}`,
+					{id: generate(), ...cleaned},
+				);
 
+				if (response.status >= 200 && response.status < 300) navigate('/');
+			}
 		} catch (error) {
 			if (error instanceof Error) {
 				console.log('there is an error here: => ', error);
@@ -46,9 +65,11 @@ export const DashboardPage = () => {
 		}
 	};
 
+	const handleSplittingPetDetails = (value: string[]) => value.map((a) => (` ${a}`));
+
 	const {handleSubmit, values, handleChange, errors, touched, setFieldValue} =
 		useFormik({
-			initialValues: petDefaultData,
+			initialValues: (petInfo && id) ? {...petInfo, rescueDate: new Date(petInfo.rescueDate), details: handleSplittingPetDetails(petInfo.details)} : petDefaultData,
 			onSubmit: async (formValues: PetDataType, actions) => {
 				await handleSubmitValue(formValues);
 				actions.resetForm();
@@ -119,6 +140,14 @@ export const DashboardPage = () => {
 		await setFieldValue('rescuePlace', value);
 	}, [setFieldValue]);
 
+	const handleDefaultMedicalRecord = useMemo(() => {
+		if (petInfo && id) {
+			return Object.values(petInfo.medicalRecord).map((a) => ({value: a, label: a}));
+		}
+
+		return [{value: '', label: ''}];
+	}, [id, petInfo]);
+
 	return (
 		<>
 			<h1 className="mx-auto text-center text-[30px] md:text-[4vw] lg:text-[3vw]">
@@ -181,7 +210,7 @@ export const DashboardPage = () => {
 					</div>
 					<div className='md:w-full'>
 						<p className="text-2xl sm:text-[27px] text-center">Place where the Pet was found</p>
-						<MapContainerWrapper markerPosition={values.rescuePlace} handlerMarkerPosition={handlerMarkerPosition} popUpMessage={WHERE_WAS_FOUND} />
+						<MapContainerWrapper markerPosition={values.rescuePlace} handlerMarkerPosition={handlerMarkerPosition} popUpMessage={WHERE_WAS_FOUND} scrollWheelZoom={false} />
 					</div>
 				</div>
 				<div className={`${commonItemStyles} drop-shadow-xl rounded-xl`}>
@@ -202,6 +231,7 @@ export const DashboardPage = () => {
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Choose large of Pet&lsquo;s tail</p>
 						<Select
+							defaultValue={{value: values.tailDetails, label: values.tailDetails}}
 							options={handlePetTailSize}
 							onChange={async (value) => {
 								await handleSingleSelector(value, 'tailDetails');
@@ -214,6 +244,7 @@ export const DashboardPage = () => {
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Does have any training?</p>
 						<Select
+							defaultValue={{value: values.training, label: values.training}}
 							options={handleTraining}
 							onChange={async (value) => {
 								await handleSingleSelector(value, 'training');
@@ -227,6 +258,7 @@ export const DashboardPage = () => {
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Medical records</p>
 						<Select
+							defaultValue={(id && petInfo) ? handleDefaultMedicalRecord : values.medicalRecord}
 							options={handleMedicalRecord}
 							onChange={async (value) => {
 								await handleMultiSelectors(value, 'medicalRecord');
@@ -241,6 +273,7 @@ export const DashboardPage = () => {
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Social Skills</p>
 						<Select
+							defaultValue={{value: values.socialSkills, label: values.socialSkills}}
 							options={handleSocialSkills}
 							onChange={async (value) => {
 								await handleSingleSelector(value, 'socialSkills');
@@ -264,7 +297,7 @@ export const DashboardPage = () => {
 	);
 };
 
-export const petDetailsLoader = async (): Promise<string> => {
+export const petDashboardLoader = async (): Promise<string> => {
 	let result = '';
 
 	try {

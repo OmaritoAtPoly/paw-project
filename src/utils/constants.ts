@@ -8,3 +8,6 @@ export const WRONG_CREDENTIALS = 'Your credential are not correct';
 export const ABOUT = 'About';
 export const WHERE_WAS_FOUND = 'is this the place where was found_?';
 export const SIGN_UP = 'New';
+export const RESCUE_DATA = 'Rescue Data:';
+export const PLACE = 'Place:';
+export const DATE = 'Date:';
