@@ -19,7 +19,7 @@ export const routerElements = createBrowserRouter(
 				<Route path=':id' element={<PetDetails />} loader={petDetailsLoader} />
 			</Route>
 			<Route element={<PrivateRoutes />} >
-				<Route path='/dashboard' element={<DashboardPage />} loader={petDashboardLoader} />
+				<Route path='/dashboard/:id?' element={<DashboardPage />} loader={petDashboardLoader} />
 				<Route path='/secured' element={<>Testing</>} />
 			</Route>
 			<Route path='*' element={<NotFoundPage />} />

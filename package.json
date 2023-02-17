@@ -21,7 +21,9 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "0.21.1",
     "bcryptjs": "^2.4.3",
+    "cross-var": "^1.1.0",
     "date-fns": "^2.29.3",
+    "dotenv-cli": "^7.0.0",
     "env-cmd": "^10.1.0",
     "formik": "^2.2.9",
     "json-server": "^0.17.1",
@@ -58,7 +60,10 @@
     "lint:fix": "eslint --fix .",
     "prepare": "husky install",
     "start-json": "json-server -p 4000 -w src/data/MockDataFile.json",
-    "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage"
+    "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
+    "codegen": "react-dotenv -- cross-var dts-gen -o /src/model/type.d.ts --url %REACT_APP_API_URL_DOCS%",
+    "print": "dotenv cross-var echo %REACT_APP_API_URL_DOCS%",
+    "gen": "dotenv cross-var dts-gen %REACT_APP_API_URL_DOCS% "
   },
   "eslintConfig": {
     "extends": [

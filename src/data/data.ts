@@ -307,7 +307,7 @@ export const petDefaultData = {
 	name: '',
 	about: '',
 	rescuePlace: defaultSofiaCoordinate,
-	details: [],
+	details: [''],
 	rescueDate: new Date(),
 	tailDetails: '',
 	socialSkills: '',
