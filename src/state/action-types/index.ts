@@ -28,3 +28,7 @@ export enum LoggedFromPlatform {
 	GOOGLE = 'google',
 	WEB = 'web',
 }
+
+export enum EditablePet {
+	EDITABLE_PET = 'EditablePet',
+}

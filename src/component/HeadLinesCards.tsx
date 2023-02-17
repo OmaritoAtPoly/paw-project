@@ -1,9 +1,9 @@
-import {type Photo} from 'pexels';
 import React, {useEffect, useState} from 'react';
+import {type Photo} from 'pexels';
 import {useSelector} from 'react-redux';
 import {defaultAvailablePets} from '../data/data';
 import {type RootState} from '../state';
-import {AVAILABLE_PETS, READ_MY_HISTORY, TAKE_HOME} from '../utils/constants';
+import {AVAILABLE_PETS} from '../utils/constants';
 import {AvailablePetsPanel} from './AvailablePetsPanel';
 import Card from './Card';
 import {Spinner} from './Spinner';
@@ -35,14 +35,8 @@ const HeadLinesCards = () => {
 					</p>
 					<div className="max-w-[1880px] min-w-[100px] mx-auto p2 p-4 py-8 grid justify-center sm:grid-cols-3 gap-6 select-none">
 						{data?.map((element: Photo) => (
-							<Card
+							<Card elementData={element}
 								key={element.id}
-								buttonLabel={TAKE_HOME}
-								cardLabel={element.photographer.split(' ')[0]}
-								imgUrl={element.src.original}
-								info={READ_MY_HISTORY}
-								elementId={element.id.toString()}
-								petName={element.photographer}
 							/>
 						))}
 					</div>

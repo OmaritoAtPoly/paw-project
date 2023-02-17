@@ -13,7 +13,7 @@ export const LogoutUserFromSessionStorage = () => {
 
 export const encryptUserPassword = (password: string) => hashSync(password, genSaltSync(7));
 
-//// erase this function when when the backend is working 
+//// TODO erase this function when when the backend is working 
 export const auxiliar = async (email: string, password: string) => {
 	const currentUser = sessionStorage.getItem('user');
 	if (currentUser) {
