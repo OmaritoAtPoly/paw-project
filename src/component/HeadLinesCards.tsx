@@ -20,8 +20,9 @@ const HeadLinesCards = () => {
 		if (photos.length > 0) {
 			setData(photos);
 		} else setData(defaultAvailablePets);
-
 	}, [photos]);
+
+	const cardColors: string[] = ['orange-paw', 'purple-paw', 'yellow-paw'];
 
 	return (
 		<>
@@ -29,18 +30,20 @@ const HeadLinesCards = () => {
 			{loading ? (
 				<Spinner />
 			) : (
-				<>
-					<p className="text-4xl sm:text-5xl md:text-6xl text-center w-full pt-[4vw] text-primary ">
+				<div className='max-w-screen-lg mx-auto p-4 my-20'>
+					<p className="text-3xl sm:text-4xl md:text-5xl text-center mb-12 font-bold text-zinc-800">
 						{AVAILABLE_PETS}
 					</p>
-					<div className="max-w-[1880px] min-w-[100px] mx-auto p2 p-4 py-8 grid justify-center sm:grid-cols-3 gap-6 select-none">
-						{data?.map((element: Photo) => (
-							<Card elementData={element}
+					<div className="grid justify-items-center sm:grid-cols-3 gap-8 select-none">
+						{data?.map((element: Photo, index: number) => (
+							<Card
+								elementData={element}
 								key={element.id}
+								cardColor={cardColors[index % cardColors.length]}
 							/>
 						))}
 					</div>
-				</>
+				</div>
 			)}
 		</>
 	);
