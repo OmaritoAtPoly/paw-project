@@ -38,9 +38,3 @@ export const RightComponentActionButtons = ({handleCallFunction, handleRightDraw
 		</div>
 	);
 };
-
-// color suggestions:
-// red: #e45863
-// green: #88b833 || #a5d54b || #b1e355
-// yellow: #efbc3c || #fad759 || #f1b82e || #ffd556
-// gray: #f3f3f3

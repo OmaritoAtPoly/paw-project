@@ -47,7 +47,6 @@ const Card = ({elementData, cardColor}: CardProps) => (
 			</ul>
 			<NavLink 
 				to={`pet/${elementData.id}`}
-				// state={{petPicUrl: `${imgUrl}`, petName}}
 				className='block mt-6 font-bold text-sm text-center bg-white text-orange-paw border-2 border-orange-paw p-3 sm:px-4 rounded-full hover:bg-zinc-100'>
 				{READ_MY_STORY}
 			</NavLink>
@@ -55,15 +54,3 @@ const Card = ({elementData, cardColor}: CardProps) => (
 	</div>);
 
 export default Card;
-
-// POTENTIAL INFO FOR PETS:
-
-// Pet type: Cat
-// Gender: Male
-// Age: 4 years old, Adult
-// Size: Small, 3kg
-// Breed: Domestic Short Hair - Mixed breed
-// Location: Skopje
-// House trained: yes
-// Health: vaccinations up-to-date, spayed / neutered
-// Friendliness: good with other pets

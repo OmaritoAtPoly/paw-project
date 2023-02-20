@@ -5,7 +5,6 @@ import UserMemo from '../../svg/User';
 import Icon from '../../svg/Icon';
 
 interface MenuProps {
-	// menuTitle: string;
 	items: MenuElementType[];
 }
 
