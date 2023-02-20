@@ -2,6 +2,7 @@ import {type LatLngExpression} from 'leaflet';
 import {type Photo} from 'pexels';
 import {generate} from 'shortid';
 import {LoggedFromPlatform} from '../state/action-types';
+import {type IconNames} from '../svg/IconNames';
 
 export const data = [
 	{
@@ -291,15 +292,17 @@ const itemElements = {
 
 export type ItemElementType = typeof itemElements;
 
-export const itemMenu: ItemElementType[] = [
-	{
-		userId: '',
-		itemName: '',
-		onClick: () => { },
-		imgUrl: '',
-
-	},
-];
+export interface MenuElementType {
+	userId: string;
+	itemName: string;
+	onClick: () => void;
+	icon?: {
+		iconName: IconNames;
+		iconWidth?: number;
+		iconHeight?: number;
+		iconClass?: string;
+	};
+}
 
 export const defaultSofiaCoordinate: LatLngExpression = [42.698334, 23.319941];
 

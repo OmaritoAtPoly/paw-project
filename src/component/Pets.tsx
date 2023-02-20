@@ -32,8 +32,8 @@ const Food = () => {
 	};
 
 	return (
-		<div className='max-w-[1880px] m-auto px-2 py-12 select-none'>
-			<h1 className='text-orange-600 text-4xl font-bold text-center'>Top Ranked Pets</h1>
+		<div className='container m-auto px-4 my-12 select-none'>
+			<h2 className='text-orange-600 text-4xl font-bold text-center'>Top Ranked Pets</h2>
 
 			{/* filter row */}
 			<div className='flex flex-col max-w-[450px] sm:max-w-none md:flex-row justify-around'>

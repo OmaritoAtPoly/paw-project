@@ -14,7 +14,7 @@ export const AvailablePetsPanel = () => {
 	};
 
 	return (
-		<div className='grid gap-y-8 justify-items-center grid-cols-1 mt-[5vw] sm:grid-cols-2 mx-auto sm:w-[80vw] sm:mt-[-50px] md:w-[100vw] md:max-w-[1100px] md:grid-cols-4 relative'>
+		<div className='grid gap-y-8 justify-items-center grid-cols-1 mt-[5vw] sm:grid-cols-2 mx-auto sm:w-[80vw] sm:mt-[-50px] md:w-[100vw] max-w-screen-md md:grid-cols-4 relative'>
 			<PetWrapper className='min-w-[130px] max-w-[15vw] h-[150px] bg-white flex justify-evenly flex-col items-center hover:bg-[#efeef1] hover:border hover:border-primary shadow-xl rounded-2xl sm:min-w-[100px] sm:h-[130px] md:min-w-[150px] hover:cursor-pointer' onClick={handleAvailablePetName('dogs')}>
 				<DogMemo width={70} height={70} />
 				<p>Dogs</p>

@@ -57,7 +57,7 @@ const GooglePexel = () => {
 	}, []);
 
 	return (
-		<div className='flex flex-col h-[150px] justify-around items-center'>
+		<div className='flex items-center flex-1 mr-10'>
 			{currentUrl === '/'
 				? <Search
 					handleValue={handleChange}
