@@ -2,16 +2,20 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
+import {ReactKeycloakProvider} from '@react-keycloak/web';
 import Navbar from '../Navbar';
 import {store} from '../../../state';
+import keycloak from '../../../Keycloak';
 
 describe('this is the navbar test section', () => {
 	const MockNavBar = () => {
 		return (
 			<Provider store={store}>
-				<BrowserRouter>
-					<Navbar />
-				</BrowserRouter>
+				<ReactKeycloakProvider authClient={keycloak}>
+					<BrowserRouter>
+						<Navbar />
+					</BrowserRouter>
+				</ReactKeycloakProvider>
 			</Provider>
 		);
 	};

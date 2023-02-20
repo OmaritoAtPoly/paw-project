@@ -5,3 +5,4 @@ react-app-env.d.ts
 postcss.config.js
 tailwind.config.js
 /coverage
+src/model/types.d.ts

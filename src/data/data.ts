@@ -297,7 +297,6 @@ export const itemMenu: ItemElementType[] = [
 		itemName: '',
 		onClick: () => { },
 		imgUrl: '',
-
 	},
 ];
 

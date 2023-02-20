@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-dynamic-delete */
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
 import {generate} from 'shortid';
+import {ReactKeycloakProvider} from '@react-keycloak/web';
 import {LoggedFromPlatform} from '../../../state/action-types';
 import {RightComponentActionButtons} from '../RightComponentActionButtons';
+import keycloak from '../../../Keycloak';
 
 const mockHandleCallFunction = jest.fn();
 const mockHandleRightDrawer = jest.fn();
@@ -61,9 +63,12 @@ describe('aaaa', () => {
 		window.localStorage.clear();
 
 		render(
-			<BrowserRouter>
-				<RightComponentActionButtons dropDownMenuValues={[itemElements]} handleCallFunction={mockHandleCallFunction} handleRightDrawer={mockHandleRightDrawer} />
-			</BrowserRouter>,
+			<ReactKeycloakProvider authClient={keycloak}>
+				<BrowserRouter>
+					<RightComponentActionButtons dropDownMenuValues={[itemElements]} handleCallFunction={mockHandleCallFunction} handleRightDrawer={mockHandleRightDrawer} />
+				</BrowserRouter>
+			</ReactKeycloakProvider>
+			,
 		);
 	});
 
@@ -82,7 +87,7 @@ describe('aaaa', () => {
 
 
 
-		screen.debug();
+		// screen.debug();
 
 
 		// const dropDownMenu = screen.getByRole('button', {name: 'Options'});
