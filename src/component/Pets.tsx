@@ -32,7 +32,7 @@ const Food = () => {
 	};
 
 	return (
-		<div className='container m-auto px-4 my-12 select-none'>
+		<div className='container m-auto px-8 my-12 select-none'>
 			<h2 className='text-orange-600 text-4xl font-bold text-center'>Top Ranked Pets</h2>
 
 			{/* filter row */}

@@ -31,10 +31,10 @@ const HeadLinesCards = () => {
 				<Spinner />
 			) : (
 				<div className='max-w-screen-lg mx-auto p-4 my-20'>
-					<p className="text-3xl sm:text-4xl md:text-5xl text-center mb-12 font-bold text-zinc-800">
+					<h3 className="text-3xl sm:text-4xl md:text-5xl text-center mb-20 text-zinc-800">
 						{AVAILABLE_PETS}
-					</p>
-					<div className="grid justify-items-center sm:grid-cols-3 gap-8 select-none">
+					</h3>
+					<div className="grid justify-items-center sm:grid-cols-3 gap-8 gap-y-16 select-none">
 						{data?.map((element: Photo, index: number) => (
 							<Card
 								elementData={element}
