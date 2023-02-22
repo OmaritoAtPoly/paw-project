@@ -110,8 +110,8 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<div className='bg-white py-4 sticky z-10 top-0'>
-			<div className='container mx-auto px-5'>
+		<div className='bg-white py-4 sticky z-10 top-0 shadow-lg'>
+			<div className='container mx-auto px-8'>
 				<div className="flex justify-between items-center" aria-label='app-navbar'>
 					{/* left side */}
 					<div className="flex items-center mr-5">

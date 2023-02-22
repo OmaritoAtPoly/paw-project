@@ -9,6 +9,9 @@ module.exports = {
 				'purple-paw': '#630abb',
 				'yellow-paw': '#e5a62d'
       },
+			flex: {
+        '2': '2 2 0%'
+      },
       screens:{
         'xxl': '1600px',
       }
