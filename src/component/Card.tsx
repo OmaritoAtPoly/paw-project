@@ -5,7 +5,8 @@ import {NavLink} from 'react-router-dom';
 import {FiCalendar, FiMapPin} from 'react-icons/fi';
 import {IoPawOutline} from 'react-icons/io5';
 import HeartMemo from '../svg/Heart';
-import {READ_MY_STORY, FM_SHOW_FROM_TOP} from '../utils/constants';
+import {READ_MY_STORY} from '../utils/constants';
+import {FM_SHOW_FROM_TOP} from '../utils/framer-motion-settings';
 
 type CardProps = {
 	elementData: Photo;

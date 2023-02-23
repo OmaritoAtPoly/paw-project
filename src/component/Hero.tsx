@@ -1,10 +1,10 @@
 import React from 'react';
 import {motion} from 'framer-motion';
-import {FM_SCROLL_DROP_VARIANTS, FM_SHOW_FROM_LEFT} from '../utils/constants';
+import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_LEFT, FM_SLIDE_FROM_TOP} from '../utils/framer-motion-settings';
 
 const Hero = () => (
-	<motion.div custom={0.25} variants={FM_SCROLL_DROP_VARIANTS} initial="initial" whileInView="visible" viewport={{once: true}} exit="hidden" className="max-w-[1880px] mx-auto mt-10 px-8 select-none">
-		<div className="relative overflow-hidden rounded-tr-[12vW] rounded-bl-[12vW] rounded-tl-lg rounded-br-lg">
+	<motion.div initial="initial" whileInView="visible" variants={FM_CASCADE_PARENT_VARIANTS} className="max-w-[1880px] mx-auto mt-10 px-8 select-none">
+		<motion.div variants={FM_SLIDE_FROM_TOP} className="relative overflow-hidden rounded-tr-[12vW] rounded-bl-[12vW] rounded-tl-lg rounded-br-lg">
 			{/* overlay */}
 			<div className='absolute left-0 top-0 w-full h-full'>
 				<img
@@ -21,7 +21,7 @@ const Hero = () => (
 					<motion.button variants={FM_SHOW_FROM_LEFT} className='flex items-center text-white border-white border-2 p-3 sm:px-4 rounded-full lg:max-w-xs hover:bg-white hover:text-zinc-600' type="button">Become a hero</motion.button>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	</motion.div>
 );
 

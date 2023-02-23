@@ -6,7 +6,7 @@ import DogMemo from '../svg/DogLines';
 import PawMemo from '../svg/PawLines';
 import ShelterMemo from '../svg/ShelterLines';
 import {PetWrapper} from './PetWrapper';
-import {FM_SCROLL_DROP_VARIANTS, FM_SHOW_FROM_LEFT} from '../utils/constants';
+import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_LEFT} from '../utils/framer-motion-settings';
 
 export const AvailablePetsPanel = () => {
 	const {searchAvailablePetsPictures} = useActions();
@@ -17,12 +17,10 @@ export const AvailablePetsPanel = () => {
 
 	return (
 		<motion.div
-			custom={0.5}
-			variants={FM_SCROLL_DROP_VARIANTS}
+			custom={0.25}
 			initial="initial"
 			whileInView="visible"
-			viewport={{once: true}}
-			exit="hidden"
+			variants={FM_CASCADE_PARENT_VARIANTS}
 			className="grid gap-y-8 justify-items-center grid-cols-2 mt-[5vw] mx-auto sm:mt-[-50px] md:w-[100vw] max-w-screen-md md:grid-cols-4 relative"
 		>
 			<motion.div variants={FM_SHOW_FROM_LEFT}>
