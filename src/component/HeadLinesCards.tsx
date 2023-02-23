@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import {motion} from 'framer-motion';
 import {type Photo} from 'pexels';
 import {useSelector} from 'react-redux';
 import {defaultAvailablePets} from '../data/data';
 import {type RootState} from '../state';
-import {AVAILABLE_PETS} from '../utils/constants';
+import {AVAILABLE_PETS, FM_SCROLL_DROP_VARIANTS, FM_SHOW_FROM_LEFT} from '../utils/constants';
 import {AvailablePetsPanel} from './AvailablePetsPanel';
 import Card from './Card';
 import {Spinner} from './Spinner';
@@ -30,10 +31,10 @@ const HeadLinesCards = () => {
 			{loading ? (
 				<Spinner />
 			) : (
-				<div className='max-w-screen-lg mx-auto p-4 my-20'>
-					<h3 className="text-3xl sm:text-4xl md:text-5xl text-center mb-20 text-zinc-800">
+				<motion.div variants={FM_SCROLL_DROP_VARIANTS} initial="initial" whileInView="visible" viewport={{once: true}} exit="hidden" className='max-w-screen-lg mx-auto p-4 my-20'>
+					<motion.h3 variants={FM_SHOW_FROM_LEFT} className="text-3xl sm:text-4xl md:text-5xl text-center mb-20 text-zinc-800">
 						{AVAILABLE_PETS}
-					</h3>
+					</motion.h3>
 					<div className="grid justify-items-center sm:grid-cols-3 gap-8 gap-y-16 select-none">
 						{data?.map((element: Photo, index: number) => (
 							<Card
@@ -43,7 +44,7 @@ const HeadLinesCards = () => {
 							/>
 						))}
 					</div>
-				</div>
+				</motion.div>
 			)}
 		</>
 	);

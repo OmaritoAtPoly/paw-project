@@ -22,7 +22,7 @@ const Search = ({
 		{loading ? (
 			<Spinner />
 		) : (
-			<div className="bg-white border border-gray rounded-full flex items-center p-0.5 pl-2 w-full">
+			<div className="bg-white border border-zinc-300 rounded-full flex items-center p-0.5 pl-2 w-full">
 				<input
 					className="bg-transparent p-2 w-full focus:outline-none"
 					type="text"
