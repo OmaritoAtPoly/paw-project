@@ -30,17 +30,6 @@ export const FM_SCROLL_DROP_VARIANTS = {
 		},
 	}),
 };
-// export const FM_SCROLL_DEFAULT_VARIANTS = {
-	
-// 	visible: (custom = 0) => ({
-		
-// 		transition: {
-// 			delay: custom,
-// 			delayChildren: custom + 1,
-// 			staggerChildren: 0.05,
-// 		},
-// 	}),
-// };
 export const FM_SHOW_FROM_LEFT = {
 	initial: {x: -20, opacity: 0},
 	hidden: {x: 0, opacity: 0},

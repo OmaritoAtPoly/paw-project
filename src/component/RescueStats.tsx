@@ -30,7 +30,6 @@ const RescueStats = () => (
 						<FaPaw className='absolute left-0 top-0 text-[10px] text-purple-paw' />
 						<FaPaw className='absolute left-[16px] top-[22px] text-[10px] text-purple-paw' />
 						<FaPaw className='absolute left-0 top-[47px] text-[10px] text-purple-paw' />
-						{/* <FaPaw className='absolute left-[16px] top-[74px] text-[10px] text-purple-paw' /> */}
 					</div>
 					<h2 className='relative text-4xl lg:text-5xl font-bold text-orange-paw'>1820</h2>
 					<p className='mt-3'>animals neutered</p>
