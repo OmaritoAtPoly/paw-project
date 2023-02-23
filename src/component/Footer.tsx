@@ -33,17 +33,17 @@ const Footer = () => {
 					</div>
 					<div>
 						<h3 className='text-xl font-bold mb-6'>Connect With Us</h3>
-						<div className='flex items-center mx-[-1rem]'>
-							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 hover:bg-yellow-paw hover:text-white">
+						<div className='flex flex-wrap items-center mx-[-1rem]'>
+							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
 								<FaFacebookF />
 							</a>
-							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 hover:bg-yellow-paw hover:text-white">
+							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
 								<FaInstagram />
 							</a>
-							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 hover:bg-yellow-paw hover:text-white">
+							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
 								<FaLinkedinIn />
 							</a>
-							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 hover:bg-yellow-paw hover:text-white">
+							<a href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
 								<FaYoutube />
 							</a>
 						</div>

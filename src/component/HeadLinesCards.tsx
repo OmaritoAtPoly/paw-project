@@ -35,7 +35,7 @@ const HeadLinesCards = () => {
 					<motion.h3 variants={FM_SHOW_FROM_LEFT} className="text-3xl sm:text-4xl md:text-5xl text-center mb-20 text-zinc-800">
 						{AVAILABLE_PETS}
 					</motion.h3>
-					<div className="grid justify-items-center sm:grid-cols-3 gap-8 gap-y-16 select-none">
+					<div className="grid justify-items-center px-4 sm:grid-cols-2 md:grid-cols-3 gap-8 gap-y-16 select-none sm:px-0">
 						{data?.map((element: Photo, index: number) => (
 							<Card
 								elementData={element}

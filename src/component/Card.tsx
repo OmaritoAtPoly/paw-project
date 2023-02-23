@@ -14,7 +14,7 @@ type CardProps = {
 
 const Card = ({elementData, cardColor}: CardProps) => (
 	<motion.div variants={FM_SHOW_FROM_TOP}
-		className='rounded-lg relative w-full shadow-xl max-w-xs hover:shadow-2xl'>
+		className='rounded-lg relative w-full shadow-xl max-w-none hover:shadow-2xl sm:max-w-xs'>
 		<button type='button' className={`absolute rounded-full border-4 border-white bg-${cardColor} p-2 text-white left-[-20px] top-[-20px] hover:bg-zinc-400`}>
 			<HeartMemo height={24} width={24} />
 		</button>
