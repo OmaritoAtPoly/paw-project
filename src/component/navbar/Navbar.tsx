@@ -6,6 +6,7 @@ import {TbTruckDelivery} from 'react-icons/tb';
 import {GrUserAdmin} from 'react-icons/gr';
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useKeycloak} from '@react-keycloak/web';
+import {motion} from 'framer-motion';
 import {
 	defaultUser,
 	type MenuElementType,
@@ -18,6 +19,7 @@ import {LogoutUserFromSessionStorage} from '../../utils/functions';
 import {useGetCurrentUser} from '../../utils/hooks/getCurrentUser';
 import GooglePexel from '../GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
+import {FM_SCROLL_DROP_VARIANTS, FM_SHOW_FROM_LEFT} from '../../utils/constants';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
@@ -110,18 +112,20 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<div className='bg-white py-4 sticky z-10 top-0 shadow-lg'>
+		<motion.div variants={FM_SCROLL_DROP_VARIANTS} initial="initial" whileInView="visible" exit="hidden" className='bg-white py-4 sticky z-10 top-0 shadow-lg'>
 			<div className='container mx-auto px-8'>
 				<div className="flex justify-between items-center" aria-label='app-navbar'>
 					{/* left side */}
 					<div className="flex items-center mr-5">
-						<AiOutlineMenu
-							size={30}
-							onClick={handleNavState}
-							className="cursor-pointer mx-auto md:m-0"
-							aria-label='hamburger-button'
-						/>
-						<div className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
+						<motion.div variants={FM_SHOW_FROM_LEFT}>
+							<AiOutlineMenu
+								size={30}
+								onClick={handleNavState}
+								className="cursor-pointer mx-auto md:m-0"
+								aria-label='hamburger-button'
+							/>
+						</motion.div>
+						<motion.div variants={FM_SHOW_FROM_LEFT} className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
 							<NavLink
 								to="/"
 								className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl "
@@ -133,7 +137,7 @@ const Navbar = () => {
 								<NavLink to='/secured' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
 								<NavLink to='/dashboard' className="p-2">Pick up</NavLink>
 							</div>
-						</div>
+						</motion.div>
 					</div>
 
 					{/* search input */}
@@ -191,7 +195,7 @@ const Navbar = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

@@ -14,7 +14,10 @@ module.exports = {
       },
       screens:{
         'xxl': '1600px',
-      }
+      },
+			fontSize: {
+				bgIcon: '50vW',
+			}
     },
   },
   plugins: [],

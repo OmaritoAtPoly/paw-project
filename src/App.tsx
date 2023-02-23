@@ -1,13 +1,16 @@
-import {ReactKeycloakProvider} from '@react-keycloak/web';
 import React from 'react';
+import {ReactKeycloakProvider} from '@react-keycloak/web';
 import {RouterProvider} from 'react-router-dom';
+import {AnimatePresence} from 'framer-motion';
 import keycloak from './Keycloak';
 import {routerElements} from './pages/routes';
 
 function App() {
 	return (
 		<ReactKeycloakProvider authClient={keycloak}>
-			<RouterProvider router={routerElements} />
+			<AnimatePresence mode='wait'>
+				<RouterProvider router={routerElements} />
+			</AnimatePresence>
 		</ReactKeycloakProvider>
 	);
 }

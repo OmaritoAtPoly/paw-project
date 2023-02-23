@@ -11,3 +11,32 @@ export const SIGN_UP = 'New';
 export const RESCUE_DATA = 'Rescue Data:';
 export const PLACE = 'Place:';
 export const DATE = 'Date:';
+export const FM_SCROLL_DROP_VARIANTS = {
+	initial: {
+		opacity: 0,
+		y: '-100%',
+	},
+	hidden: {
+		opacity: 0,
+		y: '-100%',
+	},
+	visible: (custom = 0) => ({
+		opacity: 1,
+		y: 0,
+		transition: {
+			delay: custom,
+			delayChildren: custom + 0.1,
+			staggerChildren: 0.05,
+		},
+	}),
+};
+export const FM_SHOW_FROM_LEFT = {
+	initial: {x: -20, opacity: 0},
+	hidden: {x: 0, opacity: 0},
+	visible: {x: 0,	opacity: 1},
+};
+export const FM_SHOW_FROM_TOP = {
+	initial: {y: -20, opacity: 0},
+	hidden: {y: -20, opacity: 0},
+	visible: {y: 0,	opacity: 1},
+};
