@@ -1,10 +1,10 @@
 import React from 'react';
 import {motion} from 'framer-motion';
 import {FaPaw} from 'react-icons/fa';
-import {FM_SCROLL_DROP_VARIANTS, FM_SHOW_FROM_TOP} from '../utils/constants';
+import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_TOP} from '../utils/framer-motion-settings';
 
 const RescueStats = () => (
-	<motion.div variants={FM_SCROLL_DROP_VARIANTS} initial="initial" whileInView="visible" viewport={{once: true}} exit="hidden" className='bg-zinc-100 relative overflow-hidden'>
+	<motion.div variants={FM_CASCADE_PARENT_VARIANTS} initial="initial" whileInView="visible" className='bg-zinc-100 relative overflow-hidden'>
 		<FaPaw className='absolute text-4xl text-zinc-200 left-[-10%] rotate-[-45deg] text-bgIcon' />
 		<div className='container relative mx-auto px-8 pt-20 pb-14 max-w-6xl'>
 			<motion.h3 variants={FM_SHOW_FROM_TOP} className='px-4 mb-10 text-4xl lg:text-5xl text-center text-purple-paw'>BestPaw throughout the year</motion.h3>

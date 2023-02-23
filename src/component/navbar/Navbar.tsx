@@ -19,7 +19,7 @@ import {LogoutUserFromSessionStorage} from '../../utils/functions';
 import {useGetCurrentUser} from '../../utils/hooks/getCurrentUser';
 import GooglePexel from '../GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
-import {FM_SCROLL_DROP_VARIANTS, FM_SHOW_FROM_LEFT} from '../../utils/constants';
+import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_LEFT} from '../../utils/framer-motion-settings';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
@@ -112,7 +112,7 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<motion.div variants={FM_SCROLL_DROP_VARIANTS} initial="initial" whileInView="visible" exit="hidden" className='bg-white py-4 sticky z-10 top-0 shadow-lg'>
+		<motion.div variants={FM_CASCADE_PARENT_VARIANTS} initial="initial" whileInView="visible" viewport={{once: true}} className='bg-white py-4 sticky z-10 top-0 shadow-lg'>
 			<div className='container mx-auto px-8'>
 				<div className="flex justify-between items-center" aria-label='app-navbar'>
 					{/* left side */}

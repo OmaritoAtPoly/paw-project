@@ -5,7 +5,8 @@ import {BiPhone, BiUserPlus} from 'react-icons/bi';
 import {SlLogin} from 'react-icons/sl';
 import {NavLink} from 'react-router-dom';
 import {type MenuElementType} from '../../data/data';
-import {CALL_US, LOGIN, SIGN_UP, FM_SHOW_FROM_LEFT} from '../../utils/constants';
+import {CALL_US, LOGIN, SIGN_UP} from '../../utils/constants';
+import {FM_SHOW_FROM_LEFT} from '../../utils/framer-motion-settings';
 import UserMenu from '../dropDownMenu/UserMenu';
 
 interface Props {

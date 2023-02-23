@@ -13,7 +13,7 @@ import {useActions} from '../state/hooks/useActions';
 import {useGetCurrentUrl} from '../utils/hooks/getCurrentUrlPath';
 import CardAlert from './CardAlert';
 import Search from './navbar/Search';
-import {FM_SHOW_FROM_LEFT} from '../utils/constants';
+import {FM_SHOW_FROM_LEFT} from '../utils/framer-motion-settings';
 
 const GooglePexel = () => {
 	const [search, setSearch] = useState<string>('');
