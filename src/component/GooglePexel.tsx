@@ -5,6 +5,7 @@ import React, {
 	useEffect,
 	useCallback,
 } from 'react';
+import {motion} from 'framer-motion';
 import {useSelector, useDispatch} from 'react-redux';
 import {type RootState} from '../state';
 import {ActionType} from '../state/action-types';
@@ -12,6 +13,7 @@ import {useActions} from '../state/hooks/useActions';
 import {useGetCurrentUrl} from '../utils/hooks/getCurrentUrlPath';
 import CardAlert from './CardAlert';
 import Search from './navbar/Search';
+import {FM_SHOW_FROM_LEFT} from '../utils/framer-motion-settings';
 
 const GooglePexel = () => {
 	const [search, setSearch] = useState<string>('');
@@ -57,7 +59,7 @@ const GooglePexel = () => {
 	}, []);
 
 	return (
-		<div className='flex flex-col h-[150px] justify-around items-center'>
+		<motion.div variants={FM_SHOW_FROM_LEFT} className='flex items-center flex-1 mr-10'>
 			{currentUrl === '/'
 				? <Search
 					handleValue={handleChange}
@@ -71,7 +73,7 @@ const GooglePexel = () => {
 				cardTitle='Alert.!'
 				handleOnClose={handleOnClose}
 			/>}
-		</div>
+		</motion.div>
 	);
 };
 

@@ -1,16 +1,28 @@
 import React from 'react';
+import {motion} from 'framer-motion';
+import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_LEFT, FM_SLIDE_FROM_TOP} from '../utils/framer-motion-settings';
 
 const Hero = () => (
-	<div className='max-w-[1880px] mx-auto p2 select-none'>
-		<div className='max-h-[500px] relative'>
+	<motion.div initial="initial" whileInView="visible" variants={FM_CASCADE_PARENT_VARIANTS} className="max-w-[1880px] mx-auto mt-10 px-8 select-none">
+		<motion.div variants={FM_SLIDE_FROM_TOP} className="relative overflow-hidden rounded-tr-[12vW] rounded-bl-[12vW] rounded-tl-lg rounded-br-lg">
 			{/* overlay */}
-			<div className='absolute w-full h-full text-gray-200 max-h-[500px] bg-black/40 flex flex-col justify-center'>
-				<h1 className='px-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold'>the <span className='text-orange-500'>best</span></h1>
-				<h1 className='px-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold'><span className='text-orange-500'>friend in</span> the world</h1>
+			<div className='absolute left-0 top-0 w-full h-full'>
+				<img
+					className="w-full h-full object-cover"
+					src={process.env.REACT_APP_HERO_PICTURE}
+					alt="hero-pic"
+				/>
+				<div className='absolute left-0 top-0 w-full h-full bg-black/40' />
 			</div>
-			<img className='w-full max-h-[500px] object-cover' src={process.env.REACT_APP_HERO_PICTURE} alt='hero-pic' />
-		</div>
-	</div>
+			<div className="relative text-gray-200 my-[8vW] sm:my-[12vW] xl:my-48">
+				<div className="container mx-auto px-8">
+					<motion.h1 variants={FM_SHOW_FROM_LEFT} className="text-4xl sm:text-5xl md:text-6xl">Help us <span className="text-orange-500">save lives</span></motion.h1>
+					<motion.p variants={FM_SHOW_FROM_LEFT} className='text-white text-md md:text-lg mt-5 mb-10 max-w-screen-md'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto doloremque earum dolore veniam itaque recusandae, nihil placeat quasi dignissimos</motion.p>
+					<motion.button variants={FM_SHOW_FROM_LEFT} className='flex items-center text-white border-white border-2 p-3 sm:px-4 rounded-full lg:max-w-xs hover:bg-white hover:text-zinc-600' type="button">Become a hero</motion.button>
+				</div>
+			</div>
+		</motion.div>
+	</motion.div>
 );
 
 export default Hero;
