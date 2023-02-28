@@ -1,15 +1,21 @@
 declare namespace Components {
     namespace Schemas {
+        export interface Location {
+            lat: number;
+            lng: number;
+        }
         export interface Pet {
-            id?: string;
-            name?: string;
-            rescueLocation?: string; // ^\d\.?\d?,\d.?\d?
-            details?: string[];
-            rescueDate?: string; // date-time
-            tailDetails?: "SHORT_TAIL" | "MEDIUM_TAIL" | "LARGE_TAIL";
-            socialSkills?: "FRIENDLY" | "LONELY" | "SCARY";
-            training?: "NOT_TRAINED" | "ALMOST_TRAINED" | "FULL_TRAINED";
-            base64Image?: string;
+            id: string;
+            name: string;
+            rescueLocation: Location;
+            about: string;
+            details: string;
+            medicalRecord: string;
+            rescueDate: string; // date-time
+            tailDetails: string;
+            socialSkills: string;
+            training: string;
+            petImage: string;
         }
         export interface Rating {
             id?: string;
@@ -18,10 +24,9 @@ declare namespace Components {
             stars?: number; // int32
         }
         export interface RoleDTO {
-            roleName?: string;
+            roleName: string;
         }
         export interface UserDto {
-            id?: string;
             firstName?: string;
             lastName?: string;
             username?: string;
@@ -70,12 +75,12 @@ declare namespace Paths {
             petId: Parameters.PetId;
         }
     }
-    namespace RegisterUser {
+    namespace GrantRole {
         namespace Parameters {
-            export type UserId = string;
+            export type UserName = string;
         }
         export interface PathParameters {
-            userId: Parameters.UserId;
+            userName: Parameters.UserName;
         }
         export type RequestBody = Components.Schemas.RoleDTO;
         namespace Responses {
@@ -83,7 +88,7 @@ declare namespace Paths {
             }
         }
     }
-    namespace RegisterUser1 {
+    namespace GrantRole1 {
         export type RequestBody = Components.Schemas.UserDto;
         namespace Responses {
             export interface $200 {

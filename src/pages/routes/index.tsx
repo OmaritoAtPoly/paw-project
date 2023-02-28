@@ -9,6 +9,7 @@ import {PetDetails, petDetailsLoader} from '../layoutPages/PetDetails';
 import {DashboardPage, petDashboardLoader} from '../DashboardPage';
 import {PrivateRoutes} from '../PrivateRoutes';
 import {Register} from '../Register';
+import {Pets} from '../PetsPage';
 
 export const routerElements = createBrowserRouter(
 	createRoutesFromElements(
@@ -21,8 +22,10 @@ export const routerElements = createBrowserRouter(
 			<Route element={<PrivateRoutes />} >
 				<Route path='/dashboard/:id?' element={<DashboardPage />} loader={petDashboardLoader} />
 				<Route path='/secured' element={<>Testing</>} />
+				<Route path='/pets' element={<Pets />} />
 			</Route>
 			<Route path='*' element={<NotFoundPage />} />
 		</Route>,
 	),
 );
+

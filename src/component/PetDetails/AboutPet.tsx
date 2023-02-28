@@ -8,9 +8,10 @@ interface Props {
 	imgUrl: string;
 	id?: string;
 	about: string;
+	rescueDate: string;
 }
 
-export const AboutPet = ({id = 'imageAlt', imgUrl, about}: Props) =>
+export const AboutPet = ({id = 'imageAlt', imgUrl, about, rescueDate}: Props) =>
 	<div className="w-[70vw] flex flex-col justify-start drop-shadow-xl mb-3 md:ml-[5vw] md:w-[60vw] lg:w-[400px]">
 		<Rating
 			className="mx-auto translate-y-[200%] z-10"
@@ -39,7 +40,7 @@ export const AboutPet = ({id = 'imageAlt', imgUrl, about}: Props) =>
 					<span className="font-bold text-black/80">
 						{DATE}
 						<span className="ml-[10px] font-normal text-black">
-							{new Date().toDateString()}
+							{rescueDate}
 						</span>
 					</span>
 				</div>

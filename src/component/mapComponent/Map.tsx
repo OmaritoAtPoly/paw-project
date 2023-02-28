@@ -1,10 +1,9 @@
 import React from 'react';
-import {type LatLngExpression} from 'leaflet';
 import {Marker, Popup, useMapEvents} from 'react-leaflet';
 
 interface Props {
-	markerPosition: LatLngExpression;
-	handlerMarkerPosition: (value: LatLngExpression) => void;
+	markerPosition: Components.Schemas.Location;
+	handlerMarkerPosition: (value: Components.Schemas.Location) => void;
 	popUpMessage: string;
 }
 

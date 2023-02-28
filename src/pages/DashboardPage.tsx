@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {useFormik} from 'formik';
-import {format} from 'date-fns';
 import {DayPicker} from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import * as yup from 'yup';
@@ -8,10 +7,8 @@ import {RxThickArrowRight} from 'react-icons/rx';
 import Select, {type SingleValue, type MultiValue} from 'react-select';
 import axios, {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate, useParams} from 'react-router-dom';
-import {generate} from 'shortid';
-import {type LatLngExpression} from 'leaflet';
 import {useKeycloak} from '@react-keycloak/web';
-import {type SelectOptionType, type PetDataType, petDefaultData} from '../data/data';
+import {type SelectOptionType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
@@ -22,7 +19,7 @@ const SignInSchema = yup.object().shape({
 	tailDetails: yup.string().required('Required'),
 	details: yup.array().min(1).required('Required'),
 	training: yup.string().required('Required'),
-	medicalRecord: yup.array().min(1).required('qqqq'),
+	medicalRecord: yup.array().min(1).required('Required'),
 	socialSkills: yup.string().required('Required'),
 });
 
@@ -35,25 +32,21 @@ export const DashboardPage = () => {
 		(state) => state.currentPet,
 	);
 
-	const handleCleanDetails = (value: string[]): string[] =>
-		(value.map((a) => a.trim()).filter((b) => b !== ''));
-
-	const handleSubmitValue = async (value: PetDataType) => {
-		const cleaned = {...value, details: handleCleanDetails(value.details)};
+	const handleSubmitValue = async (value: Components.Schemas.Pet) => {
 		const baseUrl = 'http://localhost:4000/petDetails';
 
 		try {
 			if (id) {
-				const response: AxiosResponse<PetDataType> = await axios.put(
+				const response: AxiosResponse<Components.Schemas.Pet> = await axios.put(
 					`${baseUrl}/${id}`,
-					{id, ...cleaned},
+					{...value},
 				);
 
 				if (response.status >= 200 && response.status < 300) navigate('/');
 			} else {
-				const response: AxiosResponse<PetDataType> = await axios.post(
+				const response: AxiosResponse<Components.Schemas.Pet> = await axios.post(
 					`${baseUrl}`,
-					{id: generate(), ...cleaned},
+					{...value},
 				);
 
 				if (response.status >= 200 && response.status < 300) navigate('/');
@@ -65,26 +58,24 @@ export const DashboardPage = () => {
 		}
 	};
 
-	const handleSplittingPetDetails = (value: string[]) => value.map((a) => (` ${a}`));
-
 	const {handleSubmit, values, handleChange, errors, touched, setFieldValue} =
 		useFormik({
-			initialValues: (petInfo && id) ? {...petInfo, rescueDate: new Date(petInfo.rescueDate), details: handleSplittingPetDetails(petInfo.details)} : petDefaultData,
-			onSubmit: async (formValues: PetDataType, actions) => {
-				await handleSubmitValue(formValues);
+			initialValues: (petInfo && id) ? petInfo : petDefaultData,
+			onSubmit: async (formValues: Components.Schemas.Pet, actions) => {
+				await handleSubmitValue({...formValues, rescueDate: new Date(formValues.rescueDate).toDateString()});
 				actions.resetForm();
 			},
 			validationSchema: SignInSchema,
 		});
 
 	const handleRescueDate = useCallback(async (day: Date | undefined) => {
-		await setFieldValue('rescueDate', day);
+		await setFieldValue('rescueDate', day?.toLocaleDateString());
 	}, [setFieldValue]);
 
 	let footer = <p>Please pick a day.</p>;
 
 	if (values.rescueDate) {
-		footer = <p className='text-center'>You picked {format(values.rescueDate, 'PP')}.</p>;
+		footer = <p className='text-center'>You picked {new Date(values.rescueDate).toDateString()}.</p>;
 	}
 
 	const handlePetDetails = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -136,8 +127,8 @@ export const DashboardPage = () => {
 		if (!adminRol) navigate('/');
 	}, [keycloak.tokenParsed?.realm_access, navigate]);
 
-	const handlerMarkerPosition = useCallback(async (value: LatLngExpression) => {
-		await setFieldValue('rescuePlace', value);
+	const handlerMarkerPosition = useCallback(async (value: Components.Schemas.Location) => {
+		await setFieldValue('rescueLocation', value);
 	}, [setFieldValue]);
 
 	const handleDefaultMedicalRecord = useMemo(() => {
@@ -147,6 +138,15 @@ export const DashboardPage = () => {
 
 		return [{value: '', label: ''}];
 	}, [id, petInfo]);
+
+	const handleFormikMedicalRecord = useMemo(() => {
+		if (values.medicalRecord) {
+			const value = Object.values(petInfo.medicalRecord);
+			return value.map((a) => ({value: a, label: a}));
+		}
+
+		return undefined;
+	}, [petInfo.medicalRecord, values.medicalRecord]);
 
 	return (
 		<>
@@ -202,7 +202,7 @@ export const DashboardPage = () => {
 						<p className="text-2xl sm:text-[27px] text-center">When was found</p>
 						<DayPicker
 							mode="single"
-							selected={values.rescueDate}
+							selected={new Date(values.rescueDate)}
 							onSelect={handleRescueDate}
 							footer={footer}
 							className='border border-gray-300'
@@ -210,7 +210,7 @@ export const DashboardPage = () => {
 					</div>
 					<div className='md:w-full'>
 						<p className="text-2xl sm:text-[27px] text-center">Place where the Pet was found</p>
-						<MapContainerWrapper markerPosition={values.rescuePlace} handlerMarkerPosition={handlerMarkerPosition} popUpMessage={WHERE_WAS_FOUND} scrollWheelZoom={false} />
+						<MapContainerWrapper markerPosition={values.rescueLocation} handlerMarkerPosition={handlerMarkerPosition} popUpMessage={WHERE_WAS_FOUND} scrollWheelZoom={false} />
 					</div>
 				</div>
 				<div className={`${commonItemStyles} drop-shadow-xl rounded-xl`}>
@@ -258,7 +258,7 @@ export const DashboardPage = () => {
 					<div className={`${commonItemStyles}`}>
 						<p className="text-2xl sm:text-[27px]">Medical records</p>
 						<Select
-							defaultValue={(id && petInfo) ? handleDefaultMedicalRecord : values.medicalRecord}
+							defaultValue={(id && petInfo) ? handleDefaultMedicalRecord : handleFormikMedicalRecord}
 							options={handleMedicalRecord}
 							onChange={async (value) => {
 								await handleMultiSelectors(value, 'medicalRecord');

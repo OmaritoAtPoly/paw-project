@@ -1,9 +1,8 @@
 import {type Dispatch} from 'redux';
-import {type PetDataType} from '../../data/data';
 import {EditablePet} from '../action-types';
 import {type EditablePetAction} from '../actions';
 
-export const handleEditablePet = (value: PetDataType) => {
+export const handleEditablePet = (value: Components.Schemas.Pet) => {
 	return async (dispatch: Dispatch<EditablePetAction>) => {
 		dispatch({
 			type: EditablePet.EDITABLE_PET,
