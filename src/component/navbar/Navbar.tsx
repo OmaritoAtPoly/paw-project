@@ -6,9 +6,10 @@ import {TbTruckDelivery} from 'react-icons/tb';
 import {GrUserAdmin} from 'react-icons/gr';
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useKeycloak} from '@react-keycloak/web';
+import {motion} from 'framer-motion';
 import {
 	defaultUser,
-	type ItemElementType,
+	type MenuElementType,
 	type UserDataType,
 } from '../../data/data';
 import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
@@ -18,6 +19,7 @@ import {LogoutUserFromSessionStorage} from '../../utils/functions';
 import {useGetCurrentUser} from '../../utils/hooks/getCurrentUser';
 import GooglePexel from '../GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
+import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_LEFT} from '../../utils/framer-motion-settings';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
@@ -75,7 +77,7 @@ const Navbar = () => {
 		currentUserValues();
 	}, [currentUserValues, transformedValue.email]);
 
-	const dropDownMenuValues: ItemElementType[] = useMemo(() => {
+	const dropDownMenuValues: MenuElementType[] = useMemo(() => {
 		const onClickExample = () => {
 			console.log(`User Name ${currentUser.name}`);
 			console.log(`User id ${currentUser.userId}`);
@@ -84,12 +86,16 @@ const Navbar = () => {
 		return [
 			{
 				itemName: currentUser.name,
-				imgUrl: currentUser.picture,
 				userId: currentUser.userId,
 				onClick: onClickExample,
 			},
 			{
-				imgUrl: 'power.png',
+				icon: {
+					iconName: 'logout',
+					iconWidth: 25,
+					iconHeight: 25,
+					iconClass: 'ml-3.5 mb-[-1px]',
+				},
 				itemName: 'Logout',
 				userId: currentUser.userId,
 				onClick: Logout,
@@ -106,84 +112,90 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<div className="mx-auto flex justify-between items-center p-4 sticky z-10 top-0 bg-white" aria-label='app-navbar'>
-			{/* left side */}
-			<div className="flex items-center w-[80px] md:w-[25vw]">
-				<AiOutlineMenu
-					size={30}
-					onClick={handleNavState}
-					className="cursor-pointer mx-auto md:m-0"
-					aria-label='hamburger-button'
-				/>
-				<div className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
-					<NavLink
-						to="/"
-						className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl "
-					>
-						Best <span className="font-bold">Paw</span>
-					</NavLink>
+		<motion.div variants={FM_CASCADE_PARENT_VARIANTS} initial="initial" whileInView="visible" viewport={{once: true}} className='bg-white py-4 sticky z-10 top-0 shadow-lg'>
+			<div className='container mx-auto px-8'>
+				<div className="flex justify-between items-center" aria-label='app-navbar'>
+					{/* left side */}
+					<div className="flex items-center mr-5">
+						<motion.div variants={FM_SHOW_FROM_LEFT}>
+							<AiOutlineMenu
+								size={30}
+								onClick={handleNavState}
+								className="cursor-pointer mx-auto md:m-0"
+								aria-label='hamburger-button'
+							/>
+						</motion.div>
+						<motion.div variants={FM_SHOW_FROM_LEFT} className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
+							<NavLink
+								to="/"
+								className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl "
+							>
+								Best <span className="font-bold">Paw</span>
+							</NavLink>
 
-					<div className="hidden bg-gray-200 lg:flex items-center rounded-full p-1 text-[14px]">
-						<NavLink to='/secured' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
-						<NavLink to='/dashboard' className="p-2">Pick up</NavLink>
+							<div className="hidden bg-gray-200 lg:flex items-center rounded-full text-[14px]">
+								<NavLink to='/secured' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
+								<NavLink to='/dashboard' className="p-2">Pick up</NavLink>
+							</div>
+						</motion.div>
+					</div>
+
+					{/* search input */}
+					<GooglePexel />
+					<RightComponentActionButtons
+						handleCallFunction={handleCallFunction}
+						handleRightDrawer={handleRightDrawer}
+						dropDownMenuValues={dropDownMenuValues}
+					/>
+					{/* overlay */}
+					{navState ? (
+						<div
+							className="bg-black/70 fixed w-full h-screen left-0 top-0"
+							onClick={handleNavState}
+							onKeyUp={handleNavState}
+							role="button"
+							tabIndex={0}
+							aria-label="hidden text"
+						/>
+					) : (
+						''
+					)}
+					{/* side drawer menu */}
+					<div
+						className={`${navState
+							? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0 z-10'
+							: 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}
+					>
+						<AiOutlineClose
+							size={25}
+							className="absolute right-4 top-4 cursor-pointer"
+							onClick={handleNavState}
+						/>
+						<h2 className="text-2xl p-4">
+							<NavLink to="/" onClick={handleNavState}>
+								Best <span className="font-bold">Paw</span> Home
+							</NavLink>
+						</h2>
+						<nav>
+							<ul className="flex flex-col p-4">
+								{(currentUser.rol === 'admin' && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
+									<GrUserAdmin size={25} className="mr-4" />
+									<NavLink to='dashBoard' onClick={handleNavState}>DashBoard</NavLink>
+								</li>}
+								<li className="text-xl py-4 flex">
+									<TbTruckDelivery size={25} className="mr-4" />
+									Orders
+								</li>
+								<li className="text-xl py-4 flex">
+									<MdFavorite size={25} className="mr-4" />
+									Favorites
+								</li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>
-
-			{/* search input */}
-			<GooglePexel />
-			<RightComponentActionButtons
-				handleCallFunction={handleCallFunction}
-				handleRightDrawer={handleRightDrawer}
-				dropDownMenuValues={dropDownMenuValues}
-			/>
-			{/* overlay */}
-			{navState ? (
-				<div
-					className="bg-black/70 fixed w-full h-screen left-0 top-0"
-					onClick={handleNavState}
-					onKeyUp={handleNavState}
-					role="button"
-					tabIndex={0}
-					aria-label="hidden text"
-				/>
-			) : (
-				''
-			)}
-			{/* side drawer menu */}
-			<div
-				className={`${navState
-					? 'fixed w-[300px] h-screen duration-300 bg-white left-0 top-0 z-10'
-					: 'fixed w-[300px] h-screen duration-300 bg-white left-[-100%] top-0'} `}
-			>
-				<AiOutlineClose
-					size={25}
-					className="absolute right-4 top-4 cursor-pointer"
-					onClick={handleNavState}
-				/>
-				<h2 className="text-2xl p-4">
-					<NavLink to="/" onClick={handleNavState}>
-						Best <span className="font-bold">Paw</span> Homexx
-					</NavLink>
-				</h2>
-				<nav>
-					<ul className="flex flex-col p-4">
-						{(currentUser.rol === 'admin' && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
-							<GrUserAdmin size={25} className="mr-4" />
-							<NavLink to='dashBoard' onClick={handleNavState}>DashBoard</NavLink>
-						</li>}
-						<li className="text-xl py-4 flex">
-							<TbTruckDelivery size={25} className="mr-4" />
-							Orders
-						</li>
-						<li className="text-xl py-4 flex">
-							<MdFavorite size={25} className="mr-4" />
-							Favorites
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
+		</motion.div>
 	);
 };
 

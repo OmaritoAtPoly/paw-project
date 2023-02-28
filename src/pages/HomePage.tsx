@@ -1,14 +1,14 @@
 import React from 'react';
-import Category from '../component/Category';
 import HeadLinesCards from '../component/HeadLinesCards';
 import Hero from '../component/Hero';
-import Pets from '../component/Pets';
+import RescueStats from '../component/RescueStats';
+import NewsletterSignup from '../component/NewsletterSignup';
 
 export const HomePage = () => (
 	<>
 		<Hero />
 		<HeadLinesCards />
-		<Pets />
-		<Category />
+		<RescueStats />
+		<NewsletterSignup />
 	</>
 );

@@ -1,6 +1,6 @@
 import axios, {type AxiosResponse} from 'axios';
 import {type Photo} from 'pexels';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {FiEdit2} from 'react-icons/fi';
 import {GiFoxTail, GiWeightLiftingUp} from 'react-icons/gi';
 import {HiUserGroup} from 'react-icons/hi';
@@ -13,7 +13,6 @@ import {AboutPet} from '../../component/PetDetails/AboutPet';
 import {ConsideringToAdopt} from '../../component/PetDetails/ConsideringToAdopt';
 import {ContactSection} from '../../component/PetDetails/ContactSection';
 import {MeetOurPets} from '../../component/PetDetails/MeetOurPets';
-import {type PetDataType} from '../../data/data';
 import {useActions} from '../../state/hooks/useActions';
 import {ABOUT} from '../../utils/constants';
 
@@ -27,7 +26,7 @@ export const PetDetails = () => {
 
 	const {handleEditablePet} = useActions();
 
-	const petData = useLoaderData() as PetDataType;
+	const petData = useLoaderData() as Components.Schemas.Pet;
 
 	const editPet = () => {
 		handleEditablePet(petData);
@@ -46,11 +45,16 @@ export const PetDetails = () => {
 		window.open('tel:111111');
 	}, []);
 
+
+	const medicalRecordValues = useMemo(() => {
+		return petData.medicalRecord.toString().split(',');
+	}, [petData.medicalRecord]);
+
 	return (
 		<>
 			<div className=" h-fit flex flex-col items-center md:flex-row md:items-stretch">
 				{/* about section */}
-				<AboutPet id={id} imgUrl={petData.petImage} about={petData.about} />
+				<AboutPet id={id} imgUrl={petData.petImage} about={petData.about} rescueDate={petData.rescueDate} />
 				{/* pet info section */}
 				<div className="w-[350px] h-fit flex flex-col justify-between md:w-[50vw] md:ml-10 xl:w-[42vw] xl:ml-3 items-center">
 					<div className="w-[350px] h-fit rounded-lg drop-shadow-lg mx-auto md:mx-0 md:w-[90%]">
@@ -74,7 +78,7 @@ export const PetDetails = () => {
 						</AboutPetItem>
 						<AboutPetItem className={itemWrapperStyle}>
 							<TbHeartbeat className={petSkillIconStyle} color="#f05534" />
-							<BreadCrumbs elements={petData.medicalRecord} separator='/' />
+							<BreadCrumbs elements={medicalRecordValues} separator='/' />
 						</AboutPetItem>
 						<AboutPetItem className={itemWrapperStyle}>
 							<HiUserGroup className={petSkillIconStyle} color="#719fe8" />
@@ -108,7 +112,7 @@ export const PetDetails = () => {
 			</div>
 			<div className='w-[300px] mx-auto my-10 sm:w-[80vw] drop-shadow-xl'>
 				<p className="text-2xl sm:text-[27px] text-center">Place where the Pet was found</p>
-				<MapContainerWrapper markerPosition={petData.rescuePlace} handlerMarkerPosition={() => { }} scrollWheelZoom={false} />
+				<MapContainerWrapper markerPosition={petData.rescueLocation} handlerMarkerPosition={() => { }} scrollWheelZoom={false} />
 			</div>
 		</>
 	);

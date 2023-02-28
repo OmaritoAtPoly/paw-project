@@ -1,8 +1,10 @@
 import React from 'react';
 import {fireEvent, render, screen} from '@testing-library/react';
 import {BrowserRouter} from 'react-router-dom';
+import {ReactKeycloakProvider} from '@react-keycloak/web';
 import {CALL_US, LOGIN, SIGN_UP} from '../../../utils/constants';
 import {RightComponentActionButtons} from '../RightComponentActionButtons';
+import keycloak from '../../../Keycloak';
 
 const mockHandleCallFunction = jest.fn();
 const mockHandleRightDrawer = jest.fn();
@@ -11,9 +13,11 @@ describe('these are the three buttons shown in the navbar', () => {
 	beforeEach(() => {
 
 		render(
-			<BrowserRouter>
-				<RightComponentActionButtons dropDownMenuValues={[]} handleCallFunction={mockHandleCallFunction} handleRightDrawer={mockHandleRightDrawer} />
-			</BrowserRouter>,
+			<ReactKeycloakProvider authClient={keycloak}>
+				<BrowserRouter>
+					<RightComponentActionButtons dropDownMenuValues={[]} handleCallFunction={mockHandleCallFunction} handleRightDrawer={mockHandleRightDrawer} />
+				</BrowserRouter>
+			</ReactKeycloakProvider>,
 		);
 	});
 
