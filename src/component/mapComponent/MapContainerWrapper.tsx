@@ -1,12 +1,11 @@
 import React from 'react';
 import {MapContainer, TileLayer, type MapContainerProps} from 'react-leaflet';
-import {type LatLngExpression} from 'leaflet';
 import {defaultSofiaCoordinate} from '../../data/data';
 import {MapComponent} from './Map';
 
 interface Props {
-	markerPosition: LatLngExpression;
-	handlerMarkerPosition?: (value: LatLngExpression) => void;
+	markerPosition: Components.Schemas.Location;
+	handlerMarkerPosition?: (value: Components.Schemas.Location) => void;
 	scrollWheelZoom?: boolean;
 	popUpMessage?: string;
 }

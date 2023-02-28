@@ -173,7 +173,7 @@ const Navbar = () => {
 						/>
 						<h2 className="text-2xl p-4">
 							<NavLink to="/" onClick={handleNavState}>
-								Best <span className="font-bold">Paw</span> Homexx
+								Best <span className="font-bold">Paw</span> Home
 							</NavLink>
 						</h2>
 						<nav>

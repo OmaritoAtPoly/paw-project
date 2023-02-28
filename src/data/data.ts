@@ -1,4 +1,4 @@
-import {type LatLngExpression} from 'leaflet';
+import {type LatLngLiteral} from 'leaflet';
 import {type Photo} from 'pexels';
 import {generate} from 'shortid';
 import {LoggedFromPlatform} from '../state/action-types';
@@ -304,22 +304,21 @@ export interface MenuElementType {
 	};
 }
 
-export const defaultSofiaCoordinate: LatLngExpression = [42.698334, 23.319941];
+export const defaultSofiaCoordinate: LatLngLiteral = {lat: 42.698334, lng: 23.319941};
 
 export const petDefaultData = {
+	id: generate(),
 	name: '',
 	about: '',
-	rescuePlace: defaultSofiaCoordinate,
-	details: [''],
-	rescueDate: new Date(),
+	rescueLocation: defaultSofiaCoordinate,
+	details: '',
+	rescueDate: new Date().toDateString(),
 	tailDetails: '',
 	socialSkills: '',
 	training: '',
-	medicalRecord: [],
+	medicalRecord: '',
 	petImage: '',
 };
-
-export type PetDataType = typeof petDefaultData;
 
 const options = [
 	{value: '', label: ''},
