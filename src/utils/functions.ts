@@ -25,3 +25,10 @@ export const auxiliar = async (email: string, password: string) => {
 
 	return currentUser;
 };
+
+export const cleanString = (value: string) => {
+	const newValue = value.split(',');
+
+	return newValue.filter((a) => a !== '').join(', ');
+};
+

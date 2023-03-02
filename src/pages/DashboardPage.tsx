@@ -12,14 +12,16 @@ import {type SelectOptionType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
+import {usePutAllApiCalls} from '../utils/apiCalls/usePutAllApiCalls';
+import {cleanString} from '../utils/functions';
 
-const SignInSchema = yup.object().shape({
+const AddingPetSchema = yup.object().shape({
 	name: yup.string().required('Required'),
 	about: yup.string().required('Required'),
 	tailDetails: yup.string().required('Required'),
-	details: yup.array().min(1).required('Required'),
+	details: yup.string().required('Required'),
 	training: yup.string().required('Required'),
-	medicalRecord: yup.array().min(1).required('Required'),
+	medicalRecord: yup.array().min(1, 'this field can not be empty').required('Required'),
 	socialSkills: yup.string().required('Required'),
 });
 
@@ -32,23 +34,16 @@ export const DashboardPage = () => {
 		(state) => state.currentPet,
 	);
 
-	const handleSubmitValue = async (value: Components.Schemas.Pet) => {
-		const baseUrl = 'http://localhost:4000/petDetails';
 
+	const {addNewPet, updateExistingPet} = usePutAllApiCalls();
+
+	const handleSubmitValue = async (value: Components.Schemas.Pet) => {
 		try {
 			if (id) {
-				const response: AxiosResponse<Components.Schemas.Pet> = await axios.put(
-					`${baseUrl}/${id}`,
-					{...value},
-				);
-
-				if (response.status >= 200 && response.status < 300) navigate('/');
+				const response = await updateExistingPet(value);
+				if (response.status >= 200 && response.status < 300) navigate('/pets');
 			} else {
-				const response: AxiosResponse<Components.Schemas.Pet> = await axios.post(
-					`${baseUrl}`,
-					{...value},
-				);
-
+				const response = await addNewPet(value);
 				if (response.status >= 200 && response.status < 300) navigate('/');
 			}
 		} catch (error) {
@@ -58,14 +53,23 @@ export const DashboardPage = () => {
 		}
 	};
 
+	const handleCleanFormValues = (value: Components.Schemas.Pet) => {
+		const details = cleanString(value.details);
+		const medicalRecord = value.medicalRecord.toString().split(',').join(','); //this operation is made to convert the string array in the formik state to a flat string and then join all the element with a comma
+
+		return {...value, rescueDate: new Date(value.rescueDate).toISOString(), details, medicalRecord};
+
+	};
+
 	const {handleSubmit, values, handleChange, errors, touched, setFieldValue} =
 		useFormik({
-			initialValues: (petInfo && id) ? petInfo : petDefaultData,
+			initialValues: (petInfo && id) ? {...petInfo, details: cleanString(petInfo.details.toString())} : petDefaultData,
 			onSubmit: async (formValues: Components.Schemas.Pet, actions) => {
-				await handleSubmitValue({...formValues, rescueDate: new Date(formValues.rescueDate).toDateString()});
+				const cleanedValues = handleCleanFormValues(formValues);
+				await handleSubmitValue(cleanedValues);
 				actions.resetForm();
 			},
-			validationSchema: SignInSchema,
+			validationSchema: AddingPetSchema,
 		});
 
 	const handleRescueDate = useCallback(async (day: Date | undefined) => {
@@ -79,7 +83,7 @@ export const DashboardPage = () => {
 	}
 
 	const handlePetDetails = async (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		const result = event.target.value.split(',');
+		const result = event.target.value;
 		await setFieldValue('details', result);
 	};
 

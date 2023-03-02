@@ -36,7 +36,7 @@ const Footer = () => {
 					<div>
 						<motion.h3 variants={FM_SHOW_FROM_BOTTOM} className='text-xl font-bold mb-6'>Connect With Us</motion.h3>
 						<div className='flex flex-wrap items-center mx-[-1rem]'>
-							<motion.a variants={FM_SHOW_FROM_BOTTOM} href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
+							<motion.a variants={FM_SHOW_FROM_BOTTOM} href="https://www.facebook.com" target="_blank" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
 								<FaFacebookF />
 							</motion.a>
 							<motion.a variants={FM_SHOW_FROM_BOTTOM} href="/" className="rounded-full text-zinc-700 p-3 text-xl bg-white mx-4 mb-4 hover:bg-yellow-paw hover:text-white">
