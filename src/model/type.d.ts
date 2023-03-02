@@ -27,11 +27,11 @@ declare namespace Components {
             roleName: string;
         }
         export interface UserDto {
-            firstName?: string;
-            lastName?: string;
-            username?: string;
-            password?: string;
-            email?: string;
+            firstName: string;
+            lastName: string;
+            username: string;
+            password: string;
+            email: string;
         }
     }
 }
@@ -88,7 +88,7 @@ declare namespace Paths {
             }
         }
     }
-    namespace GrantRole1 {
+    namespace RegisterUser {
         export type RequestBody = Components.Schemas.UserDto;
         namespace Responses {
             export interface $200 {

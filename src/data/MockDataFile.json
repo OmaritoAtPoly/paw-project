@@ -60,7 +60,7 @@
     {
       "tailSize": ["Short tail", "Medium tail", "Large tail"],
       "training": ["not trained", "almost trained", "full trained diploma"],
-      "medicalRecord": ["Rage", "Tick", "fleas"],
+      "medicalRecord": ["Rage", "Tick", "Fleas"],
       "socialSkill": ["friendly", "Lonely", "Scary"]
     }
   ],

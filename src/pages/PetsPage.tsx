@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Pet} from '../component/PetDetails/Pet';
-import {useGetAllApiCalls} from '../utils/apiCalls/getAllPets';
+import {useGetAllApiCalls} from '../utils/apiCalls/useGetAllApiCalls';
 
 export const Pets = () => {
 	const [pets, setPets] = useState<Components.Schemas.Pet[]>();

@@ -134,7 +134,7 @@ const Navbar = () => {
 							</NavLink>
 
 							<div className="hidden bg-gray-200 lg:flex items-center rounded-full text-[14px]">
-								<NavLink to='/secured' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
+								<NavLink to='/pets' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
 								<NavLink to='/dashboard' className="p-2">Pick up</NavLink>
 							</div>
 						</motion.div>
