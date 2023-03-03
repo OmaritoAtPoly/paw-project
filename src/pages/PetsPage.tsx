@@ -18,7 +18,7 @@ export const Pets = () => {
 	return (
 
 		<div>
-			{(pets && pets.length > 0) ? pets.map((a) => <Pet name={a.name} key={a.id} />) : <div>no hay</div>}
+			{(pets && pets.length > 0) ? pets.map((a) => <Pet name={a.name} id={a.id} key={a.id} />) : <div>no hay</div>}
 		</div>
 
 	);

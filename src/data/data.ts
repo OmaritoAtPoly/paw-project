@@ -334,3 +334,32 @@ const defaultUserData = {
 };
 
 export type DefaultUserDataType = typeof defaultUserData;
+
+const locationResponse = {
+	'place_id': '226239866',
+	'licence': 'https://locationiq.com/attribution',
+	'osm_type': 'way',
+	'osm_id': '562441249',
+	'lat': '54.76981985',
+	'lon': '55.33678005',
+	'display_name': '32, улица Путлинка, Дмитриевка, Дмитриевский сельсовет, Chishminsky District, Bashkortostan, Volga Federal District, Russia',
+	'address': {
+		'house_number': '32',
+		'road': 'улица Путлинка',
+		'village': 'Дмитриевка',
+		'municipality': 'Дмитриевский сельсовет',
+		'county': 'Chishminsky District',
+		'state': 'Bashkortostan',
+		'region': 'Volga Federal District',
+		'country': 'Russia',
+		'country_code': 'ru',
+	},
+	'boundingbox': [
+		'54.7697754',
+		'54.7698643',
+		'55.3366924',
+		'55.3368677',
+	],
+};
+
+export type DefaultLocationPropertiesType = typeof locationResponse;
