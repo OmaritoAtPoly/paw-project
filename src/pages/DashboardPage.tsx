@@ -12,7 +12,7 @@ import {type SelectOptionType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
-import {usePutAllApiCalls} from '../utils/apiCalls/usePutAllApiCalls';
+import {usePetAllApiCalls} from '../utils/apiCalls/usePutAllApiCalls';
 import {cleanString} from '../utils/functions';
 
 const AddingPetSchema = yup.object().shape({
@@ -21,7 +21,7 @@ const AddingPetSchema = yup.object().shape({
 	tailDetails: yup.string().required('Required'),
 	details: yup.string().required('Required'),
 	training: yup.string().required('Required'),
-	medicalRecord: yup.array().min(1, 'this field can not be empty').required('Required'),
+	medicalRecord: yup.string().required('Required'),
 	socialSkills: yup.string().required('Required'),
 });
 
@@ -35,7 +35,7 @@ export const DashboardPage = () => {
 	);
 
 
-	const {addNewPet, updateExistingPet} = usePutAllApiCalls();
+	const {addNewPet, updateExistingPet} = usePetAllApiCalls();
 
 	const handleSubmitValue = async (value: Components.Schemas.Pet) => {
 		try {
@@ -63,9 +63,10 @@ export const DashboardPage = () => {
 
 	const {handleSubmit, values, handleChange, errors, touched, setFieldValue} =
 		useFormik({
-			initialValues: (petInfo && id) ? {...petInfo, details: cleanString(petInfo.details.toString())} : petDefaultData,
+			initialValues: (petInfo && id) ? {...petInfo, details: cleanString(petInfo.details.toString()), medicalRecord: cleanString(petInfo.medicalRecord.toString())} : petDefaultData,
 			onSubmit: async (formValues: Components.Schemas.Pet, actions) => {
 				const cleanedValues = handleCleanFormValues(formValues);
+
 				await handleSubmitValue(cleanedValues);
 				actions.resetForm();
 			},
@@ -121,7 +122,7 @@ export const DashboardPage = () => {
 	};
 
 	const handleMultiSelectors = useCallback(async (newValue: MultiValue<{value: string; label: string}>, target: string) => {
-		const value = newValue.map(a => a.label);
+		const value = newValue.map(a => a.label).join(',');
 		await setFieldValue(target, value);
 	}, [setFieldValue]);
 
@@ -137,7 +138,7 @@ export const DashboardPage = () => {
 
 	const handleDefaultMedicalRecord = useMemo(() => {
 		if (petInfo && id) {
-			return Object.values(petInfo.medicalRecord).map((a) => ({value: a, label: a}));
+			return (petInfo.medicalRecord).toString().split(',').map((a) => ({value: a, label: a}));
 		}
 
 		return [{value: '', label: ''}];
@@ -145,7 +146,7 @@ export const DashboardPage = () => {
 
 	const handleFormikMedicalRecord = useMemo(() => {
 		if (values.medicalRecord) {
-			const value = Object.values(petInfo.medicalRecord);
+			const value = (petInfo.medicalRecord).toString().split(',');
 			return value.map((a) => ({value: a, label: a}));
 		}
 

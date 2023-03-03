@@ -2,10 +2,11 @@ import React from 'react';
 
 interface Props {
 	name: string;
+	id: string;
 }
-export const Pet = ({name}: Props) => {
+export const Pet = ({name, id}: Props) => {
 	return (
-		<div>{name}</div>
+		<div>{`${name}, ${id}`}</div>
 	);
 };
 

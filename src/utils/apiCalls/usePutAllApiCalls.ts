@@ -1,8 +1,11 @@
 import {useKeycloak} from '@react-keycloak/web';
-import {type AxiosResponse} from 'axios';
+import axios, {type AxiosResponse} from 'axios';
+import {useCallback} from 'react';
+import {type DefaultLocationPropertiesType} from '../../data/data';
 import {axiosPublic} from '../axiosConfiguration';
 
-export const usePutAllApiCalls = () => {
+
+export const usePetAllApiCalls = () => {
 	const {keycloak} = useKeycloak();
 
 	sessionStorage.setItem('userToken', keycloak.token!);
@@ -28,5 +31,43 @@ export const usePutAllApiCalls = () => {
 		return response;
 	};
 
-	return {addNewPet, updateExistingPet};
+	const getPetById = useCallback(async (petId: string) => {
+		let result;
+		if (petId) {
+			try {
+
+				const value: AxiosResponse<Components.Schemas.Pet> = (await axiosPublic.get(`/v1/pets/${petId}`));
+
+				if (value.status === 200) {
+					result = value.data;
+				}
+			} catch (error) {
+				if (error instanceof Error) {
+					console.log('there is an error due to:', error.message);
+				}
+			}
+		}
+
+		return result;
+	}, []);
+
+	const getPlaceNameFromCoordinates = async (coord: Components.Schemas.Location) => {
+		let result;
+
+		try {
+			const response: AxiosResponse<DefaultLocationPropertiesType> = await axios.get(`https://us1.locationiq.com/v1/reverse?key=${process.env.REACT_APP_LOCATION_KEY!}&lat=${coord.lat}&lon=${coord.lng}&format=json`);
+			if (response) return response;
+		} catch (error) {
+			if (error instanceof Error) {
+				console.log('there is an error regarding:', error.message);
+			}
+		}
+
+		return result;
+	};
+
+	return {addNewPet, updateExistingPet, getPetById, getPlaceNameFromCoordinates};
 };
+
+
+
