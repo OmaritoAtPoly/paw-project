@@ -1,11 +1,9 @@
-import axios, {type AxiosResponse} from 'axios';
-import {type Photo} from 'pexels';
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {FiEdit2} from 'react-icons/fi';
 import {GiFoxTail, GiWeightLiftingUp} from 'react-icons/gi';
 import {HiUserGroup} from 'react-icons/hi';
 import {TbHeartbeat} from 'react-icons/tb';
-import {type LoaderFunctionArgs, useParams, useLoaderData, useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {AboutPetItem} from '../../component/aboutPetItem';
 import {BreadCrumbs} from '../../component/BreadCrumbs';
 import {MapContainerWrapper} from '../../component/mapComponent/MapContainerWrapper';
@@ -13,11 +11,16 @@ import {AboutPet} from '../../component/PetDetails/AboutPet';
 import {ConsideringToAdopt} from '../../component/PetDetails/ConsideringToAdopt';
 import {ContactSection} from '../../component/PetDetails/ContactSection';
 import {MeetOurPets} from '../../component/PetDetails/MeetOurPets';
+import {petDefaultData} from '../../data/data';
 import {useActions} from '../../state/hooks/useActions';
+import {usePetAllApiCalls} from '../../utils/apiCalls/usePutAllApiCalls';
 import {ABOUT} from '../../utils/constants';
 
 export const PetDetails = () => {
+	const {getPetById} = usePetAllApiCalls();
+
 	const {id} = useParams();
+	const [petData, setPetData] = useState<Components.Schemas.Pet>(petDefaultData);
 	const navigate = useNavigate();
 
 	const itemWrapperStyle = 'flex items-center py-1';
@@ -26,12 +29,21 @@ export const PetDetails = () => {
 
 	const {handleEditablePet} = useActions();
 
-	const petData = useLoaderData() as Components.Schemas.Pet;
-
 	const editPet = () => {
 		handleEditablePet(petData);
 		navigate(`/dashboard/${id!}`);
 	};
+
+	const getCurrentPet = useCallback(async () => {
+		if (id) {
+			const value = await getPetById(id);
+			if (value) setPetData(value);
+		}
+	}, [getPetById, id]);
+
+	useEffect(() => {
+		void getCurrentPet();
+	}, [getCurrentPet]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -47,7 +59,7 @@ export const PetDetails = () => {
 
 
 	const medicalRecordValues = useMemo(() => {
-		return petData.medicalRecord.toString().split(',');
+		return petData.medicalRecord.split(',');
 	}, [petData.medicalRecord]);
 
 	return (
@@ -58,7 +70,7 @@ export const PetDetails = () => {
 				{/* pet info section */}
 				<div className="w-[350px] h-fit flex flex-col justify-between md:w-[50vw] md:ml-10 xl:w-[42vw] xl:ml-3 items-center">
 					<div className="w-[350px] h-fit rounded-lg drop-shadow-lg mx-auto md:mx-0 md:w-[90%]">
-						<div className='flex items-center w-full max-w-xs justify-between'>
+						<div className='flex items-center w-full justify-between'>
 							<p className="text-center text-4xl pb-4 md:text-left">{petData.name}</p>
 							{id && <FiEdit2 size={20} className='cursor-pointer hover:scale-125' onClick={editPet} />}
 						</div>
@@ -119,25 +131,25 @@ export const PetDetails = () => {
 };
 
 // TODO use this code when needed,
-export const petDetailsLoader = async ({params}: LoaderFunctionArgs) => {
-	const {id} = params;
+// export const petDetailsLoader = async ({params}: LoaderFunctionArgs) => {
+// 	const {id} = params;
 
-	let result;
-	if (id) {
-		try {
-			const url = `http://localhost:4000/petDetails/${id}`;
+// 	let result;
+// 	if (id) {
+// 		try {
+// 			// const url = `http://localhost:4000/petDetails/${id}`;
 
-			const value: AxiosResponse<Photo> = (await axios.get(url));
+// 			// const value: AxiosResponse<Components.Schemas.Pet> = (await axiosPublic.get(`/v1/pets/${id}`));
 
-			if (value.status === 200) {
-				result = value.data;
-			}
-		} catch (error) {
-			if (error instanceof Error) {
-				console.log('there is an error due to:', error.message);
-			}
-		}
-	}
+// 			if (value.status === 200) {
+// 				result = value.data;
+// 			}
+// 		} catch (error) {
+// 			if (error instanceof Error) {
+// 				console.log('there is an error due to:', error.message);
+// 			}
+// 		}
+// 	}
 
-	return result;
-};
+// 	return result;
+// };
