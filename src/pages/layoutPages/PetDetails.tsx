@@ -70,7 +70,7 @@ export const PetDetails = () => {
 				{/* pet info section */}
 				<div className="w-[350px] h-fit flex flex-col justify-between md:w-[50vw] md:ml-10 xl:w-[42vw] xl:ml-3 items-center">
 					<div className="w-[350px] h-fit rounded-lg drop-shadow-lg mx-auto md:mx-0 md:w-[90%]">
-						<div className='flex items-center w-full max-w-xs justify-between'>
+						<div className='flex items-center w-full justify-between'>
 							<p className="text-center text-4xl pb-4 md:text-left">{petData.name}</p>
 							{id && <FiEdit2 size={20} className='cursor-pointer hover:scale-125' onClick={editPet} />}
 						</div>
