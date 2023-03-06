@@ -17,7 +17,15 @@ module.exports = {
       },
 			fontSize: {
 				bgIcon: '50vW',
-			}
+			},
+			boxShadow: {
+        'lg-centered': '0 5px 15px -3px rgba(0, 0, 0, 0.2)',
+        'xl-centered': '0 5px 25px -5px rgba(0, 0, 0, 0.2)',
+      },
+			maxWidth: {
+        'third': 'calc(100% / 3)',
+        'fourth': 'calc(100% / 4)',
+      }
     },
   },
   plugins: [],
