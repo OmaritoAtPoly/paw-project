@@ -1,26 +1,28 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import HeartMemo from '../../svg/Heart';
 
 interface Props {
 	petName: string;
 }
 
 export const ConsideringToAdopt = ({petName}: Props) => (
-	<div className="mt-7 bg-purple-500 text-white text-xl flex flex-col items-center justify-around h-[250px] rounded-xl mx-auto xl:w-[22vw]">
-		<p className="text-center font-semibold">
-			Considering {petName} for adoption_?
-		</p>
+	<div className="p-10 shadow-xl bg-purple-paw text-white text-xl text-center rounded-xl">
+		<h4 className="font-bold mb-6">
+			Considering {petName} for adoption?
+		</h4>
 		<NavLink
 			to="/"
-			className="bg-white text-primary p-3 rounded-full hover:bg-primary/50 hover:text-white"
+			className="w-full bg-white mb-6 flex items-center justify-center text-purple-paw p-3 sm:px-4 rounded-full"
 		>
-			Start Your Inquiry
+			Adopt
 		</NavLink>
-		<NavLink
-			to="/"
-			className="ring-offset-2 ring-2 p-3 rounded-full hover:bg-primary/50"
+		<button
+			type="button"
+			className="w-full bg-transparent border-2 border-white text-white flex items-center justify-center p-3 sm:px-4 rounded-full"
 		>
-			Read ours FAQs
-		</NavLink>
+			<HeartMemo height={24} width={24} />
+			<span className="ml-4">Favorite</span>
+		</button>
 	</div>
 );

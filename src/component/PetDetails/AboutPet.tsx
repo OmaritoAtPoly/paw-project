@@ -1,49 +1,44 @@
-import {Rating} from '@smastrom/react-rating';
 import React from 'react';
+import {Rating} from '@smastrom/react-rating';
 import {faker} from '@faker-js/faker';
-import {ABOUT, DATE, PLACE, RESCUE_DATA} from '../../utils/constants';
-
+import {FiEdit2} from 'react-icons/fi';
+import {DATE, PLACE, RESCUE_DATA} from '../../utils/constants';
+import '@smastrom/react-rating/style.css';
 
 interface Props {
-	imgUrl: string;
-	id?: string;
 	about: string;
+	id?: string;
+	petName: string;
+	editPet: () => void;
 	rescueDate: string;
 }
 
-export const AboutPet = ({id = 'imageAlt', imgUrl, about, rescueDate}: Props) =>
-	<div className="w-[70vw] flex flex-col justify-start drop-shadow-xl mb-3 md:ml-[5vw] md:w-[60vw] lg:w-[400px]">
-		<Rating
-			className="mx-auto translate-y-[200%] z-10"
-			value={3}
-			style={{maxWidth: 100}}
-			items={5}
-		/>
-		<img src={imgUrl} alt={id} className=" object-contain" />
-		<div className=" bg-white ">
-			<div className="m-4 h-full flex-col">
-				<p className="font-bold mb-3">{ABOUT}</p>
-				<p className='text-justify'>
-					{about}
-				</p>
-				<span className="block text-red-400 font-bold text-center my-4">
-					{RESCUE_DATA}
-				</span>
-				<div className="flex flex-col ">
-					<span className="font-bold text-black/80">
-						{PLACE}
-						<span className="ml-[10px] font-normal text-black">
-							{faker.address.city()}
-						</span>
-					</span>
+export const AboutPet = ({id = 'imageAlt', petName, editPet, about, rescueDate}: Props) =>
+	<div className="flex-1 mt-10 rounded-xl py-10 xl:ml-20 xl:mt-0">
+		<div className='flex items-center w-full mb-10 -mt-10 pb-4 border-b-2 border-zinc-300'>
+			<h2 className="text-center text-4xl text-purple-paw">{petName}</h2>
+			<Rating
+				className="ml-4"
+				value={3}
+				style={{maxWidth: 100}}
+				items={5}
+				readOnly={!id} />
+			{id && <FiEdit2 size={20} className='ml-auto cursor-pointer text-zinc-400 hover:text-orange-paw' onClick={editPet} />}
+		</div>
 
-					<span className="font-bold text-black/80">
-						{DATE}
-						<span className="ml-[10px] font-normal text-black">
-							{rescueDate}
-						</span>
-					</span>
-				</div>
-			</div>
+		<p>{about}</p>
+
+		<div>
+			<h4 className="text-purple-paw text-lg mt-8 mb-3">{RESCUE_DATA}</h4>
+			<ul>
+				<li className='text-zinc-700 my-2'>
+					<span className='font-bold'>{PLACE}</span>
+					<span className='ml-2.5'>{faker.address.city()}</span>
+				</li>
+				<li className='text-zinc-700 my-2'>
+					<span className='font-bold'>{DATE}</span>
+					<span className='ml-2.5'>{rescueDate}</span>
+				</li>
+			</ul>
 		</div>
 	</div>;
