@@ -14,7 +14,7 @@ export const usePetAllApiCalls = () => {
 		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPublic.post(
 			'/v1/pets',
 			{
-				...petInfo, petImage: 'no value',
+				...petInfo, petImage: 'https://images.pexels.com/photos/10353736/pexels-photo-10353736.jpeg',
 			},
 		);
 
@@ -25,7 +25,7 @@ export const usePetAllApiCalls = () => {
 		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPublic.put(
 			'/v1/pets',
 			{
-				...petInfo, petImage: 'no value',
+				...petInfo, petImage: 'https://images.pexels.com/photos/10353736/pexels-photo-10353736.jpeg',
 			},
 		);
 		return response;
@@ -66,7 +66,24 @@ export const usePetAllApiCalls = () => {
 		return result;
 	};
 
-	return {addNewPet, updateExistingPet, getPetById, getPlaceNameFromCoordinates};
+	const deletePet = async (petId: string) => {
+		let response;
+
+		try {
+			const value: AxiosResponse = await axiosPublic.delete(`/v1/pets/${petId}`);
+			if (value) {
+				response = value; return response;
+			}
+		} catch (error) {
+			if (error instanceof Error) {
+				console.log('there is an error regarding:', error.message);
+			}
+		}
+
+		return response;
+	};
+
+	return {addNewPet, updateExistingPet, getPetById, getPlaceNameFromCoordinates, deletePet};
 };
 
 

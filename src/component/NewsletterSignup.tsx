@@ -45,7 +45,7 @@ const NewsletterSignup = () => {
 	return (
 		<motion.div variants={FM_CASCADE_PARENT_VARIANTS} initial="initial" whileInView="visible" className="container max-w-6xl mx-auto px-8 py-20">
 			<div className='flex flex-col items-end md:flex-row md:items-center'>
-				<motion.div variants={FM_SHOW_FROM_LEFT} className='mb-12 max-w-xs rounded-tl-lg rounded-br-lg rounded-tr-[120px] rounded-bl-[120px] overflow-hidden md:mr-16 md:mb-0'>
+				<motion.div variants={FM_SHOW_FROM_LEFT} className='drop-shadow-xl mb-12 max-w-xs rounded-tl-lg rounded-br-lg rounded-tr-[120px] rounded-bl-[120px] overflow-hidden md:mr-16 md:mb-0'>
 					<img src={process.env.REACT_APP_NEWSPAPER_VISUAL} alt="Subscribe newspaper visual" />
 				</motion.div>
 				<div className='flex-1 w-full'>
