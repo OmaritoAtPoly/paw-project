@@ -1,5 +1,4 @@
 import {type Photo} from 'pexels';
-import {type UserDataType} from '../../data/data';
 import {type AvailablePetsActionType, type ActionType, type UserSingUpAndLogin, type EditablePet} from '../action-types';
 
 interface SearchRepositoriesAction {
@@ -99,12 +98,12 @@ export type AvailablePetsPhotosAction = GetAvailablePetsAction | SetAvailablePet
 
 interface UserLogInAction {
 	type: UserSingUpAndLogin.USER_LOGIN_IN;
-	payload: UserDataType;
+	payload: Components.Schemas.UserDto;
 }
 
 interface UserLogOutAction {
 	type: UserSingUpAndLogin.USER_LOGOUT;
-	payload: UserDataType;
+	payload: Components.Schemas.UserDto;
 }
 
 export type UserLogAction = UserLogInAction | UserLogOutAction;

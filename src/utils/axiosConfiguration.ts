@@ -12,7 +12,7 @@ export const axiosPublic = axios.create({
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
 	const newConfig = {...config};
 	const token = sessionStorage.getItem('userToken');
-	if (token) newConfig.headers.Authorization = `Bearer ${token}`;
+	if (token !== undefined) newConfig.headers.Authorization = `Bearer ${token!}`;
 	return newConfig;
 };
 
