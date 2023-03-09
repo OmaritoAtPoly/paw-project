@@ -1,92 +1,89 @@
-import {googleLogout} from '@react-oauth/google';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
-import {MdFavorite} from 'react-icons/md';
-import {TbTruckDelivery} from 'react-icons/tb';
-import {GrUserAdmin} from 'react-icons/gr';
-import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {useKeycloak} from '@react-keycloak/web';
 import {motion} from 'framer-motion';
+import jwtDecode from 'jwt-decode';
+import React, {useCallback, useMemo, useState, useEffect} from 'react';
+import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
+import {GrUserAdmin} from 'react-icons/gr';
+import {MdFavorite} from 'react-icons/md';
+import {TbTruckDelivery} from 'react-icons/tb';
+import {NavLink, useLocation, useNavigate} from 'react-router-dom';
 import {
-	defaultUser,
+	type ExtendedUserType,
 	type MenuElementType,
-	type UserDataType,
+	extendedDefaultUser,
+	type TokenUserType,
 } from '../../data/data';
-import {LoggedFromPlatform, UserSingUpAndLogin} from '../../state/action-types';
+import {UserSingUpAndLogin} from '../../state/action-types';
 import {useActions} from '../../state/hooks/useActions';
-import {useTypedSelector} from '../../state/hooks/useTypedSelector';
+import {
+	FM_CASCADE_PARENT_VARIANTS,
+	FM_SHOW_FROM_LEFT,
+} from '../../utils/framer-motion-settings';
 import {LogoutUserFromSessionStorage} from '../../utils/functions';
-import {useGetCurrentUser} from '../../utils/hooks/getCurrentUser';
 import GooglePexel from '../GooglePexel';
 import {RightComponentActionButtons} from './RightComponentActionButtons';
-import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_LEFT} from '../../utils/framer-motion-settings';
 
 const Navbar = () => {
 	const [navState, setNavState] = useState(false);
-	const [currentUser, setCurrentUser] = useState<UserDataType>(defaultUser);
-	const {
-		name,
-		picture,
-		userId,
-		email,
-		userLogged,
-		given_name,
-		family_name,
-		loggedFrom,
-		password,
-		rol,
-	} = useTypedSelector((state) => state.currentUser);
-
 	const {keycloak} = useKeycloak();
 
-	const {handleRightDrawer, handleUser} = useActions();
+	const [currentUser, setCurrentUser] =
+		useState<ExtendedUserType>(extendedDefaultUser);
+
+	const initialUserValues = useCallback(() => {
+		let decodeValues: TokenUserType;
+		if (keycloak.token) {
+			decodeValues = jwtDecode(keycloak.token);
+
+			const value = {
+				firstName: decodeValues.given_name,
+				lastName: decodeValues.family_name,
+				username: decodeValues.preferred_username,
+				password: '',
+				email: decodeValues.email,
+				role: decodeValues.realm_access.roles.toString(),
+			};
+
+			if (value) setCurrentUser(value);
+		}
+
+		return extendedDefaultUser;
+	}, [keycloak.token]);
+
+	useEffect(() => {
+		initialUserValues();
+	}, [initialUserValues]);
+
+	const {handleUser} = useActions();
 	const {pathname} = useLocation();
 	const navigate = useNavigate();
 
+	const Login = () => {
+		navigate('welcome');
+	};
+
 	const Logout = useCallback(async () => {
-		handleUser(defaultUser, UserSingUpAndLogin.USER_LOGOUT);
-		setCurrentUser(defaultUser);
+		handleUser(extendedDefaultUser, UserSingUpAndLogin.USER_LOGOUT);
+		setCurrentUser(extendedDefaultUser);
 		LogoutUserFromSessionStorage();
 
-		if (window.FB && loggedFrom === LoggedFromPlatform.FACEBOOK)
-			window.FB.logout(() => { });
-		if (loggedFrom === LoggedFromPlatform.GOOGLE) googleLogout();
+		// if (window.FB && loggedFrom === LoggedFromPlatform.FACEBOOK) // TODO HERE IS CHANGED THE ROLE FIELD DUE TO THE CHANGE OF KEYKEOAK
+		// 	window.FB.logout(() => { });
+		// if (loggedFrom === LoggedFromPlatform.GOOGLE) googleLogout();
 		navigate('/');
 		await keycloak.logout();
-	}, [handleUser, keycloak, loggedFrom, navigate]);
-	const transformedValue = useGetCurrentUser();
-
-	const currentUserValues = useCallback(() => {
-		setCurrentUser({
-			name: name || transformedValue.name,
-			picture: picture || transformedValue.picture,
-			userId: userId || transformedValue.userId,
-			email: email || transformedValue.email,
-			userLogged: userLogged || transformedValue.userLogged,
-			given_name: given_name || transformedValue.given_name,
-			family_name: family_name || transformedValue.family_name,
-			loggedFrom: loggedFrom || transformedValue.loggedFrom,
-			password: password || transformedValue.password,
-			rol: rol || transformedValue.rol,
-		});
-
-	}, [name, transformedValue.name, transformedValue.picture, transformedValue.userId, transformedValue.email, transformedValue.userLogged, transformedValue.given_name, transformedValue.family_name, transformedValue.loggedFrom, transformedValue.password, transformedValue.rol, picture, userId, email, userLogged, given_name, family_name, loggedFrom, password, rol]);
-
-	useEffect(() => {
-		if (!transformedValue.email) return;
-		currentUserValues();
-	}, [currentUserValues, transformedValue.email]);
+	}, [handleUser, keycloak, navigate]);
 
 	const dropDownMenuValues: MenuElementType[] = useMemo(() => {
 		const onClickExample = () => {
-			console.log(`User Name ${currentUser.name}`);
-			console.log(`User id ${currentUser.userId}`);
+			console.log(`User Name ${currentUser.firstName}`);
+			console.log(`User id ${currentUser.username}`);
 		};
 
 		return [
 			{
-				itemName: currentUser.name,
-				userId: currentUser.userId,
+				itemName: currentUser.firstName,
+				userId: currentUser.username,
 				onClick: onClickExample,
 			},
 			{
@@ -97,7 +94,7 @@ const Navbar = () => {
 					iconClass: 'ml-3.5 mb-[-1px]',
 				},
 				itemName: 'Logout',
-				userId: currentUser.userId,
+				userId: currentUser.username,
 				onClick: Logout,
 			},
 		];
@@ -112,9 +109,18 @@ const Navbar = () => {
 	}, []);
 
 	return (
-		<motion.div variants={FM_CASCADE_PARENT_VARIANTS} initial="initial" whileInView="visible" viewport={{once: true}} className='bg-white py-4 sticky z-[1400] top-0 shadow-lg'>
-			<div className='container mx-auto px-8'>
-				<div className="flex justify-between items-center" aria-label='app-navbar'>
+		<motion.div
+			variants={FM_CASCADE_PARENT_VARIANTS}
+			initial="initial"
+			whileInView="visible"
+			viewport={{once: true}}
+			className="bg-white py-4 sticky z-[1400] top-0 shadow-lg"
+		>
+			<div className="container mx-auto px-8">
+				<div
+					className="flex justify-between items-center"
+					aria-label="app-navbar"
+				>
 					{/* left side */}
 					<div className="flex items-center mr-5">
 						<motion.div variants={FM_SHOW_FROM_LEFT}>
@@ -122,10 +128,13 @@ const Navbar = () => {
 								size={30}
 								onClick={handleNavState}
 								className="cursor-pointer mx-auto md:m-0"
-								aria-label='hamburger-button'
+								aria-label="hamburger-button"
 							/>
 						</motion.div>
-						<motion.div variants={FM_SHOW_FROM_LEFT} className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around">
+						<motion.div
+							variants={FM_SHOW_FROM_LEFT}
+							className="hidden w-full md:flex md:items-center md:flex-col xl:flex-row xl:md:justify-around"
+						>
 							<NavLink
 								to="/"
 								className="hidden text-2xl sm:text-3xl px-2 select-none md:flex lg:text-4xl "
@@ -134,8 +143,15 @@ const Navbar = () => {
 							</NavLink>
 
 							<div className="hidden bg-gray-200 lg:flex items-center rounded-full text-[14px]">
-								<NavLink to='/pets' className="bg-black rounded-full text-white p-2">Delivery</NavLink>
-								<NavLink to='/dashboard' className="p-2">Pick up</NavLink>
+								<NavLink
+									to="/pets"
+									className="bg-black rounded-full text-white p-2"
+								>
+									Delivery
+								</NavLink>
+								<NavLink to="/dashboard" className="p-2">
+									Pick up
+								</NavLink>
 							</div>
 						</motion.div>
 					</div>
@@ -144,7 +160,7 @@ const Navbar = () => {
 					<GooglePexel />
 					<RightComponentActionButtons
 						handleCallFunction={handleCallFunction}
-						handleRightDrawer={handleRightDrawer}
+						handleRightDrawer={Login}
 						dropDownMenuValues={dropDownMenuValues}
 					/>
 					{/* overlay */}
@@ -178,7 +194,7 @@ const Navbar = () => {
 						</h2>
 						<nav>
 							<ul className="flex flex-col p-4">
-								{(currentUser.rol === 'admin' && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
+								{(currentUser.role === 'admin' && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
 									<GrUserAdmin size={25} className="mr-4" />
 									<NavLink to='dashBoard' onClick={handleNavState}>DashBoard</NavLink>
 								</li>}

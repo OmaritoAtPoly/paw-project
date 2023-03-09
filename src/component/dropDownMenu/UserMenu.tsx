@@ -11,7 +11,7 @@ interface MenuProps {
 const UserMenu = ({items}: MenuProps) => {
 	return (
 		<Menu as="div" className="relative">
-			<Menu.Button className="rounded-full border border-gray-300 bg-white p-3 text-zinc-600 hover:bg-gray-50 focus:outline-none">
+			<Menu.Button className="rounded-full border border-gray-300 bg-blue-100 p-3 text-zinc-600 hover:bg-gray-50 focus:outline-none">
 				<UserMemo width={22} height={22} aria-hidden="true" />
 			</Menu.Button>
 
