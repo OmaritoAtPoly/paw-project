@@ -1,19 +1,15 @@
-import {defaultUser, type UserDataType} from '../../data/data';
+import {extendedDefaultUser, type ExtendedUserType} from '../../data/data';
 
-export const useGetCurrentUser = (): UserDataType => {
-	let currentLoggedUser = defaultUser;
+export const useGetCurrentUser = (): ExtendedUserType => {
+	let currentLoggedUser = extendedDefaultUser;
 	const value = sessionStorage.getItem('currentUser');
-	if (value) currentLoggedUser = JSON.parse(value) as UserDataType;
+	if (value) currentLoggedUser = JSON.parse(value) as ExtendedUserType;
 	return {
 		email: currentLoggedUser.email,
-		family_name: currentLoggedUser.family_name,
-		given_name: currentLoggedUser.given_name,
-		loggedFrom: currentLoggedUser.loggedFrom,
-		name: currentLoggedUser.name,
-		password: currentLoggedUser.password,
-		picture: currentLoggedUser.picture,
-		userId: currentLoggedUser.userId,
-		userLogged: currentLoggedUser.userLogged,
-		rol: currentLoggedUser.rol,
+		lastName: currentLoggedUser.lastName,
+		firstName: currentLoggedUser.firstName,
+		password: '',
+		username: currentLoggedUser.username,
+		role: currentLoggedUser.role,
 	};
 };

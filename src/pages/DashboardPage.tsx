@@ -97,6 +97,8 @@ export const DashboardPage = () => {
 		socialSkill: string[];
 	}>;
 
+
+	// revisar todos los files ke cambiaron, hacer un PR con los cambios de usuario y hacer un endpoint ke consuma petPhysicDetails
 	const handleSocialSkills = useMemo((): SelectOptionType => {
 		const parsedArray = Object.values(petPhysicDetails[0].socialSkill);
 		return parsedArray.map((a) => ({value: a, label: a}));

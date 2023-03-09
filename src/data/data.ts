@@ -278,10 +278,40 @@ export const defaultUser = {
 	family_name: '',
 	userLogged: false,
 	loggedFrom: LoggedFromPlatform.FACEBOOK || LoggedFromPlatform.GOOGLE || LoggedFromPlatform.WEB,
-	rol: '',
+	role: '',
 };
 
-export type UserDataType = typeof defaultUser;
+export type UserDataType = typeof defaultUser; // TODO THIS TYPE IS FROM THE SCHEMAS
+
+export const userFromToken = {
+	'realm_access': {
+		'roles': [
+			'default-roles-myrealmdemo',
+			'offline_access',
+			'uma_authorization',
+			'ADMIN',
+			'paw-admin-role',
+		],
+	},
+	'name': 'Omarito Estrada',
+	'preferred_username': 'paw-user',
+	'given_name': 'Omarito',
+	'family_name': 'Estrada',
+	'email': 'paw-user@mail.com',
+};
+
+export type TokenUserType = typeof userFromToken; // TODO THIS TYPE IS FROM THE SCHEMAS
+
+export const extendedDefaultUser = {
+	firstName: '',
+	lastName: '',
+	username: '',
+	password: '',
+	email: '',
+	role: 'guest',
+};
+
+export type ExtendedUserType = typeof extendedDefaultUser;
 
 const itemElements = {
 	itemName: '',

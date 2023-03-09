@@ -1,10 +1,10 @@
 import {compare, genSaltSync, hashSync} from 'bcryptjs';
-import {type DefaultUserDataType, type UserDataType} from '../data/data';
+import {type DefaultUserDataType} from '../data/data';
 
-export const handleUserLogin = (preparedInfo: UserDataType) => {
-	sessionStorage.setItem('usedLogged', 'true');
-	sessionStorage.setItem('currentUser', JSON.stringify(preparedInfo));
-};
+// export const handleUserLogin = (preparedInfo: ExtendedUserType) => {
+// 	sessionStorage.setItem('usedLogged', 'true');
+// 	sessionStorage.setItem('currentUser', JSON.stringify(preparedInfo));
+// };
 
 export const LogoutUserFromSessionStorage = () => {
 	sessionStorage.removeItem('currentUser');

@@ -27,7 +27,7 @@ export const RightComponentActionButtons = ({handleCallFunction, handleRightDraw
 			</motion.button>
 			{/* login button */}
 			{isLoggedIn
-				? <motion.div variants={FM_SHOW_FROM_LEFT} className='ml-5' aria-label='drop-down-menu'><UserMenu items={dropDownMenuValues} /></motion.div>
+				? <div className='ml-5'><UserMenu items={dropDownMenuValues} /></div>
 				: <>
 					<motion.button variants={FM_SHOW_FROM_LEFT} type='submit' onClick={handleRightDrawer} className='bg-purple-paw ml-5 flex justify-around items-center text-white p-3 sm:px-4 rounded-full lg:max-w-xs'>
 						<SlLogin size={20} /> <span className='hidden sm:inline-block ml-3'>{LOGIN}</span>

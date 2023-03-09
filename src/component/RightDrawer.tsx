@@ -1,18 +1,15 @@
 import {Dialog, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
-import React, {Fragment, useCallback, useState, useEffect} from 'react';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {defaultUser, type UserDataType} from '../data/data';
 import {type RootState} from '../state';
-import {LoggedFromPlatform, UserSingUpAndLogin} from '../state/action-types';
 import {useActions} from '../state/hooks/useActions';
-import {handleUserLogin} from '../utils/functions';
 import {authenticateUser} from '../utils/hooks/authenticateUser';
 import {SignUpForm} from './loginComponent';
 
 export const RightDrawer = () => {
 	const {drawerStatus} = useSelector((state: RootState) => state.drawer);
-	const {handleRightDrawer, handleUser} = useActions();
+	const {handleRightDrawer} = useActions();
 
 	const [showErrorAlert, setShowErrorAlert] = useState<boolean>(false);
 
@@ -26,21 +23,21 @@ export const RightDrawer = () => {
 		rememberMe: boolean;
 	}) => {
 		const {email, password} = values;
-		const webUser: UserDataType = {
-			...defaultUser,
-			email,
-			picture: 'defaultUserPic.png',
-			name: email.split('@')[0],
-			family_name: email.split('@')[1],
-			loggedFrom: LoggedFromPlatform.WEB,
-			userLogged: true,
-		};
+		// const webUser: UserDataType = {
+		// 	...defaultUser,
+		// 	email,
+		// 	picture: 'defaultUserPic.png',
+		// 	name: email.split('@')[0],
+		// 	family_name: email.split('@')[1],
+		// 	loggedFrom: LoggedFromPlatform.WEB,
+		// 	userLogged: true,
+		// };
 
 		const existingUser = await authenticateUser(email, password);
 		if (existingUser && existingUser.length > 0) {
 			handleRightDrawer();
-			handleUser(webUser, UserSingUpAndLogin.USER_LOGIN_IN);
-			handleUserLogin({...webUser, rol: existingUser[0].rol});
+			// handleUser(webUser, UserSingUpAndLogin.USER_LOGIN_IN);  //TODO COMMENTED BECAUSE THIS DRAWER IS NOT USED WITH KEYKLOAK
+			// handleUserLogin({...webUser, role: 'guest'}); //TODO COMMENTED BECAUSE THIS DRAWER IS NOT USED WITH KEYKLOAK
 		} else handleErrorAlert();
 	};
 
