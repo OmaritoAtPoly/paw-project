@@ -2,6 +2,13 @@ import axios, {type AxiosRequestConfig, type AxiosResponse, type AxiosError} fro
 
 const baseURL = 'http://localhost:8089';
 
+export const axiosPrivate = axios.create({
+	baseURL,
+	headers: {
+		'Content-Type': 'application/json',
+	},
+});
+
 export const axiosPublic = axios.create({
 	baseURL,
 	headers: {
@@ -14,6 +21,10 @@ const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
 	const token = sessionStorage.getItem('userToken');
 	if (token !== undefined) newConfig.headers.Authorization = `Bearer ${token!}`;
 	return newConfig;
+};
+
+const onPublicRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
+	return config;
 };
 
 const onRequestError = async (error: AxiosError): Promise<AxiosError> => {
@@ -33,5 +44,8 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
 	return Promise.reject(error);
 };
 
+axiosPrivate.interceptors.response.use(onResponse, onResponseError);
+axiosPrivate.interceptors.request.use(onRequest, onRequestError);
+
 axiosPublic.interceptors.response.use(onResponse, onResponseError);
-axiosPublic.interceptors.request.use(onRequest, onRequestError);
+axiosPublic.interceptors.request.use(onPublicRequest, onRequestError);

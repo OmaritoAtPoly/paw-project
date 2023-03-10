@@ -2,7 +2,7 @@ import {useKeycloak} from '@react-keycloak/web';
 import axios, {type AxiosResponse} from 'axios';
 import {useCallback} from 'react';
 import {type DefaultLocationPropertiesType} from '../../data/data';
-import {axiosPublic} from '../axiosConfiguration';
+import {axiosPrivate} from '../axiosConfiguration';
 
 
 export const usePetAllApiCalls = () => {
@@ -11,7 +11,7 @@ export const usePetAllApiCalls = () => {
 	sessionStorage.setItem('userToken', keycloak.token!);
 
 	const addNewPet = async (petInfo: Components.Schemas.Pet) => {
-		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPublic.post(
+		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPrivate.post(
 			'/v1/pets',
 			{
 				...petInfo, petImage: 'https://images.pexels.com/photos/10353736/pexels-photo-10353736.jpeg',
@@ -22,7 +22,7 @@ export const usePetAllApiCalls = () => {
 	};
 
 	const updateExistingPet = async (petInfo: Components.Schemas.Pet) => {
-		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPublic.put(
+		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPrivate.put(
 			'/v1/pets',
 			{
 				...petInfo, petImage: 'https://images.pexels.com/photos/10353736/pexels-photo-10353736.jpeg',
@@ -35,8 +35,7 @@ export const usePetAllApiCalls = () => {
 		let result;
 		if (petId) {
 			try {
-
-				const value: AxiosResponse<Components.Schemas.Pet> = (await axiosPublic.get(`/v1/pets/${petId}`));
+				const value: AxiosResponse<Components.Schemas.Pet> = (await axiosPrivate.get(`/v1/pets/${petId}`));
 
 				if (value.status === 200) {
 					result = value.data;
@@ -70,7 +69,7 @@ export const usePetAllApiCalls = () => {
 		let response;
 
 		try {
-			const value: AxiosResponse = await axiosPublic.delete(`/v1/pets/${petId}`);
+			const value: AxiosResponse = await axiosPrivate.delete(`/v1/pets/${petId}`);
 			if (value) {
 				response = value; return response;
 			}
