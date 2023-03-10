@@ -3,30 +3,34 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {MapContainerWrapper} from '../../component/mapComponent/MapContainerWrapper';
 import {AboutPet} from '../../component/PetDetails/AboutPet';
 import {petDefaultData} from '../../data/data';
-import {useActions} from '../../state/hooks/useActions';
 import {usePetAllApiCalls} from '../../utils/apiCalls/usePutAllApiCalls';
 import {PetImage} from '../../component/PetDetails/PetImage';
 import {PetStats} from '../../component/PetDetails/PetStats';
 import {PetDetailAside} from '../../component/PetDetails/PetDetailAside';
+import {Spinner} from '../../component/Spinner';
+import {useEditPet} from '../../utils/hooks/useEditPet';
 
 export const PetDetails = () => {
 	const {getPetById} = usePetAllApiCalls();
-
+	const [loading, setLoading] = useState(true);
 	const {id} = useParams();
-	const [petData, setPetData] = useState<typeof petDefaultData>(petDefaultData);
+	const [petData, setPetData] = useState<Components.Schemas.Pet>(petDefaultData);
 	const navigate = useNavigate();
-	const {handleEditablePet} = useActions();
-	const editPet = () => {
-		handleEditablePet(petData);
-		navigate(`/dashboard/${id!}`);
-	};
+
+	const {handleEdit} = useEditPet();
 
 	const getCurrentPet = useCallback(async () => {
 		if (id) {
 			const value = await getPetById(id);
-			if (value) setPetData(value);
+			if (value) {
+				setPetData(value);
+				setLoading(false);
+			}
+			// TODO HERE I NEED TO ADD A TOAST TO SAY THAT THE QUERY FAIL WITH THE SELECTED PET
+
+			if (!value) navigate('/');
 		}
-	}, [getPetById, id]);
+	}, [getPetById, id, navigate]);
 
 	useEffect(() => {
 		void getCurrentPet();
@@ -36,24 +40,31 @@ export const PetDetails = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
+
+	const handleEditPet = useCallback(() => {
+		handleEdit(petData);
+	}, [handleEdit, petData]);
+
+	if (loading) return <Spinner />;
+
 	return (
 		<div className='container flex flex-col mx-auto px-8 py-20 md:flex-row'>
 			<div className='flex-1 md:mr-32'>
 				<div className='flex mb-20 flex-col xl:flex-row'>
 					<PetImage id={id} imgUrl={petData.petImage} />
-					<AboutPet id={id} editPet={editPet} petName={petData.name} about={petData.about} rescueDate={petData.rescueDate} />
+					<AboutPet id={id} editPet={handleEditPet} petName={petData.name} about={petData.about} rescueDate={petData.rescueDate} />
 				</div>
 				<PetStats petData={petData} />
 				<div className="mx-auto mt-20 mb-10">
 					<h3 className='text-purple-paw text-2xl mb-6'>Where we found this cutie</h3>
 					<MapContainerWrapper
 						markerPosition={petData.rescueLocation}
-						handlerMarkerPosition={() => {}}
+						handlerMarkerPosition={() => { }}
 						scrollWheelZoom={false}
 					/>
 				</div>
 			</div>
-			<PetDetailAside petData={petData}/>
+			<PetDetailAside petData={petData} />
 		</div>
 	);
 };
