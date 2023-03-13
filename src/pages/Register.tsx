@@ -23,10 +23,7 @@ export const Register = () => {
 	};
 
 	return (
-		<div className="flex justify-around align-middle items-center lg:h-[250px]">
-			<RegisterForm navigate={navigate} onSubmitForm={onSubmitForm} normalizeUserData={normalizeUserData} />
-		</div>
-	);
+		<RegisterForm navigate={navigate} onSubmitForm={onSubmitForm} normalizeUserData={normalizeUserData} />);
 };
 
 // export const userLoader = async (): Promise<UserDataType> => {
