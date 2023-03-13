@@ -3,12 +3,12 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {MapContainerWrapper} from '../../component/mapComponent/MapContainerWrapper';
 import {AboutPet} from '../../component/PetDetails/AboutPet';
 import {petDefaultData} from '../../data/data';
-import {usePetAllApiCalls} from '../../utils/apiCalls/usePutAllApiCalls';
 import {PetImage} from '../../component/PetDetails/PetImage';
 import {PetStats} from '../../component/PetDetails/PetStats';
 import {PetDetailAside} from '../../component/PetDetails/PetDetailAside';
 import {Spinner} from '../../component/Spinner';
 import {useEditPet} from '../../utils/hooks/useEditPet';
+import {usePetAllApiCalls} from '../../utils/apiCalls/petApiCalls/usePutAllApiCalls';
 
 export const PetDetails = () => {
 	const {getPetById} = usePetAllApiCalls();

@@ -1,45 +1,50 @@
 import {useFormik} from 'formik';
 import React from 'react';
 import {RxThickArrowRight} from 'react-icons/rx';
-import {useNavigate} from 'react-router-dom';
 import * as yup from 'yup';
-import {type DefaultUserDataType} from '../../data/data';
-import {encryptUserPassword} from '../../utils/functions';
 import CardAlert from '../CardAlert';
 
+interface Props {
+	navigate: (path: string) => void;
+	onSubmitForm: (newUser: Components.Schemas.UserDto) => void;
+	normalizeUserData: (value: {
+		firstName: string;
+		lastName: string;
+		userName: string;
+		email: string;
+		password: string;
+		confirmationPassword: string;
+	}) => Components.Schemas.UserDto;
+}
+
 const RegisterSchema = yup.object().shape({
-	name: yup.string().required('Required'),
+	firstName: yup.string().required('Required'),
 	lastName: yup.string().required('Required'),
 	email: yup.string().email('Invalid email').required('Required'),
-	password: yup.string().required('Required'),
+	password: yup.string().min(8, 'grater than 8 chars').required('Required'),
 	confirmationPassword: yup
 		.string()
 		.oneOf([yup.ref('password'), null], 'passwords must match')
 		.required('Required'),
 });
 
-export const RegisterForm = () => {
+export const RegisterForm = ({navigate, onSubmitForm, normalizeUserData}: Props) => {
 	const varr = false; //////////////////  remove this when the backed gave me a valid response
-	const navigate = useNavigate();
-	const prepareDataToSubmit = (value: DefaultUserDataType) => ({
-		name: value.name,
-		lastName: value.lastName,
-		email: value.email,
-		password: encryptUserPassword(value.password),
-	});
 
 	const {handleSubmit, values, handleChange, errors, touched} = useFormik({
 		initialValues: {
-			name: '',
+			firstName: '',
 			lastName: '',
 			email: '',
 			password: '',
 			confirmationPassword: '',
+			userName: '',
 		},
 
 		onSubmit: (formValues, actions) => {
-			console.log('formValues', prepareDataToSubmit(formValues));
-			sessionStorage.setItem('user', JSON.stringify(prepareDataToSubmit(formValues)));
+			const normalized = normalizeUserData(formValues);
+			onSubmitForm(normalized);
+			sessionStorage.setItem('user', JSON.stringify((formValues)));
 			actions.resetForm();
 			navigate('/');
 		},
@@ -64,22 +69,22 @@ export const RegisterForm = () => {
 					) : (
 						<>
 							<div className='w-fit flex flex-col justify-center lg:w-full lg:flex-row lg:justify-between drop-shadow-xl h-fit'>
-								<label htmlFor="name">
+								<label htmlFor="firstName">
 									<p className='my-2'>
 										Name
 									</p>
 									<input
-										id="name"
-										name="name"
+										id="firstName"
+										name="firstName"
 										type="text"
 										onChange={handleChange}
-										value={values.name}
+										value={values.firstName}
 										placeholder="write your name"
 										className="w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
 									/>
 
-									{errors.name && touched.name ? (
-										<div className="text-red-500">{errors.name}</div>
+									{errors.firstName && touched.firstName ? (
+										<div className="text-red-500">{errors.firstName}</div>
 									) : null}
 								</label>
 								<label htmlFor="lastName">
@@ -98,6 +103,24 @@ export const RegisterForm = () => {
 
 									{errors.lastName && touched.lastName ? (
 										<div className="text-red-500">{errors.lastName}</div>
+									) : null}
+								</label>
+								<label htmlFor="userName">
+									<p className='my-2'>
+										User Name
+									</p>
+									<input
+										id="userName"
+										name="userName"
+										type="text"
+										onChange={handleChange}
+										value={values.userName}
+										placeholder="write your last name"
+										className="w-full p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
+									/>
+
+									{errors.userName && touched.userName ? (
+										<div className="text-red-500">{errors.userName}</div>
 									) : null}
 								</label>
 								<label htmlFor="email">
