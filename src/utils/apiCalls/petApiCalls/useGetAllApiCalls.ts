@@ -1,6 +1,6 @@
 import {type AxiosResponse} from 'axios';
 import {useCallback} from 'react';
-import {axiosPublic} from '../axiosConfiguration';
+import {axiosPublic} from '../../axiosConfiguration';
 
 
 export const useGetAllApiCalls = () => {

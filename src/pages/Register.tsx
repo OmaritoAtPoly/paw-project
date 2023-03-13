@@ -1,11 +1,33 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {RegisterForm} from '../component/registerComponent/RegisterForm';
+import {useUserApiCalls} from '../utils/apiCalls/userApiCalls/register';
 
-export const Register = () => (
-	<div className="flex justify-around align-middle items-center lg:h-[250px]">
-		<RegisterForm />
-	</div>
-);
+export const Register = () => {
+
+	const navigate = useNavigate();
+	const {register} = useUserApiCalls();
+
+	const onSubmitForm = useCallback(async (newUser: Components.Schemas.UserDto) => {
+		await register(newUser);
+	}, [register]);
+
+	const normalizeUserData = (value: {firstName: string; lastName: string; email: string; password: string; confirmationPassword: string; userName: string}): Components.Schemas.UserDto => {
+		return {
+			firstName: value.firstName,
+			lastName: value.lastName,
+			email: value.email,
+			password: value.password,
+			username: value.userName,
+		};
+	};
+
+	return (
+		<div className="flex justify-around align-middle items-center lg:h-[250px]">
+			<RegisterForm navigate={navigate} onSubmitForm={onSubmitForm} normalizeUserData={normalizeUserData} />
+		</div>
+	);
+};
 
 // export const userLoader = async (): Promise<UserDataType> => {
 // 	const value: AxiosResponse<UserDataType> = await axios.get(

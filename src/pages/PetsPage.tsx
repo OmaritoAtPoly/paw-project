@@ -2,8 +2,8 @@ import {useKeycloak} from '@react-keycloak/web';
 import React, {useCallback, useEffect, useState} from 'react';
 import {BsHouseDoor} from 'react-icons/bs';
 import {Pet} from '../component/PetDetails/Pet';
-import {useGetAllApiCalls} from '../utils/apiCalls/useGetAllApiCalls';
-import {usePetAllApiCalls} from '../utils/apiCalls/usePutAllApiCalls';
+import {useGetAllApiCalls} from '../utils/apiCalls/petApiCalls/useGetAllApiCalls';
+import {usePetAllApiCalls} from '../utils/apiCalls/petApiCalls/usePutAllApiCalls';
 import {useEditPet} from '../utils/hooks/useEditPet';
 
 export const Pets = () => {

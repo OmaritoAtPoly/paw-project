@@ -12,8 +12,8 @@ import {type SelectOptionType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
-import {usePetAllApiCalls} from '../utils/apiCalls/usePutAllApiCalls';
 import {cleanString} from '../utils/functions';
+import {usePetAllApiCalls} from '../utils/apiCalls/petApiCalls/usePutAllApiCalls';
 
 const AddingPetSchema = yup.object().shape({
 	name: yup.string().required('Required'),
