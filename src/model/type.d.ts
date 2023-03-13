@@ -4,6 +4,16 @@ declare namespace Components {
             lat: number;
             lng: number;
         }
+        export interface LookupData {
+            id?: number; // int32
+            name?: string;
+        }
+        export interface Lookups {
+            tailSize?: LookupData[];
+            training?: LookupData[];
+            medicalRecord?: LookupData[];
+            socialSkill?: LookupData[];
+        }
         export interface Pet {
             id: string;
             name: string;

@@ -1,9 +1,8 @@
 import {useKeycloak} from '@react-keycloak/web';
 import axios, {type AxiosResponse} from 'axios';
 import {useCallback} from 'react';
-import {type DefaultLocationPropertiesType} from '../../data/data';
-import {axiosPrivate} from '../axiosConfiguration';
-
+import {type DefaultLocationPropertiesType} from '../../../data/data';
+import {axiosPrivate, axiosPublic} from '../../axiosConfiguration';
 
 export const usePetAllApiCalls = () => {
 	const {keycloak} = useKeycloak();
@@ -35,7 +34,7 @@ export const usePetAllApiCalls = () => {
 		let result;
 		if (petId) {
 			try {
-				const value: AxiosResponse<Components.Schemas.Pet> = (await axiosPrivate.get(`/v1/pets/${petId}`));
+				const value: AxiosResponse<Components.Schemas.Pet> = (await axiosPublic.get(`/v1/pets/${petId}`));
 
 				if (value.status === 200) {
 					result = value.data;
@@ -84,6 +83,3 @@ export const usePetAllApiCalls = () => {
 
 	return {addNewPet, updateExistingPet, getPetById, getPlaceNameFromCoordinates, deletePet};
 };
-
-
-
