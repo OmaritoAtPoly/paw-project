@@ -1,6 +1,7 @@
 import {useFormik} from 'formik';
 import React from 'react';
 import {RxThickArrowRight} from 'react-icons/rx';
+import {HiOutlineEye} from 'react-icons/hi';
 import * as yup from 'yup';
 import CardAlert from '../CardAlert';
 
@@ -15,6 +16,9 @@ interface Props {
 		password: string;
 		confirmationPassword: string;
 	}) => Components.Schemas.UserDto;
+	handleShowPassword: (field: string) => () => void;
+	showPassword: boolean;
+	showConfirmationPassword: boolean;
 }
 
 const RegisterSchema = yup.object().shape({
@@ -28,7 +32,7 @@ const RegisterSchema = yup.object().shape({
 		.required('Required'),
 });
 
-export const RegisterForm = ({navigate, onSubmitForm, normalizeUserData}: Props) => {
+export const RegisterForm = ({navigate, onSubmitForm, normalizeUserData, handleShowPassword, showPassword, showConfirmationPassword}: Props) => {
 	const varr = false; //////////////////  remove this when the backed gave me a valid response
 
 	const {handleSubmit, values, handleChange, errors, touched} = useFormik({
@@ -139,15 +143,18 @@ export const RegisterForm = ({navigate, onSubmitForm, normalizeUserData}: Props)
 								<p className='my-2 lg:mt:0'>
 									Credentials
 								</p>
-								<input
-									id="password"
-									name="password"
-									type="password"
-									onChange={handleChange}
-									value={values.password}
-									placeholder="write your password"
-									className="w-fit p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
-								/>
+								<div className='flex items-center relative'>
+									<input
+										id="password"
+										name="password"
+										type={`${showPassword ? 'text' : 'password'}`}
+										onChange={handleChange}
+										value={values.password}
+										placeholder="write your password"
+										className="w-fit p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
+									/>
+									<HiOutlineEye onClick={handleShowPassword('password')} className='absolute right-1' />
+								</div>
 								{errors.password && touched.password ? (
 									<div className="text-red-500">{errors.password}</div>
 								) : null}
@@ -156,15 +163,18 @@ export const RegisterForm = ({navigate, onSubmitForm, normalizeUserData}: Props)
 								<p className='my-2 lg:mt:0'>
 									Repeat Again
 								</p>
-								<input
-									id="confirmationPassword"
-									name="confirmationPassword"
-									type="password"
-									onChange={handleChange}
-									value={values.confirmationPassword}
-									placeholder="Confirm again your password"
-									className="w-fit p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
-								/>
+								<div className='flex items-center relative'>
+									<input
+										id="confirmationPassword"
+										name="confirmationPassword"
+										type={`${showConfirmationPassword ? 'text' : 'password'}`}
+										onChange={handleChange}
+										value={values.confirmationPassword}
+										placeholder="Confirm again your password"
+										className="w-fit p-2 border border-gray-300 rounded-md placeholder:font-sans placeholder:font-light outline-none"
+									/>
+									<HiOutlineEye onClick={handleShowPassword('confirmationPassword')} className='absolute right-1' />
+								</div>
 								{errors.confirmationPassword && touched.confirmationPassword ? (
 									<div className="text-red-500">{errors.confirmationPassword}</div>
 								) : null}
