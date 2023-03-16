@@ -347,7 +347,7 @@ export const petDefaultData = {
 	socialSkills: '',
 	training: '',
 	medicalRecord: '',
-	petImage: '',
+	petImage: 'https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg',
 };
 
 const options = [

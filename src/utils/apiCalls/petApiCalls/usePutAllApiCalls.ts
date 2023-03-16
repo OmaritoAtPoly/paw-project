@@ -12,9 +12,7 @@ export const usePetAllApiCalls = () => {
 	const addNewPet = async (petInfo: Components.Schemas.Pet) => {
 		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPrivate.post(
 			'/v1/pets',
-			{
-				...petInfo, petImage: 'https://images.pexels.com/photos/10353736/pexels-photo-10353736.jpeg',
-			},
+			{...petInfo},
 		);
 
 		return response;
@@ -23,9 +21,7 @@ export const usePetAllApiCalls = () => {
 	const updateExistingPet = async (petInfo: Components.Schemas.Pet) => {
 		const response: AxiosResponse<Components.Schemas.Pet> = await axiosPrivate.put(
 			'/v1/pets',
-			{
-				...petInfo, petImage: 'https://images.pexels.com/photos/10353736/pexels-photo-10353736.jpeg',
-			},
+			{...petInfo},
 		);
 		return response;
 	};

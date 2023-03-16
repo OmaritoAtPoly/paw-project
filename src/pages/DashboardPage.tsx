@@ -8,6 +8,7 @@ import Select, {type SingleValue, type MultiValue} from 'react-select';
 import axios, {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate, useParams} from 'react-router-dom';
 import {useKeycloak} from '@react-keycloak/web';
+import {IoIosCloseCircleOutline} from 'react-icons/io';
 import {type SelectOptionType, petDefaultData} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
@@ -23,6 +24,7 @@ const AddingPetSchema = yup.object().shape({
 	training: yup.string().required('Required'),
 	medicalRecord: yup.string().required('Required'),
 	socialSkills: yup.string().required('Required'),
+	petImage: yup.string().required('Required'),
 });
 
 export const DashboardPage = () => {
@@ -97,8 +99,6 @@ export const DashboardPage = () => {
 		socialSkill: string[];
 	}>;
 
-
-	// revisar todos los files ke cambiaron, hacer un PR con los cambios de usuario y hacer un endpoint ke consuma petPhysicDetails
 	const handleSocialSkills = useMemo((): SelectOptionType => {
 		const parsedArray = Object.values(petPhysicDetails[0].socialSkill);
 		return parsedArray.map((a) => ({value: a, label: a}));
@@ -134,6 +134,11 @@ export const DashboardPage = () => {
 		if (!adminRol) navigate('/');
 	}, [keycloak.tokenParsed?.realm_access, navigate]);
 
+	useEffect(() => {
+		if (petInfo) void setFieldValue('petImage', petInfo.petImage);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const handlerMarkerPosition = useCallback(async (value: Components.Schemas.Location) => {
 		await setFieldValue('rescueLocation', value);
 	}, [setFieldValue]);
@@ -154,6 +159,36 @@ export const DashboardPage = () => {
 
 		return undefined;
 	}, [petInfo.medicalRecord, values.medicalRecord]);
+
+
+	const convertFileToBase64 = async (file: File) =>
+		new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsDataURL(file);
+			fileReader.onload = () => {
+				resolve(fileReader.result);
+			};
+
+			fileReader.onerror = (error) => {
+				reject(error);
+			};
+		});
+
+	const uploadLocalConsentFile = useCallback(
+		async (event: React.ChangeEvent<HTMLInputElement>) => {
+
+			if (event.target.files) {
+				const file = event.target.files[0];
+				const base64 = file && ((await convertFileToBase64(file)) as string);
+				if (base64) await setFieldValue('petImage', base64);
+			}
+		},
+		[setFieldValue],
+	);
+
+	const cleanPetImage = async () => {
+		await setFieldValue('petImage', '');
+	};
 
 	return (
 		<>
@@ -290,6 +325,23 @@ export const DashboardPage = () => {
 						{errors.socialSkills && touched.socialSkills ? (
 							<div className="text-red-500">{errors.socialSkills}</div>
 						) : null}
+					</div>
+					<div className='flex items-center flex-col justify-center'>
+						<div className='flex items-center'>
+							<input
+								id="petImage"
+								name="petImage"
+								type="file"
+								accept=".jpeg, .png, .jpg"
+								onChange={uploadLocalConsentFile}
+								className="border border-gray-300 rounded-md w-fit"
+							/>
+							<IoIosCloseCircleOutline size={20} className='hover:cursor-pointer ml-[-20px]' onClick={cleanPetImage} />
+						</div>
+						{errors.petImage && touched.petImage ? (
+							<div className="text-red-500">{errors.name}</div>
+						) : null}
+						{values.petImage ? <img src={values.petImage} alt='petImage' className='w-[200px] h-auto' /> : ''}
 					</div>
 				</div>
 				<button
