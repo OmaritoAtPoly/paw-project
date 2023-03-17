@@ -5,16 +5,17 @@ import 'react-day-picker/dist/style.css';
 import * as yup from 'yup';
 import {RxThickArrowRight} from 'react-icons/rx';
 import Select, {type SingleValue, type MultiValue} from 'react-select';
-import axios, {type AxiosResponse} from 'axios';
+import {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate, useParams} from 'react-router-dom';
 import {useKeycloak} from '@react-keycloak/web';
 import {IoIosCloseCircleOutline} from 'react-icons/io';
-import {type SelectOptionType, petDefaultData} from '../data/data';
+import {type SelectOptionType, petDefaultData, defaultSelectOptions} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
 import {cleanString} from '../utils/functions';
 import {usePetAllApiCalls} from '../utils/apiCalls/petApiCalls/usePutAllApiCalls';
+import {axiosPublic} from '../utils/axiosConfiguration';
 
 const AddingPetSchema = yup.object().shape({
 	name: yup.string().required('Required'),
@@ -91,32 +92,51 @@ export const DashboardPage = () => {
 
 	const commonItemStyles = 'my-9';
 
-	const petPhysicDetails = useLoaderData() as Array<{
-		tailSize: string[];
-		training: string[];
-		medicalRecord: string[];
-		socialSkill: string[];
-	}>;
+	const petPhysicDetails = useLoaderData() as Components.Schemas.Lookups;
 
 	const handleSocialSkills = useMemo((): SelectOptionType => {
-		const parsedArray = Object.values(petPhysicDetails[0].socialSkill);
-		return parsedArray.map((a) => ({value: a, label: a}));
-	}, [petPhysicDetails]);
+		let parsedArray: SelectOptionType = defaultSelectOptions;
+
+		if (petPhysicDetails.socialSkill) {
+			parsedArray = petPhysicDetails.socialSkill.map((a) => ({value: a.name!, label: a.name!}));
+			return parsedArray;
+		}
+
+		return parsedArray;
+	}, [petPhysicDetails.socialSkill]);
 
 	const handleTraining = useMemo((): SelectOptionType => {
-		const parsedArray = Object.values(petPhysicDetails[0].training);
-		return parsedArray.map((a) => ({value: a, label: a}));
-	}, [petPhysicDetails]);
+		let parsedArray: SelectOptionType = defaultSelectOptions;
+
+		if (petPhysicDetails.training) {
+			parsedArray = petPhysicDetails.training.map((a) => ({value: a.name!, label: a.name!}));
+			return parsedArray;
+		}
+
+		return parsedArray;
+	}, [petPhysicDetails.training]);
 
 	const handleMedicalRecord = useMemo((): SelectOptionType => {
-		const parsedArray = Object.values(petPhysicDetails[0].medicalRecord);
-		return parsedArray.map((a) => ({value: a, label: a}));
-	}, [petPhysicDetails]);
+		let parsedArray: SelectOptionType = defaultSelectOptions;
+
+		if (petPhysicDetails.medicalRecord) {
+			parsedArray = petPhysicDetails.medicalRecord.map((a) => ({value: a.name!, label: a.name!}));
+			return parsedArray;
+		}
+
+		return parsedArray;
+	}, [petPhysicDetails.medicalRecord]);
 
 	const handlePetTailSize = useMemo((): SelectOptionType => {
-		const parsedArray = Object.values(petPhysicDetails[0].tailSize);
-		return parsedArray.map((a) => ({value: a, label: a}));
-	}, [petPhysicDetails]);
+		let parsedArray: SelectOptionType = defaultSelectOptions;
+
+		if (petPhysicDetails.tailSize) {
+			parsedArray = petPhysicDetails.tailSize.map((a) => ({value: a.name!, label: a.name!}));
+			return parsedArray;
+		}
+
+		return parsedArray;
+	}, [petPhysicDetails.tailSize]);
 
 	const handleSingleSelector = async (newValue: SingleValue<{value: string; label: string}>, target: string) => {
 		await setFieldValue(target, newValue?.value, true);
@@ -350,22 +370,18 @@ export const DashboardPage = () => {
 	);
 };
 
-export const petDashboardLoader = async (): Promise<string> => {
-	let result = '';
-
+export const petDashboardLoader = async () => {
 	try {
-		const value: AxiosResponse<string> = await axios.get(
-			'http://localhost:4000/physicAspects',
+		const value: AxiosResponse<Components.Schemas.Lookups> = await axiosPublic.get(
+			'/lookups',
 		);
 
-		if (value.status === 200) {
-			result = value.data;
-		}
+		return value.data;
 	} catch (error) {
 		if (error instanceof Error) {
 			console.log('there is an error due to:', error.message);
 		}
 	}
 
-	return result;
+	return undefined;
 };
