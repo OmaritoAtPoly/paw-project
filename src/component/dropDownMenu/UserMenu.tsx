@@ -43,6 +43,7 @@ const UserMenu = ({items}: MenuProps) => {
 												height={element.icon.iconHeight}
 												className={element.icon.iconClass}
 											/>}
+											{!!element.userPicture && <div className='ml-3 active::outline-none'>{element.userPicture.defaultIconName}</div>}
 											<span className='mx-3 active::outline-none w-full'>{element.itemName}</span>
 										</div>
 									);
