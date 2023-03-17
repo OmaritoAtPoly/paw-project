@@ -24,6 +24,7 @@ export const routerElements = createBrowserRouter(
 			<Route element={<PrivateRoutes />} >
 				<Route path='/dashboard/:id?' element={<DashboardPage />} loader={petDashboardLoader} />
 				<Route path='/welcome' element={<WelcomePage />} />
+				<Route path='/editUser/:username' element={<Register />} />
 			</Route>
 			<Route path='*' element={<NotFoundPage />} />
 		</Route>,
