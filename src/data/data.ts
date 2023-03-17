@@ -356,11 +356,11 @@ export const petDefaultData = {
 	petImage: 'https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg',
 };
 
-const options = [
+export const defaultSelectOptions = [
 	{value: '', label: ''},
 ];
 
-export type SelectOptionType = typeof options;
+export type SelectOptionType = typeof defaultSelectOptions;
 
 const defaultUserData = {
 	name: '',
