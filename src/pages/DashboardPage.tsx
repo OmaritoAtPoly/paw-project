@@ -36,7 +36,6 @@ export const DashboardPage = () => {
 		(state) => state.currentPet,
 	);
 
-
 	const {addNewPet, updateExistingPet} = usePetAllApiCalls();
 
 	const handleSubmitValue = async (value: Components.Schemas.Pet) => {
@@ -133,11 +132,6 @@ export const DashboardPage = () => {
 
 		if (!adminRol) navigate('/');
 	}, [keycloak.tokenParsed?.realm_access, navigate]);
-
-	useEffect(() => {
-		if (petInfo) void setFieldValue('petImage', petInfo.petImage);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	const handlerMarkerPosition = useCallback(async (value: Components.Schemas.Location) => {
 		await setFieldValue('rescueLocation', value);
@@ -339,7 +333,7 @@ export const DashboardPage = () => {
 							<IoIosCloseCircleOutline size={20} className='hover:cursor-pointer ml-[-20px]' onClick={cleanPetImage} />
 						</div>
 						{errors.petImage && touched.petImage ? (
-							<div className="text-red-500">{errors.name}</div>
+							<div className="text-red-500">{errors.petImage}</div>
 						) : null}
 						{values.petImage ? <img src={values.petImage} alt='petImage' className='w-[200px] h-auto' /> : ''}
 					</div>

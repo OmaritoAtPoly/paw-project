@@ -332,6 +332,12 @@ export interface MenuElementType {
 		iconHeight?: number;
 		iconClass?: string;
 	};
+	userPicture?: {
+		defaultIconName: React.ReactNode;
+		iconWidth?: number;
+		iconHeight?: number;
+		iconClass?: string;
+	};
 }
 
 export const defaultSofiaCoordinate: LatLngLiteral = {lat: 42.698334, lng: 23.319941};

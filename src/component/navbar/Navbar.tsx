@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 import React, {useCallback, useMemo, useState, useEffect} from 'react';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
 import {GrUserAdmin} from 'react-icons/gr';
+import {HiOutlineUserCircle} from 'react-icons/hi';
 import {MdFavorite} from 'react-icons/md';
 import {TbTruckDelivery} from 'react-icons/tb';
 import {NavLink, useLocation, useNavigate} from 'react-router-dom';
@@ -74,6 +75,16 @@ const Navbar = () => {
 		await keycloak.logout();
 	}, [handleUser, keycloak, navigate]);
 
+
+	const renderingUserPic = () => {
+		if (Number(Math.random()) > .5) return <HiOutlineUserCircle size={25} />;
+		return <img src='perfil.jpg' alt='pic' className='w-[30px]' />;
+	};
+
+	const handleEditUser = useCallback(() => {
+		navigate(`/editUser/${currentUser.username}`);
+	}, [currentUser.username, navigate]);
+
 	const dropDownMenuValues: MenuElementType[] = useMemo(() => {
 		const onClickExample = () => {
 			console.log(`User Name ${currentUser.firstName}`);
@@ -82,9 +93,17 @@ const Navbar = () => {
 
 		return [
 			{
-				itemName: currentUser.firstName,
+				itemName: `${currentUser.firstName} ${currentUser.lastName}`,
 				userId: currentUser.username,
 				onClick: onClickExample,
+			},
+			{
+				userPicture: {
+					defaultIconName: renderingUserPic(),
+				},
+				itemName: 'My profile',
+				userId: currentUser.username,
+				onClick: handleEditUser,
 			},
 			{
 				icon: {
@@ -98,7 +117,7 @@ const Navbar = () => {
 				onClick: Logout,
 			},
 		];
-	}, [currentUser, Logout]);
+	}, [currentUser.firstName, currentUser.lastName, currentUser.username, handleEditUser, Logout]);
 
 	const handleNavState = useCallback(() => {
 		setNavState((prev) => !prev);
