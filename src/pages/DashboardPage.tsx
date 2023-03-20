@@ -94,38 +94,26 @@ export const DashboardPage = () => {
 
 	const petPhysicDetails = useLoaderData() as Components.Schemas.Lookups;
 
-	const handleSocialSkills = useMemo((): SelectOptionType => {
+	const handleSelectValues = useCallback((detail = ''): SelectOptionType => {
 		let parsedArray: SelectOptionType = defaultSelectOptions;
 
-		if (petPhysicDetails.socialSkill) {
-			parsedArray = petPhysicDetails.socialSkill.map((a) => ({value: a.name!, label: a.name!}));
-			return parsedArray;
-		}
-
-		return parsedArray;
-	}, [petPhysicDetails.socialSkill]);
-
-	const handleTraining = useMemo((): SelectOptionType => {
-		let parsedArray: SelectOptionType = defaultSelectOptions;
-
-		if (petPhysicDetails.training) {
+		if (detail === 'training' && petPhysicDetails.training) {
 			parsedArray = petPhysicDetails.training.map((a) => ({value: a.name!, label: a.name!}));
 			return parsedArray;
 		}
 
-		return parsedArray;
-	}, [petPhysicDetails.training]);
+		if (detail === 'socialSkills' && petPhysicDetails.socialSkill) {
+			parsedArray = petPhysicDetails.socialSkill.map((a) => ({value: a.name!, label: a.name!}));
+			return parsedArray;
+		}
 
-	const handleMedicalRecord = useMemo((): SelectOptionType => {
-		let parsedArray: SelectOptionType = defaultSelectOptions;
-
-		if (petPhysicDetails.medicalRecord) {
+		if (detail === 'medicalRecord' && petPhysicDetails.medicalRecord) {
 			parsedArray = petPhysicDetails.medicalRecord.map((a) => ({value: a.name!, label: a.name!}));
 			return parsedArray;
 		}
 
 		return parsedArray;
-	}, [petPhysicDetails.medicalRecord]);
+	}, [petPhysicDetails.medicalRecord, petPhysicDetails.socialSkill, petPhysicDetails.training]);
 
 	const handlePetTailSize = useMemo((): SelectOptionType => {
 		let parsedArray: SelectOptionType = defaultSelectOptions;
@@ -301,7 +289,7 @@ export const DashboardPage = () => {
 						<p className="text-2xl sm:text-[27px]">Does have any training?</p>
 						<Select
 							defaultValue={{value: values.training, label: values.training}}
-							options={handleTraining}
+							options={handleSelectValues('training')}
 							onChange={async (value) => {
 								await handleSingleSelector(value, 'training');
 							}}
@@ -315,7 +303,7 @@ export const DashboardPage = () => {
 						<p className="text-2xl sm:text-[27px]">Medical records</p>
 						<Select
 							defaultValue={(id && petInfo) ? handleDefaultMedicalRecord : handleFormikMedicalRecord}
-							options={handleMedicalRecord}
+							options={handleSelectValues('medicalRecord')}
 							onChange={async (value) => {
 								await handleMultiSelectors(value, 'medicalRecord');
 							}}
@@ -330,7 +318,7 @@ export const DashboardPage = () => {
 						<p className="text-2xl sm:text-[27px]">Social Skills</p>
 						<Select
 							defaultValue={{value: values.socialSkills, label: values.socialSkills}}
-							options={handleSocialSkills}
+							options={handleSelectValues('socialSkills')}
 							onChange={async (value) => {
 								await handleSingleSelector(value, 'socialSkills');
 							}}
