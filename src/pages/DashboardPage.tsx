@@ -58,8 +58,10 @@ export const DashboardPage = () => {
 	const handleCleanFormValues = (value: Components.Schemas.Pet) => {
 		const details = cleanString(value.details);
 		const medicalRecord = value.medicalRecord.toString().split(',').join(','); //this operation is made to convert the string array in the formik state to a flat string and then join all the element with a comma
+		const rescued = new Date(value.rescueDate);
+		const correctValue = rescued.setDate(rescued.getDate() + 1);
 
-		return {...value, rescueDate: new Date(value.rescueDate).toISOString(), details, medicalRecord};
+		return {...value, rescueDate: new Date(correctValue).toISOString(), details, medicalRecord};
 
 	};
 
