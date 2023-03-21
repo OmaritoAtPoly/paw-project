@@ -1,6 +1,7 @@
 import {useKeycloak} from '@react-keycloak/web';
 import React, {useCallback, useEffect, useState} from 'react';
 import {BsHouseDoor} from 'react-icons/bs';
+import Modal from '../component/Modal';
 import {Pet} from '../component/PetDetails/Pet';
 import {useGetAllApiCalls} from '../utils/apiCalls/petApiCalls/useGetAllApiCalls';
 import {usePetAllApiCalls} from '../utils/apiCalls/petApiCalls/usePutAllApiCalls';
@@ -8,6 +9,9 @@ import {useEditPet} from '../utils/hooks/useEditPet';
 
 export const Pets = () => {
 	const [pets, setPets] = useState<Components.Schemas.Pet[]>();
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [petToDelete, setPetToDelete] = useState<string>('');
+
 	const {getAllPets} = useGetAllApiCalls();
 	const {deletePet} = usePetAllApiCalls();
 	const {handleEdit} = useEditPet();
@@ -24,17 +28,32 @@ export const Pets = () => {
 		if (value) setPets(value);
 	}, [getAllPets]);
 
+	const handleConfirmToDelete = async () => {
+		const value = await deletePet(petToDelete);
+		if (value && (value.status >= 200 || value.status <= 299)) {
+			await handleGetAllPets();
+			setIsModalOpen(false);
+		}
+	};
+
 	const handleDeletePet = useCallback((petId: string) => async () => {
-		const value = await deletePet(petId);
-		if (value && (value.status >= 200 || value.status <= 299)) await handleGetAllPets();
-	}, [deletePet, handleGetAllPets]);
+		setPetToDelete(petId);
+		setIsModalOpen(prev => !prev);
+	}, []);
+
+	const handleOnCloseModal = () => {
+		setIsModalOpen(prev => !prev);
+	};
 
 	useEffect(() => {
 		void handleGetAllPets();
 	}, [handleGetAllPets]);
 
-	return (
+	if (isModalOpen) {
+		return <Modal isOpen={isModalOpen} modalTitle="Attention.!" modalContent='Do you want to delete this pet_?' onAcceptButton={handleConfirmToDelete} onCloseAction={handleOnCloseModal} acceptValue='Delete' />;
+	}
 
+	return (
 		<div>
 			{(pets && pets.length > 0)
 				? pets.map((a) => <Pet name={a.name} id={a.id} key={a.id} deletePet={handleDeletePet} showOptions={keycloak.authenticated} editPet={handleSelectedPet} />)
@@ -44,6 +63,5 @@ export const Pets = () => {
 				</div>
 			}
 		</div>
-
 	);
 };

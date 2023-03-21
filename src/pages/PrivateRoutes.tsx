@@ -7,5 +7,5 @@ export const PrivateRoutes = () => {
 	const {keycloak} = useKeycloak();
 	const isLoggedIn = keycloak.authenticated;
 
-	return isLoggedIn ? <Outlet /> : <Modal isOpen onAcceptButton={keycloak.login} />;
+	return isLoggedIn ? <Outlet /> : <Modal isOpen onAcceptButton={keycloak.login} acceptValue='Login' />;
 };

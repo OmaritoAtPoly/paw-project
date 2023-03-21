@@ -1,7 +1,6 @@
-import React, {Fragment, useRef, useState} from 'react';
+import React, {Fragment, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {ShieldCheckIcon} from '@heroicons/react/24/outline';
-import {useNavigate} from 'react-router-dom';
 
 interface Props {
 	isOpen: boolean;
@@ -9,32 +8,18 @@ interface Props {
 	onAcceptButton?: () => void;
 	modalTitle?: string;
 	modalContent?: string;
+	acceptValue: string;
 }
-export default function Modal({isOpen = false, onCloseAction = () => { }, onAcceptButton = () => { }, modalTitle = 'Modal Title', modalContent = 'modal content'}: Props) {
-	const [open, setOpen] = useState<boolean>(isOpen);
-
+export default function Modal({isOpen = false, onCloseAction = () => { }, onAcceptButton = () => { }, modalTitle = 'Modal Title', modalContent = 'modal content', acceptValue = ''}: Props) {
 	const cancelButtonRef = useRef(null);
 
-	const navigate = useNavigate();
-
-	const handleCloseAction = () => {
-		setOpen(false);
-		onCloseAction();
-		navigate('/');
-	};
-
-	const handleAcceptButton = () => {
-		setOpen(false);
-		onAcceptButton();
-	};
-
 	return (
-		<Transition.Root show={open} as={Fragment}>
+		<Transition.Root show={isOpen} as={Fragment}>
 			<Dialog
 				as="div"
 				className="relative z-10"
 				initialFocus={cancelButtonRef}
-				onClose={setOpen}
+				onClose={() => { }}
 			>
 				<Transition.Child
 					as={Fragment}
@@ -87,14 +72,14 @@ export default function Modal({isOpen = false, onCloseAction = () => { }, onAcce
 									<button
 										type="button"
 										className="inline-flex w-full justify-center rounded-md border border-transparent bg-primary/70 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-										onClick={handleAcceptButton}
+										onClick={onAcceptButton}
 									>
-										Login
+										{acceptValue}
 									</button>
 									<button
 										type="button"
 										className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-										onClick={handleCloseAction}
+										onClick={onCloseAction}
 										ref={cancelButtonRef}
 									>
 										Cancel
