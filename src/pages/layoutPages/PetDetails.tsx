@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {MapContainerWrapper} from '../../component/mapComponent/MapContainerWrapper';
 import {AboutPet} from '../../component/PetDetails/AboutPet';
-import {petDefaultData} from '../../data/data';
+import {defaultAvailablePets, petDefaultData} from '../../data/data';
 import {PetImage} from '../../component/PetDetails/PetImage';
 import {PetStats} from '../../component/PetDetails/PetStats';
 import {PetDetailAside} from '../../component/PetDetails/PetDetailAside';
@@ -15,7 +15,6 @@ export const PetDetails = () => {
 	const [loading, setLoading] = useState(true);
 	const {id} = useParams();
 	const [petData, setPetData] = useState<Components.Schemas.Pet>(petDefaultData);
-	const navigate = useNavigate();
 
 	const {handleEdit} = useEditPet();
 
@@ -28,9 +27,15 @@ export const PetDetails = () => {
 			}
 			// TODO HERE I NEED TO ADD A TOAST TO SAY THAT THE QUERY FAIL WITH THE SELECTED PET
 
-			if (!value) navigate('/');
+			if (!value) {
+				const defaultPet = defaultAvailablePets.find((a) => a.id === id);
+				if (defaultPet) {
+					setPetData(defaultPet);
+					setLoading(false);
+				}
+			}
 		}
-	}, [getPetById, id, navigate]);
+	}, [getPetById, id]);
 
 	useEffect(() => {
 		void getCurrentPet();
