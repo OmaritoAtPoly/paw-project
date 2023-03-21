@@ -1,5 +1,4 @@
 import React from 'react';
-import {type Photo} from 'pexels';
 import {motion} from 'framer-motion';
 import {NavLink} from 'react-router-dom';
 import {FiCalendar, FiMapPin} from 'react-icons/fi';
@@ -9,7 +8,7 @@ import {READ_MY_STORY} from '../utils/constants';
 import {FM_SHOW_FROM_TOP} from '../utils/framer-motion-settings';
 
 type CardProps = {
-	elementData: Photo;
+	elementData: Components.Schemas.Pet;
 	cardColor: string;
 };
 
@@ -20,10 +19,10 @@ const Card = ({elementData, cardColor}: CardProps) => (
 			<HeartMemo height={24} width={24} />
 		</button>
 		<div className='rounded-br-[64px] rounded-t-lg overflow-hidden'>
-			<img className='h-[260px] w-full object-cover' src={elementData.src.original} alt={elementData.photographer.split(' ')[0]} />
+			<img className='h-[260px] w-full object-cover' src={elementData.petImage} alt={elementData.petImage} />
 		</div>
 		<div className='block p-6'>
-			<p className='font-bold text-lg sm:text-xl text-zinc-700 mb-7'>{elementData.photographer.split(' ')[0]}</p>
+			<p className='font-bold text-lg sm:text-xl text-zinc-700 mb-7'>{elementData.name}</p>
 			<ul className='my-5'>
 				<li className='flex my-3 text-zinc-700'>
 					<FiCalendar className='text-2xl text-purple-paw' />
@@ -47,7 +46,7 @@ const Card = ({elementData, cardColor}: CardProps) => (
 					</p>
 				</li>
 			</ul>
-			<NavLink 
+			<NavLink
 				to={`pet/${elementData.id}`}
 				className='block mt-6 font-bold text-sm text-center bg-white text-orange-paw border-2 border-orange-paw p-3 sm:px-4 rounded-full hover:bg-zinc-100'>
 				{READ_MY_STORY}

@@ -43,7 +43,7 @@ export const DashboardPage = () => {
 		try {
 			if (id) {
 				const response = await updateExistingPet(value);
-				if (response.status >= 200 && response.status < 300) navigate('/pets');
+				if (response.status >= 200 && response.status < 300) navigate(-1);
 			} else {
 				const response = await addNewPet(value);
 				if (response.status >= 200 && response.status < 300) navigate('/');
