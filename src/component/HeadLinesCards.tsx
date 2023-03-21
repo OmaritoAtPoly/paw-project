@@ -1,28 +1,38 @@
 import React, {useEffect, useState} from 'react';
 import {motion} from 'framer-motion';
-import {type Photo} from 'pexels';
-import {useSelector} from 'react-redux';
 import {defaultAvailablePets} from '../data/data';
-import {type RootState} from '../state';
 import {AVAILABLE_PETS} from '../utils/constants';
 import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_TOP} from '../utils/framer-motion-settings';
 import {AvailablePetsPanel} from './AvailablePetsPanel';
 import Card from './Card';
 import {Spinner} from './Spinner';
+import {useGetAllApiCalls} from '../utils/apiCalls/petApiCalls/useGetAllApiCalls';
 
 const HeadLinesCards = () => {
 
-	const [data, setData] = useState<Photo[]>();
+	const [data, setData] = useState<Components.Schemas.Pet[]>();
+	const [loading, setLoading] = useState(false);
 
-	const {photos, loading} = useSelector(
-		(state: RootState) => state.availablePetsPhotos,
-	);
+	const {getAllPets} = useGetAllApiCalls();
 
 	useEffect(() => {
-		if (photos.length > 0) {
-			setData(photos);
-		} else setData(defaultAvailablePets);
-	}, [photos]);
+
+		const existingPets = async () => {
+			setLoading(prev => !prev);
+			const value = await getAllPets();
+
+			if (value?.length) {
+				setData(value);
+				setLoading(prev => !prev);
+			} else {
+				setData(defaultAvailablePets);
+				setLoading(prev => !prev);
+			}
+		};
+
+		void existingPets();
+
+	}, [getAllPets]);
 
 	const cardColors: string[] = ['orange-paw', 'purple-paw', 'yellow-paw'];
 
@@ -37,7 +47,7 @@ const HeadLinesCards = () => {
 						{AVAILABLE_PETS}
 					</motion.h3>
 					<div className="grid justify-items-center px-4 sm:grid-cols-2 md:grid-cols-3 gap-8 gap-y-16 select-none sm:px-0">
-						{data?.map((element: Photo, index: number) => (
+						{data?.map((element: Components.Schemas.Pet, index: number) => (
 							<Card
 								elementData={element}
 								key={element.id}
