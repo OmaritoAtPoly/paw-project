@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import {useKeycloak} from '@react-keycloak/web';
 import {MapContainerWrapper} from '../../component/mapComponent/MapContainerWrapper';
 import {AboutPet} from '../../component/PetDetails/AboutPet';
 import {defaultAvailablePets, petDefaultData} from '../../data/data';
@@ -9,14 +10,20 @@ import {PetDetailAside} from '../../component/PetDetails/PetDetailAside';
 import {Spinner} from '../../component/Spinner';
 import {useEditPet} from '../../utils/hooks/useEditPet';
 import {usePetAllApiCalls} from '../../utils/apiCalls/petApiCalls/usePutAllApiCalls';
+import {usePetReviewApiCalls} from '../../utils/apiCalls/petApiCalls/usePetReviewApiCalls';
 
 export const PetDetails = () => {
 	const {getPetById} = usePetAllApiCalls();
 	const [loading, setLoading] = useState(true);
 	const {id} = useParams();
 	const [petData, setPetData] = useState<Components.Schemas.Pet>(petDefaultData);
+	const [review, setReview] = useState<number>(1);
+	const [isLoading, setIsLoading] = useState(false);
+	const {keycloak} = useKeycloak();
+	const [isHide, setIsHide] = useState(false);
 
 	const {handleEdit} = useEditPet();
+	const {addPetReview, getPetReview} = usePetReviewApiCalls();
 
 	const getCurrentPet = useCallback(async () => {
 		if (id) {
@@ -39,7 +46,16 @@ export const PetDetails = () => {
 
 	useEffect(() => {
 		void getCurrentPet();
-	}, [getCurrentPet]);
+
+		const handlePetReview = async () => {
+			const value = await getPetReview(id!);
+
+			if (value) setReview(value[value.length - 1].stars ?? 3);
+		};
+
+		if (id) void handlePetReview();
+
+	}, [getCurrentPet, getPetReview, id]);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -50,6 +66,22 @@ export const PetDetails = () => {
 		handleEdit(petData);
 	}, [handleEdit, petData]);
 
+
+	const handlePetReview = useCallback((amount: number) => {
+		setReview(amount);
+		if (keycloak.authenticated) setIsHide(true);
+	}, [keycloak.authenticated]);
+
+	const savePetReview = useCallback(async () => {
+		setIsHide(prev => !prev);
+		setIsLoading(prev => !prev);
+
+		const value = await addPetReview({description: petData.details, petId: petData.id, stars: review});
+
+		if (value) setIsLoading(false);
+
+	}, [addPetReview, petData.details, petData.id, review]);
+
 	if (loading) return <Spinner />;
 
 	return (
@@ -57,7 +89,7 @@ export const PetDetails = () => {
 			<div className='flex-1 md:mr-32'>
 				<div className='flex mb-20 flex-col xl:flex-row'>
 					<PetImage id={id} imgUrl={petData.petImage} />
-					<AboutPet id={id} editPet={handleEditPet} petName={petData.name} about={petData.about} rescueDate={petData.rescueDate} />
+					<AboutPet id={id} editPet={handleEditPet} petName={petData.name} about={petData.about} rescueDate={petData.rescueDate} review={review} handlePetReview={handlePetReview} isHide={isHide} savePetReview={savePetReview} isLoading={isLoading} />
 				</div>
 				<PetStats petData={petData} />
 				<div className="mx-auto mt-20 mb-10">
