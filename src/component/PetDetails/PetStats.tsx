@@ -6,10 +6,9 @@ import {FiCalendar} from 'react-icons/fi';
 import {TbHeartbeat, TbGenderBigender} from 'react-icons/tb';
 import {generate} from 'shortid';
 import {AboutPetItem} from '../aboutPetItem';
-import {type petDefaultData} from '../../data/data';
 
 interface Props {
-	petData: typeof petDefaultData;
+	petData: Components.Schemas.Pet;
 }
 
 export const PetStats = ({petData}: Props) => {
@@ -23,34 +22,34 @@ export const PetStats = ({petData}: Props) => {
 
 	return <div className="my-3">
 		<h3 className='text-purple-paw text-2xl mb-6'>Additional details</h3>
-		
+
 		<ul className='flex flex-wrap text-zinc-700 -mx-4'>
 			<li className={petListItemStyle}>
 				<AboutPetItem className={itemWrapperStyle}>
 					<FaSuse className={`${petSkillIconStyle} text-purple-paw`} />
 					<h6 className='text-zinc-400 mb-1 text-sm'>Pet type:</h6>
-					<p>Cat</p>
+					<p>{petData.petType.toLocaleLowerCase()}</p>
 				</AboutPetItem>
 			</li>
 			<li className={petListItemStyle}>
 				<AboutPetItem className={itemWrapperStyle}>
 					<TbGenderBigender className={`${petSkillIconStyle} text-yellow-paw`} />
 					<h6 className='text-zinc-400 mb-1 text-sm'>Gender:</h6>
-					<p>Female</p>
+					<p>{petData.gender.toLocaleLowerCase()}</p>
 				</AboutPetItem>
 			</li>
 			<li className={petListItemStyle}>
 				<AboutPetItem className={itemWrapperStyle}>
 					<FiCalendar className={`${petSkillIconStyle} text-orange-paw`} />
 					<h6 className='text-zinc-400 mb-1 text-sm'>Age:</h6>
-					<p>4 years old, Adult</p>
+					<p>{petData.age}</p>
 				</AboutPetItem>
 			</li>
 			<li className={petListItemStyle}>
 				<AboutPetItem className={itemWrapperStyle}>
 					<FaPaw className={`${petSkillIconStyle} text-yellow-paw`} />
 					<h6 className='text-zinc-400 mb-1 text-sm'>Breed:</h6>
-					<p>Domestic Short Hair - Mixed</p>
+					<p>{petData.breed.toLocaleLowerCase()}</p>
 				</AboutPetItem>
 			</li>
 			<li className={petListItemStyle}>
@@ -75,9 +74,7 @@ export const PetStats = ({petData}: Props) => {
 						{medicalRecordValues.map((element: string, index: number) => (
 							<li key={generate()}>
 								<span className="text-gray-700 hover:cursor-default">{element}</span>
-								{index !== petData.medicalRecord.length - 1 &&
-									<span className='text-gray-500 mx-2'>/</span>
-								}
+								<span className={`text-gray-500 mx-2 ${index === medicalRecordValues.length - 1 ? 'hidden' : ''}`}>/</span>
 							</li>
 						))}
 					</ul>

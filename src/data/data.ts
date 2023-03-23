@@ -33,13 +33,17 @@ export const defaultAvailablePets: Components.Schemas.Pet[] = [
 		details: 'a very nice yellow dog',
 		id: '12345',
 		medicalRecord: '',
-		name: '',
+		name: 'Amarillito',
 		petImage: 'https://images.pexels.com/photos/5256708/pexels-photo-5256708.jpeg?auto=compress&cs=tinysrgb&w=1600',
 		rescueDate: '',
 		rescueLocation: defaultSofiaCoordinate,
 		socialSkills: '',
 		tailDetails: '',
 		training: '',
+		age: 2,
+		breed: '',
+		gender: 'male',
+		petType: '',
 	},
 	{
 		about: '',
@@ -53,6 +57,10 @@ export const defaultAvailablePets: Components.Schemas.Pet[] = [
 		socialSkills: '',
 		tailDetails: '',
 		training: '',
+		age: 2,
+		breed: '',
+		gender: 'male',
+		petType: '',
 	},
 	{
 		about: '',
@@ -66,6 +74,10 @@ export const defaultAvailablePets: Components.Schemas.Pet[] = [
 		socialSkills: '',
 		tailDetails: '',
 		training: '',
+		age: 2,
+		breed: 'unknown',
+		gender: 'male',
+		petType: 'unknown',
 	},
 ];
 
@@ -141,7 +153,7 @@ export interface MenuElementType {
 	};
 }
 
-export const petDefaultData = {
+export const petDefaultData: Components.Schemas.Pet = {
 	id: generate(),
 	name: '',
 	about: '',
@@ -153,10 +165,25 @@ export const petDefaultData = {
 	training: '',
 	medicalRecord: '',
 	petImage: 'https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg',
+	age: 0,
+	breed: '',
+	gender: '',
+	petType: '',
 };
 
 export const defaultSelectOptions = [
 	{value: '', label: ''},
+];
+
+export const petGender = [
+	{value: 'FEMALE', label: 'FEMALE'},
+	{value: 'MALE', label: 'MALE'},
+];
+
+export const petType = [
+	{value: 'DOG', label: 'DOG'},
+	{value: 'CAT', label: 'CAT'},
+	{value: 'OTHER', label: 'OTHER'},
 ];
 
 export type SelectOptionType = typeof defaultSelectOptions;

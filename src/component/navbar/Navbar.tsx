@@ -213,7 +213,7 @@ const Navbar = () => {
 						</h2>
 						<nav>
 							<ul className="flex flex-col p-4">
-								{(currentUser.role === 'admin' && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
+								{(keycloak.tokenParsed?.realm_access?.roles.includes('paw-admin-role') && pathname !== '/dashBoard') && <li className="text-xl py-4 flex">
 									<GrUserAdmin size={25} className="mr-4" />
 									<NavLink to='dashBoard' onClick={handleNavState}>DashBoard</NavLink>
 								</li>}
