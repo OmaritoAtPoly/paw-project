@@ -26,6 +26,10 @@ declare namespace Components {
             socialSkills: string;
             training: string;
             petImage: string;
+            petType: string;
+            gender: string;
+            age: number; // int32
+            breed: string;
         }
         export interface Rating {
             id?: string;

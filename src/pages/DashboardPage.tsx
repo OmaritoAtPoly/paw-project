@@ -9,7 +9,7 @@ import {type AxiosResponse} from 'axios';
 import {useLoaderData, useNavigate, useParams} from 'react-router-dom';
 import {useKeycloak} from '@react-keycloak/web';
 import {IoIosCloseCircleOutline} from 'react-icons/io';
-import {type SelectOptionType, petDefaultData, defaultSelectOptions} from '../data/data';
+import {type SelectOptionType, petDefaultData, defaultSelectOptions, petGender, petType} from '../data/data';
 import {MapContainerWrapper} from '../component/mapComponent/MapContainerWrapper';
 import {WHERE_WAS_FOUND} from '../utils/constants';
 import {useTypedSelector} from '../state/hooks/useTypedSelector';
@@ -26,6 +26,10 @@ const AddingPetSchema = yup.object().shape({
 	medicalRecord: yup.string().required('Required'),
 	socialSkills: yup.string().required('Required'),
 	petImage: yup.string().required('Required'),
+	age: yup.number().min(1).required('Required'),
+	gender: yup.string().required('Required'),
+	breed: yup.string().required('Required'),
+	petType: yup.string().required('Required'),
 });
 
 export const DashboardPage = () => {
@@ -240,6 +244,69 @@ export const DashboardPage = () => {
 						/>
 						{errors.about && touched.about ? (
 							<div className="text-red-500">{errors.about}</div>
+						) : null}
+					</div>
+				</div>
+				<div className='flex flex-wrap justify-evenly w-[90vw]'>
+					<div className={`${commonItemStyles}`}>
+						<p className="text-2xl sm:text-[27px]">Write the pets age</p>
+						<input
+							id="age"
+							name="age"
+							type="number"
+							onChange={handleChange}
+							value={values.age}
+							placeholder="Write here the pet's age"
+							className="w-[50vw] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none sm:w-[300px]"
+						/>
+						{errors.age && touched.age ? (
+							<div className="text-red-900">{errors.age}</div>
+						) : null}
+					</div>
+
+
+					<div className={`${commonItemStyles}`}>
+						<p className="text-2xl sm:text-[27px]">Choose the pet gender</p>
+						<Select
+							defaultValue={{value: values.gender, label: values.gender}}
+							options={petGender}
+							onChange={async (value) => {
+								await handleSingleSelector(value, 'gender');
+							}} className="sm:w-[300px]"
+						/>
+						{errors.gender && touched.gender ? (
+							<div className="text-red-500">{errors.gender}</div>
+						) : null}
+					</div>
+
+
+					<div className={`${commonItemStyles}`}>
+						<p className="text-2xl sm:text-[27px]">Write the pets breed</p>
+						<input
+							id="breed"
+							name="breed"
+							type="text"
+							onChange={handleChange}
+							value={values.breed}
+							placeholder="Write here the pet's breed"
+							className="w-[50vw] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none sm:w-[300px]"
+						/>
+						{errors.breed && touched.breed ? (
+							<div className="text-red-900">{errors.breed}</div>
+						) : null}
+					</div>
+
+					<div className={`${commonItemStyles}`}>
+						<p className="text-2xl sm:text-[27px]">Choose the pet type</p>
+						<Select
+							defaultValue={{value: values.petType, label: values.petType}}
+							options={petType}
+							onChange={async (value) => {
+								await handleSingleSelector(value, 'petType');
+							}} className="sm:w-[300px]"
+						/>
+						{errors.petType && touched.petType ? (
+							<div className="text-red-900">{errors.petType}</div>
 						) : null}
 					</div>
 				</div>
