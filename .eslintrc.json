@@ -77,11 +77,18 @@
         "react/require-default-props": "off",
         "jsx-a11y/click-events-have-key-events": "off",
         "jsx-a11y/no-static-element-interactions": "off",
-				"jsx-a11y/label-has-associated-control": ["error", {
-					"required": {
-						"some": ["nesting", "id"]
-					}
-				}],
-        "spaced-comment": "off"
+        "jsx-a11y/label-has-associated-control": [
+            "error",
+            {
+                "required": {
+                    "some": [
+                        "nesting",
+                        "id"
+                    ]
+                }
+            }
+        ],
+        "spaced-comment": "off",
+        "react/react-in-jsx-scope": "off"
     }
 }
