@@ -6,17 +6,20 @@ interface Props {
 	columns: Array<TableColumn<Components.Schemas.Pet>>;
 	contextActions?: React.ReactNode | React.ReactNode[];
 	onSelectedRowsChange?: (selected: {allSelected: boolean; selectedCount: number; selectedRows: Components.Schemas.Pet[]}) => void;
+	authenticated?: boolean;
+	title?: string;
+	selectableRowsSingle?: boolean;
 }
 
-export const Table = ({data, columns, contextActions, onSelectedRowsChange}: Props) => (
+export const Table = ({data, columns, contextActions, onSelectedRowsChange, title = '', authenticated, selectableRowsSingle = false}: Props) => (
 	<DataTable
-		title="Movies"
+		title={title}
 		columns={columns}
 		data={data}
 		sortIcon={<AiOutlineSortAscending />}
 		pagination
 		selectableRows
 		onSelectedRowsChange={onSelectedRowsChange}
-		selectableRowsSingle
-		contextActions={contextActions} />
+		selectableRowsSingle={selectableRowsSingle}
+		contextActions={authenticated ? contextActions : undefined} />
 );
