@@ -47,13 +47,12 @@ export const PetDetails = () => {
 	useEffect(() => {
 		void getCurrentPet();
 
-		const handlePetReview = async () => {
-			const value = await getPetReview(id!);
-
-			if (value) setReview(value[value.length - 1].stars ?? 3);
-		};
-
-		if (id) void handlePetReview();
+		if (id) {
+			(async () => {
+				const value = await getPetReview(id);
+				if (value && value.length > 0) setReview(value[value.length - 1].stars ?? 3);
+			})();
+		}
 
 	}, [getCurrentPet, getPetReview, id]);
 
