@@ -36,9 +36,7 @@ export const usePetAllApiCalls = () => {
 					result = value.data;
 				}
 			} catch (error) {
-				if (error instanceof Error) {
-					console.log('there is an error due to:', error.message);
-				}
+				return Promise.reject(error);
 			}
 		}
 
@@ -53,7 +51,7 @@ export const usePetAllApiCalls = () => {
 			if (response) return response;
 		} catch (error) {
 			if (error instanceof Error) {
-				console.log('there is an error regarding:', error.message);
+				return Promise.reject(error);
 			}
 		}
 
@@ -70,7 +68,7 @@ export const usePetAllApiCalls = () => {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				console.log('there is an error regarding:', error.message);
+				return Promise.reject(error);
 			}
 		}
 

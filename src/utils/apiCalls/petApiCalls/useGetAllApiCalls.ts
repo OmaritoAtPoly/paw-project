@@ -12,7 +12,7 @@ export const useGetAllApiCalls = () => {
 			result = value.data;
 		} catch (error) {
 			if (error instanceof Error) {
-				console.log('there is an error due to:', error.message);
+				return Promise.reject(error);
 			}
 		}
 
