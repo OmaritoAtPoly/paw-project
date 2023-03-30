@@ -12,5 +12,5 @@ export const PrivateRoutes = () => {
 		navigation(-1);
 	};
 
-	return isLoggedIn ? <Outlet /> : <Modal isOpen onAcceptButton={keycloak.login} acceptValue='Login' onCloseAction={handleClose} />;
+	return isLoggedIn ? <Outlet /> : <Modal modalTitle='Login in the app' modalContent='You need to access in the app before to proceed' isOpen onAcceptButton={keycloak.login} acceptValue='Login' onCloseAction={handleClose} />;
 };

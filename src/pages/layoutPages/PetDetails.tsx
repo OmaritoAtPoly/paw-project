@@ -11,6 +11,7 @@ import {Spinner} from '../../component/Spinner';
 import {useEditPet} from '../../utils/hooks/useEditPet';
 import {usePetAllApiCalls} from '../../utils/apiCalls/petApiCalls/usePutAllApiCalls';
 import {usePetReviewApiCalls} from '../../utils/apiCalls/petApiCalls/usePetReviewApiCalls';
+import {notifyToaster} from '../../utils/functions';
 
 export const PetDetails = () => {
 	const {getPetById} = usePetAllApiCalls();
@@ -25,21 +26,22 @@ export const PetDetails = () => {
 	const {handleEdit} = useEditPet();
 	const {addPetReview, getPetReview} = usePetReviewApiCalls();
 
-	const getCurrentPet = useCallback(async () => {
+	const getCurrentPet = useCallback(async () => { /// test here the error boundary
 		if (id) {
-			const value = await getPetById(id);
-			if (value) {
-				setPetData(value);
-				setLoading(false);
-			}
-			// TODO HERE I NEED TO ADD A TOAST TO SAY THAT THE QUERY FAIL WITH THE SELECTED PET
-
-			if (!value) {
+			try {
+				const value = await getPetById(id);
+				if (value) {
+					setPetData(value);
+					setLoading(false);
+				}
+			} catch (error) {
 				const defaultPet = defaultAvailablePets.find((a) => a.id === id);
 				if (defaultPet) {
 					setPetData(defaultPet);
 					setLoading(false);
 				}
+
+				notifyToaster('this pet info may not be completed', 'warning');
 			}
 		}
 	}, [getPetById, id]);
@@ -49,8 +51,14 @@ export const PetDetails = () => {
 
 		if (id) {
 			(async () => {
-				const value = await getPetReview(id);
-				if (value && value.length > 0) setReview(value[value.length - 1].stars ?? 3);
+				try {
+					const value = await getPetReview(id);
+					if (value && value.length > 0) setReview(value[value.length - 1].stars ?? 3);
+				} catch (error) {
+					if (error instanceof Error) {
+						notifyToaster('this pet info may not be completed', 'warning');
+					}
+				}
 			})();
 		}
 
@@ -75,9 +83,17 @@ export const PetDetails = () => {
 		setIsHide(prev => !prev);
 		setIsLoading(prev => !prev);
 
-		const value = await addPetReview({description: petData.details, petId: petData.id, stars: review});
+		try {
+			const value = await addPetReview({description: petData.details, petId: petData.id, stars: review});
 
-		if (value) setIsLoading(false);
+			if (value) setIsLoading(false);
+		} catch (error) {
+			if (error instanceof Error) {
+				notifyToaster('edit or updated all the info first', 'error');
+			}
+
+			setIsLoading(false);
+		}
 
 	}, [addPetReview, petData.details, petData.id, review]);
 
