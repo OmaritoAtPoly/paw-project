@@ -3,7 +3,6 @@ import axios, {type AxiosResponse} from 'axios';
 import {useCallback} from 'react';
 import {type DefaultLocationPropertiesType} from '../../../data/data';
 import {axiosPrivate, axiosPublic} from '../../axiosConfiguration';
-import {notifyToaster} from '../../functions';
 
 export const usePetAllApiCalls = () => {
 	const {keycloak} = useKeycloak();
@@ -37,9 +36,7 @@ export const usePetAllApiCalls = () => {
 					result = value.data;
 				}
 			} catch (error) {
-				if (error instanceof Error) {
-					return Promise.reject(error);
-				}
+				return Promise.reject(error);
 			}
 		}
 
@@ -71,7 +68,7 @@ export const usePetAllApiCalls = () => {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				notifyToaster(error.message, 'error');
+				return Promise.reject(error);
 			}
 		}
 

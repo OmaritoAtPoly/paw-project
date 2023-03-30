@@ -26,24 +26,8 @@ export const PetDetails = () => {
 	const {handleEdit} = useEditPet();
 	const {addPetReview, getPetReview} = usePetReviewApiCalls();
 
-	const getCurrentPet = useCallback(async () => { ///akiiiiiiiiiiiiiiiiii
+	const getCurrentPet = useCallback(async () => { /// test here the error boundary
 		if (id) {
-			// const value = await getPetById(id);
-			// if (value) {
-			// 	setPetData(value);
-			// 	setLoading(false);
-			// }
-			// // TODO HERE I NEED TO ADD A TOAST TO SAY THAT THE QUERY FAIL WITH THE SELECTED PET
-
-			// if (!value) {
-			// 	const defaultPet = defaultAvailablePets.find((a) => a.id === id);
-			// 	if (defaultPet) {
-			// 		setPetData(defaultPet);
-			// 		setLoading(false);
-			// 	}
-			// }
-
-
 			try {
 				const value = await getPetById(id);
 				if (value) {

@@ -12,6 +12,7 @@ import {useActions} from '../state/hooks/useActions';
 import {useGetAllApiCalls} from '../utils/apiCalls/petApiCalls/useGetAllApiCalls';
 import {usePetAllApiCalls} from '../utils/apiCalls/petApiCalls/usePutAllApiCalls';
 import 'react-toastify/dist/ReactToastify.css';
+import {notifyToaster} from '../utils/functions';
 
 export const Pets = () => {
 	const [pets, setPets] = useState<Components.Schemas.Pet[]>(defaultAvailablePets);
@@ -38,7 +39,9 @@ export const Pets = () => {
 				setIsModalOpen(false);
 			}
 		} catch (error) {
-			console.log('aki hay ke tratar este error', error);
+			if (error instanceof Error) {
+				notifyToaster(error.message, 'error');
+			}
 		}
 	};
 
