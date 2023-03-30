@@ -14,9 +14,10 @@ export const usePetReviewApiCalls = () => {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				console.log('there is an error due to:', error.message);
-				return false;
+				return Promise.reject(error);
 			}
+
+			return false;
 		}
 
 		return false;
@@ -34,7 +35,7 @@ export const usePetReviewApiCalls = () => {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				console.log('there is an error due to:', error.message);
+				return Promise.reject(error);
 			}
 		}
 

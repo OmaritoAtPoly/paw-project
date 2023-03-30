@@ -1,4 +1,5 @@
 import {compare, genSaltSync, hashSync} from 'bcryptjs';
+import {toast, type TypeOptions, type ToastOptions} from 'react-toastify';
 import {type DefaultUserDataType} from '../data/data';
 
 // export const handleUserLogin = (preparedInfo: ExtendedUserType) => {
@@ -32,3 +33,32 @@ export const cleanString = (value: string) => {
 	return newValue.filter((a) => a !== '').join(', ');
 };
 
+export const notifyToaster = (text: string, itemType?: TypeOptions) => {
+
+	const commonProperties: ToastOptions = {
+		position: 'top-right',
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	};
+
+	switch (itemType) {
+		case 'success':
+			return (toast.success(text, commonProperties));
+
+		case 'error':
+			return (toast.error(text, {...commonProperties, autoClose: false}));
+
+		case 'warning':
+			return (toast.warning(text, commonProperties));
+			break;
+
+		default:
+			return (toast.info(text, commonProperties));
+			break;
+	}
+
+};

@@ -1,6 +1,8 @@
 import {useKeycloak} from '@react-keycloak/web';
 import {useCallback, useEffect, useState, useMemo} from 'react';
 import {BsHouseDoor} from 'react-icons/bs';
+import {FiEdit2} from 'react-icons/fi';
+import {RiDeleteBinLine} from 'react-icons/ri';
 import {useNavigate} from 'react-router-dom';
 import Modal from '../component/Modal';
 import {petColumns} from '../component/table/columns/petColumns';
@@ -9,6 +11,7 @@ import {defaultAvailablePets} from '../data/data';
 import {useActions} from '../state/hooks/useActions';
 import {useGetAllApiCalls} from '../utils/apiCalls/petApiCalls/useGetAllApiCalls';
 import {usePetAllApiCalls} from '../utils/apiCalls/petApiCalls/usePutAllApiCalls';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Pets = () => {
 	const [pets, setPets] = useState<Components.Schemas.Pet[]>(defaultAvailablePets);
@@ -28,11 +31,14 @@ export const Pets = () => {
 	}, [getAllPets]);
 
 	const handleConfirmToDelete = async () => {
-		const value = await deletePet(currentPetId);
-
-		if (value && (value.status >= 200 || value.status <= 299)) {
-			await handleGetAllPets();
-			setIsModalOpen(false);
+		try {
+			const value = await deletePet(currentPetId);
+			if (value && (value.status >= 200 || value.status <= 299)) {
+				await handleGetAllPets();
+				setIsModalOpen(false);
+			}
+		} catch (error) {
+			console.log('aki hay ke tratar este error', error);
 		}
 	};
 
@@ -62,15 +68,22 @@ export const Pets = () => {
 		void handleGetAllPets();
 	}, [handleGetAllPets]);
 
+
 	const contextActions = useMemo(() => (
 		<>
-			<button type='button' key="delete" onClick={handleOnCloseModal} className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-				Delete
-			</button>
+			<div className='flex items-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 hover:cursor-pointer' onClick={handleOnCloseModal}>
+				<button type='button' key="delete">
+					Delete
+				</button>
+				<RiDeleteBinLine className='ml-2' />
+			</div>
 
-			<button type='button' key="edit" onClick={handleEditPet} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-				Edit
-			</button>
+			<div className='flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 hover:cursor-pointer' onClick={handleEditPet}>
+				<button type='button' key="edit">
+					Edit
+				</button>
+				<FiEdit2 className='ml-2' color='white' />
+			</div>
 		</>
 	), [handleEditPet]);
 

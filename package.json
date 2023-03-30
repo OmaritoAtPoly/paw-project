@@ -43,6 +43,7 @@
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
+    "react-toastify": "^9.1.2",
     "redux": "4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "2.3.0",
@@ -66,9 +67,11 @@
     "generate": "dotenv -- cross-var dtsgen -o ./src/model/type.d.ts --url %REACT_APP_API_URL_DOCS%"
   },
 
+
   "//": "dotenv -- cross-var => these command are used to read a variable out of the package json file",
   "//": "dtsgen => is used here to generate the type file in the output path ./src/model FROM the url: %REACT_APP_API_URL_DOCS%, this is the reason to use 'dotenv -- cross-var' ",
 
+  
   "eslintConfig": {
     "extends": [
       "react-app",
