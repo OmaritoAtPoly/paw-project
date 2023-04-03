@@ -86,10 +86,13 @@ export const PetDetails = () => {
 		try {
 			const value = await addPetReview({description: petData.details, petId: petData.id, stars: review});
 
-			if (value) setIsLoading(false);
+			if (value) {
+				setIsLoading(false);
+				notifyToaster('Review saved correctly', 'success');
+			}
 		} catch (error) {
 			if (error instanceof Error) {
-				notifyToaster('edit or updated all the info first', 'error');
+				notifyToaster(error.message, 'error');
 			}
 
 			setIsLoading(false);

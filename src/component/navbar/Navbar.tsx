@@ -166,10 +166,10 @@ const Navbar = () => {
 									to="/pets"
 									className="bg-black rounded-full text-white p-2"
 								>
-									Delivery
+									Show All
 								</NavLink>
 								<NavLink to="/dashboard" className="p-2">
-									Pick up
+									Add New
 								</NavLink>
 							</div>
 						</motion.div>
