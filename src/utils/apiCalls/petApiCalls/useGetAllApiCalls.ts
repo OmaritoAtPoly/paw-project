@@ -1,6 +1,7 @@
 import {type AxiosResponse} from 'axios';
 import {useCallback} from 'react';
 import {axiosPublic} from '../../axiosConfiguration';
+import {notifyToaster} from '../../functions';
 
 
 export const useGetAllApiCalls = () => {
@@ -12,7 +13,7 @@ export const useGetAllApiCalls = () => {
 			result = value.data;
 		} catch (error) {
 			if (error instanceof Error) {
-				return Promise.reject(error);
+				notifyToaster(error.message, 'error');
 			}
 		}
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, {createRef, useCallback, useEffect, useMemo} from 'react';
 import {useFormik} from 'formik';
 import {DayPicker} from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
@@ -40,6 +40,8 @@ export const DashboardPage = () => {
 	const petInfo = useTypedSelector(
 		(state) => state.currentPet,
 	);
+
+	const fileInput = createRef<HTMLInputElement>();
 
 	const {addNewPet, updateExistingPet} = usePetAllApiCalls();
 
@@ -196,6 +198,10 @@ export const DashboardPage = () => {
 
 	const cleanPetImage = async () => {
 		await setFieldValue('petImage', '');
+	};
+
+	const handlePictureInputSelect = () => {
+		if (fileInput.current) fileInput.current.click();
 	};
 
 	return (
@@ -400,12 +406,19 @@ export const DashboardPage = () => {
 					<div className='flex items-center flex-col justify-center'>
 						<div className='flex items-center'>
 							<input
+								readOnly
+								onClick={handlePictureInputSelect}
+								placeholder="Choose a picture for the pet"
+								className="w-[50vw] p-2 border border-gray-300 rounded-md placeholder:text-black/50 outline-none sm:w-[300px] cursor-default"
+							/>
+							<input
 								id="petImage"
 								name="petImage"
 								type="file"
 								accept=".jpeg, .png, .jpg"
 								onChange={uploadLocalConsentFile}
-								className="border border-gray-300 rounded-md w-fit"
+								className="hidden"
+								ref={fileInput}
 							/>
 							<IoIosCloseCircleOutline size={20} className='hover:cursor-pointer ml-[-20px]' onClick={cleanPetImage} />
 						</div>
