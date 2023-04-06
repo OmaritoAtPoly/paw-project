@@ -27,6 +27,7 @@
     "env-cmd": "^10.1.0",
     "formik": "^2.2.9",
     "framer-motion": "^9.0.7",
+    "graphql": "16.6.0",
     "json-server": "^0.17.1",
     "jwt-decode": "^3.1.2",
     "keycloak-js": "^20.0.3",
@@ -64,14 +65,11 @@
     "prepare": "husky install",
     "start-json": "json-server -p 4000 -w src/data/MockDataFile.json",
     "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
-    "generate": "dotenv -- cross-var dtsgen -o ./src/model/type.d.ts --url %REACT_APP_API_URL_DOCS%"
+    "generate": "dotenv -- cross-var dtsgen -o ./src/model/type.d.ts --url %REACT_APP_API_URL_DOCS%",
+    "compile": "graphql-codegen"
   },
-
-
   "//": "dotenv -- cross-var => these command are used to read a variable out of the package json file",
   "//": "dtsgen => is used here to generate the type file in the output path ./src/model FROM the url: %REACT_APP_API_URL_DOCS%, this is the reason to use 'dotenv -- cross-var' ",
-
-  
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -91,6 +89,9 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/client-preset": "^3.0.0",
+    "@graphql-codegen/introspection": "3.0.1",
     "@redux-devtools/core": "^3.13.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/leaflet": "^1.9.0",
