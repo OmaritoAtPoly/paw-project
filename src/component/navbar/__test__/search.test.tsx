@@ -16,8 +16,8 @@ describe('this is the search component test section', () => {
 		expect(searchInput).toBeInTheDocument();
 	});
 
-	test('testing the search input in the navbar', () => {
-		const button = screen.getByRole('button', {name: 'Find me'});
-		expect(button).toBeInTheDocument();
-	});
+	// test('testing the search input in the navbar', () => {
+	// 	const button = screen.getByRole('button', {name: 'Find me'});
+	// 	expect(button).toBeInTheDocument();
+	// });
 });

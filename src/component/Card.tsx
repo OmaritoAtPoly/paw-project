@@ -6,9 +6,10 @@ import {IoPawOutline} from 'react-icons/io5';
 import HeartMemo from '../svg/Heart';
 import {READ_MY_STORY} from '../utils/constants';
 import {FM_SHOW_FROM_TOP} from '../utils/framer-motion-settings';
+import {type Maybe, type Pet} from '../model/graph/types';
 
 type CardProps = {
-	elementData: Components.Schemas.Pet;
+	elementData: Maybe<Pet>;
 	cardColor: string;
 };
 
@@ -19,10 +20,10 @@ const Card = ({elementData, cardColor}: CardProps) => (
 			<HeartMemo height={24} width={24} />
 		</button>
 		<div className='rounded-br-[64px] rounded-t-lg overflow-hidden'>
-			<img className='h-[260px] w-full object-cover' src={elementData.petImage} alt={elementData.petImage} />
+			<img className='h-[260px] w-full object-cover' src={elementData?.petImage} alt={elementData?.petImage} />
 		</div>
 		<div className='block p-6'>
-			<p className='font-bold text-lg sm:text-xl text-zinc-700 mb-7'>{elementData.name}</p>
+			<p className='font-bold text-lg sm:text-xl text-zinc-700 mb-7'>{elementData?.name}</p>
 			<ul className='my-5'>
 				<li className='flex my-3 text-zinc-700'>
 					<FiCalendar className='text-2xl text-purple-paw' />
@@ -47,7 +48,7 @@ const Card = ({elementData, cardColor}: CardProps) => (
 				</li>
 			</ul>
 			<NavLink
-				to={`pet/${elementData.id}`}
+				to={`pet/${elementData!.id}`}
 				className='block mt-6 font-bold text-sm text-center bg-white text-orange-paw border-2 border-orange-paw p-3 sm:px-4 rounded-full hover:bg-zinc-100'>
 				{READ_MY_STORY}
 			</NavLink>

@@ -1,17 +1,43 @@
-import React from 'react';
-import {ReactKeycloakProvider} from '@react-keycloak/web';
-import {RouterProvider} from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from '@apollo/client';
+import {useKeycloak} from '@react-keycloak/web';
+import {setContext} from '@apollo/link-context';
 import {AnimatePresence} from 'framer-motion';
-import keycloak from './Keycloak';
+import {RouterProvider} from 'react-router-dom';
 import {routerElements} from './pages/routes';
 
+const httpLink = new HttpLink({
+	uri: 'http://localhost:8089/graphql',
+});
+
+const authLink = setContext((_, {headers}) => {
+	const token = localStorage.getItem('userToken');
+
+	return {
+		headers: {
+			...headers,
+			authorization: token ? `Bearer ${token}` : '',
+		},
+	};
+});
+
+const client = new ApolloClient({
+	link: authLink.concat(httpLink),
+	cache: new InMemoryCache(),
+});
+
 function App() {
+	const {keycloak} = useKeycloak();
+	const {token} = keycloak;
+
+	if (token) localStorage.setItem('userToken', token);
+
 	return (
-		<ReactKeycloakProvider authClient={keycloak}>
-			<AnimatePresence mode='wait'>
+		<AnimatePresence mode='wait'>
+			<ApolloProvider client={client}>
 				<RouterProvider router={routerElements} />
-			</AnimatePresence>
-		</ReactKeycloakProvider>
+			</ApolloProvider>
+		</AnimatePresence>
 	);
 }
 

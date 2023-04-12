@@ -6,3 +6,4 @@ postcss.config.js
 tailwind.config.js
 /coverage
 src/model/type.d.ts
+src/model/graph/types.ts

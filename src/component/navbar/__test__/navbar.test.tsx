@@ -37,9 +37,9 @@ describe('this is the navbar test section', () => {
 		const bestPaw = screen.getByRole('link', {name: 'Best Paw'});
 		expect(bestPaw).toBeInTheDocument();
 	});
-	test('testing the Delivery & Pick up text in the navbar', () => {
-		const delivery = screen.getByText('Delivery');
-		const pickUp = screen.getByText('Pick up');
+	test('testing the Show All & Add New text in the navbar', () => {
+		const delivery = screen.getByText('Show All');
+		const pickUp = screen.getByText('Add New');
 		expect(delivery).toBeInTheDocument();
 		expect(pickUp).toBeInTheDocument();
 	});

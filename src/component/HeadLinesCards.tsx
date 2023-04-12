@@ -1,38 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import {useQuery} from '@apollo/client';
 import {motion} from 'framer-motion';
-import {defaultAvailablePets} from '../data/data';
+import {type Maybe, type Pet, type Query} from '../model/graph/types';
 import {AVAILABLE_PETS} from '../utils/constants';
 import {FM_CASCADE_PARENT_VARIANTS, FM_SHOW_FROM_TOP} from '../utils/framer-motion-settings';
+import {GET_ALL_PETS} from '../utils/graphqlApiCalls/queries/GET_ALL_PETS';
 import {AvailablePetsPanel} from './AvailablePetsPanel';
 import Card from './Card';
 import {Spinner} from './Spinner';
-import {useGetAllApiCalls} from '../utils/apiCalls/petApiCalls/useGetAllApiCalls';
 
 const HeadLinesCards = () => {
+	const {data, loading, error} = useQuery<Query>(GET_ALL_PETS);
 
-	const [data, setData] = useState<Components.Schemas.Pet[]>();
-	const [loading, setLoading] = useState(false);
+	const newValue = data?.getAllPets;
 
-	const {getAllPets} = useGetAllApiCalls();
+	if (loading) return <Spinner />;
 
-	useEffect(() => {
-
-		const existingPets = async () => {
-			setLoading(prev => !prev);
-			const value = await getAllPets();
-
-			if (value?.length) {
-				setData(value);
-				setLoading(prev => !prev);
-			} else {
-				setData(defaultAvailablePets);
-				setLoading(prev => !prev);
-			}
-		};
-
-		void existingPets();
-
-	}, [getAllPets]);
+	if (error) return <p>{error.message}</p>;
 
 	const cardColors: string[] = ['orange-paw', 'purple-paw', 'yellow-paw'];
 
@@ -47,10 +30,10 @@ const HeadLinesCards = () => {
 						{AVAILABLE_PETS}
 					</motion.h3>
 					<div className="grid justify-items-center px-4 sm:grid-cols-2 md:grid-cols-3 gap-8 gap-y-16 select-none sm:px-0">
-						{data?.map((element: Components.Schemas.Pet, index: number) => (
+						{newValue?.map((element: Maybe<Pet>, index: number) => (
 							<Card
 								elementData={element}
-								key={element.id}
+								key={element!.id}
 								cardColor={cardColors[index % cardColors.length]}
 							/>
 						))}
